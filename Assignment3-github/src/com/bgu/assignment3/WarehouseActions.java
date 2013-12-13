@@ -23,5 +23,13 @@ public interface WarehouseActions {
 	public void returnKitchenTool(String name, int quantity);
 
 	public void takeIngredient(String name, int quantity);
+	
+	/**
+	 * Adds a new  {@link Ingredient} to the WareHouse 
+	 * @param name  - the Ingredient name
+	 * @param quantity - the Ingredient quantity 
+	 */
+	public void addIngredient(String name, int quantity);
+
 }
 
