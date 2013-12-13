@@ -1,8 +1,12 @@
 package com.bgu.assignment3;
 
-public class Main implements WarehouseActions{
-	public static void main(String [ ] args)
-	{
+public class Warehouse implements WarehouseActions{
+	
+	public Warehouse() {
+		
+	}
+	
+	public static void main(String [ ] args) {
 		System.out.print("Init");
 	}
 
