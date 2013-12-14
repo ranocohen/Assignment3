@@ -27,4 +27,10 @@ public class Warehouse implements WarehouseActions{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void addIngredient(String name, int quantity) {
+		// TODO Auto-generated method stub
+		
+	}
 }
