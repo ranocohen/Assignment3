@@ -19,7 +19,7 @@ public class WarehouseTest {
 	}
 
 	@Test
-	public void addKitchenTool() {
+	public void testAddKitchenTool() {
 		String tool1 = "kt1";
 		String tool2 = "kt2";
 		int q1 = 5;
@@ -34,7 +34,7 @@ public class WarehouseTest {
 
 	}
 	@Test
-	public void returnKitchenTool() {
+	public void testReturnKitchenTool() {
 		String name = "kt1";
 		int quantity = 6;
 		int toTake = 2;
@@ -50,7 +50,7 @@ public class WarehouseTest {
 	}
 	
 	@Test
-	public void getKitchenToolQuantity() {
+	public void testGetKitchenToolQuantity() {
 		
 		String tool1 = "kt1";
 		String tool2 = "kt2";
@@ -69,7 +69,17 @@ public class WarehouseTest {
 
 	}
 	@Test
-	public void takeKitchenTool() {
+	public void testTakeKitchenTool() {
+		String name = "kt1";
+		int quantity = 12;
+		int toTake = 4;
+		wareHouse.addKitchenTool(name, quantity);
+		wareHouse.takeKitchenTool(name, toTake);
+		
+		int currentQuantity = wareHouse.getKitchenToolQuantity(name);
+		
+		assertTrue( currentQuantity >= 0);
+		assertTrue( currentQuantity + toTake == quantity);
 
 
 	}
