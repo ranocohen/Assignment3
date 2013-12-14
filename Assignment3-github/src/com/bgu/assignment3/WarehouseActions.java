@@ -30,6 +30,10 @@ public interface WarehouseActions {
 	 * @param quantity - the Ingredient quantity 
 	 */
 	public void addIngredient(String name, int quantity);
+	
+	public int getKitchenToolQuantity(KitchenTool toolName);
+	
+	public int getIngredientQuantity(Ingredient ingredientName);
 
 }
 
