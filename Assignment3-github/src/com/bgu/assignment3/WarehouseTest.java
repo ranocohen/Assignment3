@@ -17,5 +17,10 @@ public class WarehouseTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void TestTakeIngredient() {
+		assertEquals(true, )
+	}
 
 }
