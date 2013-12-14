@@ -45,4 +45,12 @@ public class Warehouse implements WarehouseActions{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void addKitchenTool(String name, int quantity) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
+
