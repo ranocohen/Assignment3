@@ -31,10 +31,6 @@ public interface WarehouseActions {
 	 */
 	public void addIngredient(String name, int quantity);
 	
-	public int getKitchenToolQuantity(KitchenTool toolName);
-	
-	public int getIngredientQuantity(Ingredient ingredientName);
-
 	
 	/**
 	 * Adds a new  {@link KitchenTool} to the WareHouse 
@@ -42,6 +38,14 @@ public interface WarehouseActions {
 	 * @param quantity - the KitchenTool quantity 
 	 */
 	public void addKitchenTool(String name, int quantity);
+	
+	
+	public int getKitchenToolQuantity(KitchenTool toolName);
+	
+	public int getIngredientQuantity(Ingredient ingredientName);
+
+	
+	
 	
 }
 
