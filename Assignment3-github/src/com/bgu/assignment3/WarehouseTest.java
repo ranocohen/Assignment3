@@ -19,10 +19,36 @@ public class WarehouseTest {
 	}
 	
 	@Test
-	public void TestTakeIngredient() {
-		assertEquals(true, )
+	public void TestAddIngredient() {
+		
+		String ingredient1 = "ing1";
+		String ingredient2 = "ing2";
+		int q1 = 5;
+		int q2 = 4;
+		
+		wareHouse.addKitchenTool(ingredient1, q1);
+		wareHouse.addKitchenTool(ingredient2, q2);
+		
+		
+		assertEquals(q1, wareHouse.getIngredientQuantity(ingredient1));
+		assertEquals(q2, wareHouse.getIngredientQuantity(ingredient2));
+	}
+	
+	@Test
+	public void TestGetIngredientQuantity() {
+		String ing1 = "ing1";
+		String ing2 = "ing2";
+		int q1 = 5;
+		int q2 = 3;
+		
+		wareHouse.addIngredient(ing1, q1);
+		wareHouse.addIngredient(ing2, q2);
+		
+		assertEquals(q1, wareHouse.getKitchenToolQuantity(ing1));
+		assertEquals(q2, wareHouse.getKitchenToolQuantity(ing2));
 	}
 
+	
 	@Test
 	public void addKitchenTool() {
 		String tool1 = "kt1";
@@ -36,8 +62,13 @@ public class WarehouseTest {
 		
 		assertEquals(q1, wareHouse.getIngredientQuantity(tool1));
 		assertEquals(q2, wareHouse.getIngredientQuantity(tool2));
-
 	}
+	
+	@Test
+	public void TestReturnIngredient() {
+		//TODO remove =) talk to idan to verify
+	}
+	 	
 	@Test
 	public void returnKitchenTool() {
 		String name = "kt1";
@@ -53,6 +84,7 @@ public class WarehouseTest {
 		assertEquals(true, wareHouse.getKitchenToolQuantity(name) - toTake == prevQuantity);
 
 	}
+	
 	
 	@Test
 	public void getKitchenToolQuantity() {
