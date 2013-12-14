@@ -25,9 +25,15 @@ public interface WarehouseActions {
 	public void takeIngredient(String name, int quantity);
 	
 	/**
+	 * <b> Command </b> </br>
 	 * Adds a new  {@link Ingredient} to the WareHouse 
 	 * @param name  - the Ingredient name
-	 * @param quantity - the Ingredient quantity 
+	 * @param quantity - the Ingredient quantity
+	 * 
+	 * @require quantity > 0
+	 * @pre none
+	 * @post getIngredientQuantity(name) == quantity
+	 * 
 	 */
 	public void addIngredient(String name, int quantity);
 	
@@ -40,10 +46,22 @@ public interface WarehouseActions {
 	public void addKitchenTool(String name, int quantity);
 	
 	
-	public int getKitchenToolQuantity(KitchenTool toolName);
+	public int getKitchenToolQuantity(String toolName);
 	
-	public int getIngredientQuantity(Ingredient ingredientName);
-
+	/**
+	 * <b> Query </b> </br>
+	 * 
+	 * Returns current quantity of given {@link Ingredient} 
+	 * @param ingredientName the name of the Ingredient
+	 * @return quantity of given Ingredient 
+	 * 
+	 * @require Ingredient named ingredientName is available in the WareHouse
+	 * @pre none
+	 * @post none
+	 * @inv none
+	 */
+	public int getIngredientQuantity(String ingredientName);
+	
 	
 	
 	
