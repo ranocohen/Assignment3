@@ -18,6 +18,9 @@ public class WarehouseTest {
 	public void tearDown() throws Exception {
 	}
 	
+	/*ingredient testing*/
+	
+	//tests new ingredient addition
 	@Test
 	public void testAddIngredient() {
 		
@@ -34,6 +37,7 @@ public class WarehouseTest {
 		assertEquals(q2, wareHouse.getIngredientQuantity(ingredient2));
 	}
 	
+	//tests ingredient being taken
 	@Test
 	public void testTakeIngredient() {
 		String ingredient = "ing1";
@@ -50,7 +54,7 @@ public class WarehouseTest {
 		assertTrue( currentQuantity + ingredientsToTake == quantity);
 	}
 	
-	
+	//tests ingredient quantity
 	@Test
 	public void testGetIngredientQuantity() {
 		String ing1 = "ing1";
@@ -65,7 +69,9 @@ public class WarehouseTest {
 		assertEquals(q2, wareHouse.getKitchenToolQuantity(ing2));
 	}
 
+	/*kitchen tool testing*/
 	
+	//tests new ingredient addition
 	@Test
 	public void testAddKitchenTool() {
 		String tool1 = "kt1";
@@ -80,7 +86,25 @@ public class WarehouseTest {
 		assertEquals(q1, wareHouse.getIngredientQuantity(tool1));
 		assertEquals(q2, wareHouse.getIngredientQuantity(tool2));
 	}
+	
+	//tests kitchen tool being taken
+	@Test
+	public void testTakeKitchenTool() {
+		String name = "kt1";
+		int quantity = 12;
+		int toTake = 4;
+		wareHouse.addKitchenTool(name, quantity);
+		wareHouse.takeKitchenTool(name, toTake);
+		
+		int currentQuantity = wareHouse.getKitchenToolQuantity(name);
+		
+		assertTrue( currentQuantity >= 0);
+		assertTrue( currentQuantity + toTake == quantity);
+
+
+	}
 	 	
+	//tests kitchen tool being returned
 	@Test
 	public void testReturnKitchenTool() {
 		String name = "kt1";
@@ -97,7 +121,7 @@ public class WarehouseTest {
 
 	}
 	
-	
+	//tests kitchen tool quantity
 	@Test
 	public void testGetKitchenToolQuantity() {
 		
@@ -118,20 +142,4 @@ public class WarehouseTest {
 
 	}
 	
-
-	@Test
-	public void testTakeKitchenTool() {
-		String name = "kt1";
-		int quantity = 12;
-		int toTake = 4;
-		wareHouse.addKitchenTool(name, quantity);
-		wareHouse.takeKitchenTool(name, toTake);
-		
-		int currentQuantity = wareHouse.getKitchenToolQuantity(name);
-		
-		assertTrue( currentQuantity >= 0);
-		assertTrue( currentQuantity + toTake == quantity);
-
-
-	}
 }
