@@ -63,11 +63,6 @@ public class WarehouseTest {
 		assertEquals(q1, wareHouse.getIngredientQuantity(tool1));
 		assertEquals(q2, wareHouse.getIngredientQuantity(tool2));
 	}
-	
-	@Test
-	public void TestReturnIngredient() {
-		//TODO remove =) talk to idan to verify
-	}
 	 	
 	@Test
 	public void testReturnKitchenTool() {
