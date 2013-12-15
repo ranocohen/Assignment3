@@ -35,6 +35,23 @@ public class WarehouseTest {
 	}
 	
 	@Test
+	public void testTakeIngredient() {
+		String ingredient = "ing1";
+		int ingredientsToTake = 2;
+		int quantity = 4;
+
+		
+		wareHouse.addIngredient(ingredient, quantity);
+		wareHouse.takeIngredient(ingredient, ingredientsToTake);
+		
+		int currentQuantity = wareHouse.getIngredientQuantity(ingredient);
+		
+		assertTrue( currentQuantity >= 0);
+		assertTrue( currentQuantity + ingredientsToTake == quantity);
+	}
+	
+	
+	@Test
 	public void testGetIngredientQuantity() {
 		String ing1 = "ing1";
 		String ing2 = "ing2";
@@ -100,6 +117,8 @@ public class WarehouseTest {
 		assertEquals(q3, wareHouse.getKitchenToolQuantity(tool3));
 
 	}
+	
+
 	@Test
 	public void testTakeKitchenTool() {
 		String name = "kt1";
