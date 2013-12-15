@@ -1,9 +1,11 @@
-package com.bgu.assignment3;
+package com.bgu.assignment3.tests;
 
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.bgu.assignment3.Warehouse;
 
 public class WarehouseTest {
 
