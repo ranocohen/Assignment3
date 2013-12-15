@@ -19,7 +19,7 @@ public class WarehouseTest {
 	}
 	
 	@Test
-	public void TestAddIngredient() {
+	public void testAddIngredient() {
 		
 		String ingredient1 = "ing1";
 		String ingredient2 = "ing2";
@@ -35,7 +35,7 @@ public class WarehouseTest {
 	}
 	
 	@Test
-	public void TestGetIngredientQuantity() {
+	public void testGetIngredientQuantity() {
 		String ing1 = "ing1";
 		String ing2 = "ing2";
 		int q1 = 5;
