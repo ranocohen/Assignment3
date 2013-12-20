@@ -8,15 +8,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import javax.xml.bind.annotation.XmlAttribute;  
-import javax.xml.bind.annotation.XmlElement;  
-import javax.xml.bind.annotation.XmlRootElement;  
-
 public class Driver {
 
 	public static void main ( String [] args){
 		System.out.println("Assignment 3");
-		Parser.menuParser("input.xml");
+
+		
+		
+		Management management = new Management();
+		Parser.parseMenu("menu.xml", management);
 		
 	}
 	//public Driver(String initData, String menu, String ordersList) {
