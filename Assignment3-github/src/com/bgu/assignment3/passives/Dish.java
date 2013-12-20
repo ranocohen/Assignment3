@@ -34,12 +34,12 @@ public class Dish {
 		// MUST BE RE IMPLEMENTED , was quick test for debuggin
 		String ing = "";
 		String kt = "";
-		// for (Ingredient current : ingredients) {
-		// ing += current.name + " " + current.quantity;
-		// }
-		for (KitchenTool current : kitchenTools) {
+		 for (Ingredient current : ingredients) 
+		 ing += current.toString();
+		 
+		for (KitchenTool current : kitchenTools) 
 			ing += current.toString();
-		}
+		
 		return "Name = " + name + "\n" + "cookTime  =" + cookTime + "\n"
 				+ "diff = " + difficulty + "\n" + "reward =" + reward + "\n"
 				+ "kitchen tools=" + kt + "\n" + "ingredients  =" + ing + "\n";

@@ -19,9 +19,7 @@ public class Menu {
 	private Vector<Dish> dishes;
 	
 	 
-	 public Menu() {
-		dishes = new Vector<Dish>();
-	}
+
 	 @Override
 	public String toString() {
 		 String ans = "";
