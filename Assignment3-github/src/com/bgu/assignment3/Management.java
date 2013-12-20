@@ -9,8 +9,11 @@ public class Management {
 	
 	private Warehouse warehouse;
 	private Address address;
+	
 	public Management() {
 		
 	}
+	
+	
 
 }
