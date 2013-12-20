@@ -31,8 +31,8 @@ public class WarehouseTest {
 		int q1 = 5;
 		int q2 = 4;
 		
-		wareHouse.addKitchenTool(ingredient1, q1);
-		wareHouse.addKitchenTool(ingredient2, q2);
+		wareHouse.addIngredient(ingredient1, q1);
+		wareHouse.addIngredient(ingredient2, q2);
 		
 		
 		assertEquals(q1, wareHouse.getIngredientQuantity(ingredient1));
