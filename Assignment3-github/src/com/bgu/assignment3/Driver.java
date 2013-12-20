@@ -2,13 +2,11 @@ package com.bgu.assignment3;
 
 import java.io.File;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import java.io.File;
 
 import javax.xml.bind.annotation.XmlAttribute;  
 import javax.xml.bind.annotation.XmlElement;  
@@ -16,6 +14,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 public class Driver {
 
+	public static void main ( String [] args){
+		System.out.println("Assignment 3");
+		
+		
+		
+		Parser.menuParser("input.xml");
+		
+	}
 	//public Driver(String initData, String menu, String ordersList) {
 	public Driver(String[] confXMLFiles) {
 

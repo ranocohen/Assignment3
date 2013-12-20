@@ -10,4 +10,6 @@ public class Order {
 	private long id;
 	private double difficulty;
 	private int status;
+	
+	
 }
