@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.bgu.assignment3.Warehouse;
+import com.bgu.assignment3.passives.Warehouse;
 
 public class WarehouseTest {
 

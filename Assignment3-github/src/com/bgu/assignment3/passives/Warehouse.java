@@ -1,4 +1,6 @@
-package com.bgu.assignment3;
+package com.bgu.assignment3.passives;
+
+import com.bgu.assignment3.WarehouseActions;
 
 
 /**

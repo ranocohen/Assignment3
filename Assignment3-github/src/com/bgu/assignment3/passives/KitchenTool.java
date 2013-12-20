@@ -1,4 +1,4 @@
-package com.bgu.assignment3;
+package com.bgu.assignment3.passives;
 
 public class KitchenTool extends KitchenObject{
 

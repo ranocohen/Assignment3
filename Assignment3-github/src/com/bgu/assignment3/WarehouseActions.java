@@ -1,5 +1,8 @@
 package com.bgu.assignment3;
 
+import com.bgu.assignment3.passives.Ingredient;
+import com.bgu.assignment3.passives.KitchenTool;
+
 /**
  * 
  * @inv getKitchenToolQuantity(name) >= 0

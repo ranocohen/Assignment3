@@ -1,5 +1,7 @@
 package com.bgu.assignment3;
 
+import com.bgu.assignment3.passives.Management;
+
 
 public class Parser {
 

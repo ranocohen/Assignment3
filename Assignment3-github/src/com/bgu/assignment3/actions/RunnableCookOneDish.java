@@ -1,4 +1,4 @@
-package com.bgu.assignment3;
+package com.bgu.assignment3.actions;
 
 public class RunnableCookOneDish implements Runnable {
 
