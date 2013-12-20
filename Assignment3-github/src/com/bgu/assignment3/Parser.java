@@ -1,9 +1,10 @@
 package com.bgu.assignment3;
 
-<<<<<<< HEAD
+
+import com.bgu.assignment3.passives.KitchenTool;
 import com.bgu.assignment3.passives.Management;
 
-=======
+
 import java.io.File;
 import java.util.Vector;
 
@@ -14,7 +15,7 @@ import javax.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
->>>>>>> refs/remotes/origin/master
+
 
 public class Parser {
 
