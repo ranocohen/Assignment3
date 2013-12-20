@@ -16,9 +16,6 @@ public class Driver {
 
 	public static void main ( String [] args){
 		System.out.println("Assignment 3");
-		
-		
-		
 		Parser.menuParser("input.xml");
 		
 	}
