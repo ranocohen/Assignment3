@@ -18,7 +18,7 @@ public class Driver {
 		
 		
 		Management management = new Management();
-		Parser.parseMenu("InitialData.xml", management);
+		Parser.parseMenu("Menu.xml", management);
 		
 	}
 	//public Driver(String initData, String menu, String ordersList) {

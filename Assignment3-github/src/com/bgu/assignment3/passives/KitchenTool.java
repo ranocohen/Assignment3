@@ -1,16 +1,12 @@
 package com.bgu.assignment3.passives;
 
-public class KitchenTool extends KitchenObject{
+public class KitchenTool  {
 	
-	public KitchenTool(String name, int quantity) {
-		this.name = name;
-		this.quantity = quantity;
-	}
+	private String name;
+	private int quantity;
 
 	@Override
-	public int take() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String toString() {
+		return name + " : " + quantity +"\n";
 	}
-
 }

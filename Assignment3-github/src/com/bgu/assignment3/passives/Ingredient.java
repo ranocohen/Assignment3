@@ -1,11 +1,12 @@
 package com.bgu.assignment3.passives;
 
-public class Ingredient extends KitchenObject{
+public class Ingredient {
+
+	private String name;
+	private int quantity;
 
 	@Override
-	public int take() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String toString() {
+		return name + " : " + quantity + "\n";
 	}
-
 }
