@@ -24,7 +24,7 @@ public class Dish {
 	private Vector<KitchenTool> kitchenTools;
 	
 	@XmlElement(name = "difficultyRating")
-	private double difficulty;
+	private int difficulty;
 	@XmlElement(name = "reward")
 	private double reward;
 
