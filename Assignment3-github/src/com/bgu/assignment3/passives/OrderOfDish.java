@@ -12,5 +12,4 @@ public class OrderOfDish {
 	private String dishName;
 	private Dish dish;
 	
-	
-}
+	}
