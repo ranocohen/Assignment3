@@ -3,6 +3,7 @@ package com.bgu.assignment3.passives;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,7 +18,7 @@ public class Orders {
 	private Vector<Order> orders;
 
 	public Orders() {
-		iterator = orders.iterator();
+		
 	}
 	
 	
@@ -29,5 +30,7 @@ public class Orders {
 		
 		return null;
 	}
-	
+	void afterUnmarshal(Unmarshaller u, Object parent) {
+		iterator = orders.iterator();
+	}
 }
