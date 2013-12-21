@@ -14,20 +14,7 @@ import com.bgu.assignment3.passives.Orders;
 
 public class Parser {
 
-	public static void parseMenu(String fileName, Management management) {
-		 try {
-			 
-				File file = new File("Menu.xml");
-				JAXBContext jaxbContext = JAXBContext.newInstance(Menu.class);
-		 
-				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				Menu menu = (Menu) jaxbUnmarshaller.unmarshal(file);
-				System.out.println(menu);
-		 
-			  } catch (JAXBException e) {
-				e.printStackTrace();
-			  }
-	}
+
 
 	public static void parseInitialData(String fileName, Management management) {
 		 try {
@@ -44,6 +31,20 @@ public class Parser {
 			  }
 		
 	}
+	public static void parseMenu(String fileName, Management management) {
+		 try {
+			 
+				File file = new File("Menu.xml");
+				JAXBContext jaxbContext = JAXBContext.newInstance(Menu.class);
+		 
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				Menu menu = (Menu) jaxbUnmarshaller.unmarshal(file);
+				management.addMenu(menu);
+		 
+			  } catch (JAXBException e) {
+				e.printStackTrace();
+			  }
+	}
 	public static void parseOrdersList(String fileName, Management management) {
 		 try {
 			 
@@ -52,7 +53,7 @@ public class Parser {
 		 
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				Orders orders = (Orders) jaxbUnmarshaller.unmarshal(file);
-				System.out.println(orders);
+				management.addOrders(orders);
 		 
 			  } catch (JAXBException e) {
 				e.printStackTrace();

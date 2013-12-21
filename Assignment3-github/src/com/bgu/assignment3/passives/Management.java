@@ -15,11 +15,23 @@ public class Management {
 	@XmlElement(name = "Staff")
 	private Staff staff;
 
-	
+	private Orders orders;
+	private Menu menu;
 	public Management() {
 		
 	}
+
+
+	public void addOrders(Orders orders) {
+		this.orders = orders;	
+	}
+	public void addMenu(Menu menu) {
+		this.menu = menu;	
+	}
 	
+	public void simulate() {
+		
+	}
 	
 
 }
