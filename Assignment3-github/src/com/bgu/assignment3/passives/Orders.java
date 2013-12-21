@@ -38,7 +38,10 @@ public class Orders {
         void afterUnmarshal(Unmarshaller u, Object parent) {
                 iterator = orders.iterator();
         }
-        
+        /**
+         * Calculates orders difficulty , and updates the dish inside each order
+         * @param menu Menu of all dishes
+         */
         public void calcDifficulty(Menu menu) {
         	for(Order order: orders) {
         		order.calcOrderDifficulty(menu);

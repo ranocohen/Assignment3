@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,4 +21,12 @@ public class Staff {
 	@XmlElementWrapper(name="DeliveryPersonals")
 	@XmlElement(name = "DeliveryPerson")
 	private Vector<RunnableDeliveryPerson> deliveryPersons;
+	
+	/**
+	 * Sorts the chefs by efficiency
+	 */
+	public void sortChefs() {
+		Collections.sort(chefs);
+	}
+	
 }

@@ -31,10 +31,11 @@ public class Management {
 	}
 	
 	public void simulate() {
+		//first we calculate the difficulties
 		orders.calcDifficulty(menu);
-		System.out.println(this);
 		
-		orders.getNextOrder();
+		Order next = orders.getNextOrder();
+		cookDish(next);
 	}
 	
 	

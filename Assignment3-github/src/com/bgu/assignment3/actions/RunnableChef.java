@@ -1,7 +1,10 @@
 package com.bgu.assignment3.actions;
 
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -11,7 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.bgu.assignment3.passives.Order;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class RunnableChef implements Runnable {
+public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 	
     private boolean fShouldStop; //in case the chef can't handle the order
     
@@ -23,9 +26,10 @@ public class RunnableChef implements Runnable {
 	@XmlElement(name="enduranceRating")
 	private double endurance;
 	private double pressure;
+	
 	@XmlTransient
 	private Vector<Future<Order>> ordersInProgress;
-	
+	private ExecutorService executor = Executors.newFixedThreadPool(10);
 	public void run() {
 		
 	}
@@ -40,6 +44,13 @@ public class RunnableChef implements Runnable {
 			return true;
 		
 		return false;
+	}
+	public int compareTo(RunnableChef o) {
+		if(this.efficiency - o.efficiency < 0)
+			return 1;
+		if(this.efficiency - o.efficiency > 0)
+			return -1;
+		return 0;
 	}
 	
 	 
