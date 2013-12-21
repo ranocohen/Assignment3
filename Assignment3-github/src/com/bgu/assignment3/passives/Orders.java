@@ -11,7 +11,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "OrderList")
 public class Orders {
         
-        Iterator<Order> iterator;
+        public Vector<Order> getOrders() {
+		return orders;
+	}
+
+		Iterator<Order> iterator;
         
         @XmlElementWrapper(name="Orders")
         @XmlElement(name = "Order")
