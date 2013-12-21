@@ -30,8 +30,11 @@ public class Management {
 	}
 	
 	public void simulate() {
-		orders.getNextOrder();
+		Order order = orders.getNextOrder();
+		
 	}
-	
+	private void cookDish(Order order) {
+		
+	}
 
 }

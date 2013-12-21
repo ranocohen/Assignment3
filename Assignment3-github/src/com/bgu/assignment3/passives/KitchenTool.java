@@ -26,6 +26,6 @@ public class KitchenTool   {
 	
 	void afterUnmarshal(Unmarshaller u, Object parent) {
 		if(parent instanceof Warehouse)
-		System.out.println("KT SEMA via" + quantity);
+			semaphore = new Semaphore(quantity);
 	}
 }
