@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.bgu.assignment3.passives.Order;
 
-import com.bgu.assignment3.passives.Dish;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RunnableChef implements Runnable {
 	
@@ -24,14 +22,25 @@ public class RunnableChef implements Runnable {
 	private double efficiency;
 	@XmlElement(name="enduranceRating")
 	private double endurance;
-	
+	private double pressure;
 	@XmlTransient
 	private Vector<Future<Order>> ordersInProgress;
 	
 	public void run() {
 		
 	}
-
+	/**
+	 * Accepts order only if orderDifficulty < endurace - pressure
+	 * 
+	 * @param orderDifficulty the order difficulty
+	 * @return true if this chef accepts an order with given orderDifficulty
+	 */
+	public boolean acceptingOrder(double orderDifficulty) {
+		if(orderDifficulty < endurance - pressure)
+			return true;
+		
+		return false;
+	}
 	
 	 
 }
