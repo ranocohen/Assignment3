@@ -22,8 +22,8 @@ public class KitchenTool  {
 		return name + " : " + quantity +"\n";
 	}
 	
-	void afterUnmarshal(Unmarshaller u, Object parent) {
+/*	void afterUnmarshal(Unmarshaller u, Object parent) {
 		semaphore = new Semaphore(quantity);
 		System.out.println("INITED SEMA via" + quantity);
-	}
+	}*/
 }

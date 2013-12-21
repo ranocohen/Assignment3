@@ -11,6 +11,14 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 public class Order {
 
 	
+	public void setDishes(Vector<OrderOfDish> dishes) {
+		this.dishes = dishes;
+	}
+
+	public Vector<OrderOfDish> getDishes() {
+		return dishes;
+	}
+
 	private enum Status { 
 		INCOMPLETE , IN_PROGRESS , COMPLETE , DELIVERED 
 	}
@@ -18,7 +26,7 @@ public class Order {
 	@XmlAttribute(name="id")
 	private long id;
 	
-	private double difficulty;
+	private int difficulty;
 	private Status status;
 	
 	@XmlElement(name = "DeliveryAddress")
@@ -27,6 +35,14 @@ public class Order {
 	@XmlElementWrapper(name="Dishes")
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
+	
+	public void calcOrderDifficulty() {
+		for (int i = 0; i < dishes.size(); i++){
+			this.difficulty += dishes.get(i).getDish().getDifficulty();
+		}
+	}
+	
+	
 	
 	
 }
