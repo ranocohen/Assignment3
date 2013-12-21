@@ -30,7 +30,7 @@ public class Management {
 	}
 	
 	public void simulate() {
-		
+		orders.getNextOrder();
 	}
 	
 
