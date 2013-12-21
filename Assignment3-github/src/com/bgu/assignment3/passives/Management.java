@@ -1,5 +1,7 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Vector;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +23,6 @@ public class Management {
 		
 	}
 
-
 	public void addOrders(Orders orders) {
 		this.orders = orders;	
 	}
@@ -30,8 +31,25 @@ public class Management {
 	}
 	
 	public void simulate() {
-		Order order = orders.getNextOrder();
+		calcDifficulty();
+		System.out.println(this);
 		
+		orders.getNextOrder();
+	}
+	
+	public void calcDifficulty() {
+		// first copies the dishes object for ease of calculation (and future use)
+		for (int i = 0; i < orders.getOrders().size(); i++) {
+			Vector<OrderOfDish> temp = orders.getOrders().get(i).getDishes(); //dishes to update 
+			for (int j = 0; j < temp.size(); j++) {
+				temp.get(j).setDish(menu.getDishByName(temp.get(j).getDishName()));
+			}
+			orders.getOrders().get(i).setDishes(temp);
+		}
+		//now we can calc each orders' difficulty
+		for (int i = 0; i < orders.getOrders().size(); i++) {
+			orders.getOrders().get(i).calcOrderDifficulty();
+		}
 	}
 	private void cookDish(Order order) {
 		

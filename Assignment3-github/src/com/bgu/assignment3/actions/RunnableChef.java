@@ -10,8 +10,13 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import com.bgu.assignment3.passives.Order;
 
+import com.bgu.assignment3.passives.Dish;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RunnableChef implements Runnable {
+	
+    private boolean fShouldStop; //in case the chef can't handle the order
+    
 	
 	@XmlElement(name="name")
 	private String name;

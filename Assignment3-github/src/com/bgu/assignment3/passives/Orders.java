@@ -10,28 +10,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "OrderList")
 public class Orders {
-	
-	Iterator<Order> iterator;
-	
-	@XmlElementWrapper(name="Orders")
-	@XmlElement(name = "Order")
-	private Vector<Order> orders;
+        
+        public Vector<Order> getOrders() {
+		return orders;
+	}
 
-	public Orders() {
-		
-	}
-	
-	
+		Iterator<Order> iterator;
+        
+        @XmlElementWrapper(name="Orders")
+        @XmlElement(name = "Order")
+        private Vector<Order> orders;
 
-	public Order getNextOrder() {
-		
-		if(iterator.hasNext())
-			return iterator.next();
-		
-		return null;
-	}
-	
-	void afterUnmarshal(Unmarshaller u, Object parent) {
-		iterator = orders.iterator();
-	}
+        public Orders() {
+                
+        }
+        
+        
+
+        public Order getNextOrder() {
+                
+                if(iterator.hasNext())
+                        return iterator.next();
+                
+                return null;
+        }
+        
+        void afterUnmarshal(Unmarshaller u, Object parent) {
+                iterator = orders.iterator();
+        }
+        
+        public void calcDifficulty(Menu menu) {
+        	for(Order order: orders) {
+        		order.calcOrderDifficulty(menu);
+        	}
+        }
 }
