@@ -6,9 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderOfDish {
 
-	public Dish getDish() {
-		return dish;
-	}
+
 	public String getDishName() {
 		return dishName;
 	}

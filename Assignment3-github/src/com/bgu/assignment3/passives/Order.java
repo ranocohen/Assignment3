@@ -11,13 +11,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 public class Order {
 
 	
-	public void setDishes(Vector<OrderOfDish> dishes) {
-		this.dishes = dishes;
-	}
-
-	public Vector<OrderOfDish> getDishes() {
-		return dishes;
-	}
 
 	private enum Status { 
 		INCOMPLETE , IN_PROGRESS , COMPLETE , DELIVERED 
@@ -36,9 +29,11 @@ public class Order {
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
 	
-	public void calcOrderDifficulty() {
+	public void calcOrderDifficulty(Menu m) {
 		for (int i = 0; i < dishes.size(); i++){
-			this.difficulty += dishes.get(i).getDish().getDifficulty();
+			Dish dish = m.getDishByName(dishes.get(i).getDishName());
+			dishes.get(i).setDish(dish);
+			this.difficulty += dish.getDifficulty();
 		}
 	}
 	
