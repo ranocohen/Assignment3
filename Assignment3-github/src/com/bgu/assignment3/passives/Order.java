@@ -19,7 +19,7 @@ public class Order {
 	private long id;
 	
 	private double difficulty;
-	private int status;
+	private Status status;
 	
 	@XmlElement(name = "DeliveryAddress")
 	private Address deliveryAddress;
@@ -27,5 +27,6 @@ public class Order {
 	@XmlElementWrapper(name="Dishes")
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
+	
 	
 }
