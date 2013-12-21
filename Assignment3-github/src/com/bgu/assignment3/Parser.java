@@ -23,8 +23,8 @@ public class Parser {
 				JAXBContext jaxbContext = JAXBContext.newInstance(Management.class);
 		 
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				Management managment = (Management) jaxbUnmarshaller.unmarshal(file);
-				System.out.println(managment);
+				management = (Management) jaxbUnmarshaller.unmarshal(file);
+				System.out.println(management);
 		 
 			  } catch (JAXBException e) {
 				e.printStackTrace();

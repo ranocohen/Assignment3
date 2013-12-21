@@ -12,5 +12,10 @@ public class Orders {
 	@XmlElementWrapper(name="Orders")
 	@XmlElement(name = "Order")
 	private Vector<Order> orders;
+
+	public void getNextOrder() {
+		
+		
+	}
 	
 }
