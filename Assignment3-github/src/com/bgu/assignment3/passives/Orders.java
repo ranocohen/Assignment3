@@ -13,9 +13,5 @@ public class Orders {
 	@XmlElement(name = "Order")
 	private Vector<Order> orders;
 
-	public void getNextOrder() {
-		
-		
-	}
 	
 }

@@ -21,7 +21,6 @@ public class Management {
 		
 	}
 
-
 	public void addOrders(Orders orders) {
 		this.orders = orders;	
 	}
@@ -30,7 +29,11 @@ public class Management {
 	}
 	
 	public void simulate() {
-		orders.getNextOrder();
+		//orders.getNextOrder();
+	}
+	
+	public void calcDifficulty() {
+		
 	}
 	
 
