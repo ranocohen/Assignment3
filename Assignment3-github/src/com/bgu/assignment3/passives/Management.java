@@ -14,8 +14,7 @@ public class Management {
 	
 	@XmlElement(name = "Staff")
 	private Staff staff;
-	
-	
+
 	
 	public Management() {
 		

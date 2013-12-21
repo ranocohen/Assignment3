@@ -19,6 +19,7 @@ public class Driver {
 		
 		 Parser.parseMenu("Menu.xml", management);
 		 Parser.parseInitialData("InitialData.xml", management);
+		 Parser.parseOrdersList("OrdersList.xml", management);
 		/*//Parser.parseMenu("InitialData.xml", management);
 	     try {  
 	    	
