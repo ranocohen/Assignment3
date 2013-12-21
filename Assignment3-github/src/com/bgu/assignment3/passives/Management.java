@@ -50,6 +50,8 @@ public class Management {
 			orders.getOrders().get(i).calcOrderDifficulty();
 		}
 	}
-	
+	private void cookDish(Order order) {
+		
+	}
 
 }
