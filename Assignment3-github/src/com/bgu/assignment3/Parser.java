@@ -28,5 +28,21 @@ public class Parser {
 			  }
 	}
 
+	public static void parseInitialData(String fileName, Management management) {
+		 try {
+			 
+				File file = new File(fileName);
+				JAXBContext jaxbContext = JAXBContext.newInstance(Management.class);
+		 
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				Management menu = (Management) jaxbUnmarshaller.unmarshal(file);
+				System.out.println(menu);
+		 
+			  } catch (JAXBException e) {
+				e.printStackTrace();
+			  }
+		
+	}
+
 
 }

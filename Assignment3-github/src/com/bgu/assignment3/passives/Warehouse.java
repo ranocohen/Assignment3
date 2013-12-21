@@ -1,5 +1,12 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Vector;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+
 import com.bgu.assignment3.WarehouseActions;
 
 
@@ -8,7 +15,14 @@ import com.bgu.assignment3.WarehouseActions;
  * Warehouse class holding our ingredients and kitchen tools
  *
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Warehouse implements WarehouseActions{
+	@XmlElementWrapper(name="Ingredients")
+	@XmlElement(name="Ingredient")
+	private Vector<Ingredient> ingredients;
+	@XmlElementWrapper(name="Tools")
+	@XmlElement(name="KitchenTool")
+	private Vector<KitchenTool> kitchenTools;
 	
 	public Warehouse() {
 		
