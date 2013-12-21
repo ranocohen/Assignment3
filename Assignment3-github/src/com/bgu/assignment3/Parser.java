@@ -16,22 +16,23 @@ public class Parser {
 
 
 
-	public static void parseInitialData(String fileName, Management management) {
+	public static Management parseInitialData(String fileName) {
 		 try {
 			 
 				File file = new File(fileName);
 				JAXBContext jaxbContext = JAXBContext.newInstance(Management.class);
 		 
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-				management = (Management) jaxbUnmarshaller.unmarshal(file);
-				System.out.println(management);
+				Management management = (Management) jaxbUnmarshaller.unmarshal(file);
+				return management;
 		 
 			  } catch (JAXBException e) {
 				e.printStackTrace();
+				return null;
 			  }
-		
+		 	
 	}
-	public static void parseMenu(String fileName, Management management) {
+	public static Menu parseMenu(String fileName) {
 		 try {
 			 
 				File file = new File("Menu.xml");
@@ -39,13 +40,14 @@ public class Parser {
 		 
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				Menu menu = (Menu) jaxbUnmarshaller.unmarshal(file);
-				management.addMenu(menu);
+				return menu;
 		 
 			  } catch (JAXBException e) {
 				e.printStackTrace();
+				return null;
 			  }
 	}
-	public static void parseOrdersList(String fileName, Management management) {
+	public static Orders parseOrdersList(String fileName) {
 		 try {
 			 
 				File file = new File(fileName);
@@ -53,10 +55,11 @@ public class Parser {
 		 
 				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 				Orders orders = (Orders) jaxbUnmarshaller.unmarshal(file);
-				management.addOrders(orders);
+				return orders;
 		 
 			  } catch (JAXBException e) {
 				e.printStackTrace();
+				return null;
 			  }
 		
 	}
