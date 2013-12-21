@@ -14,12 +14,11 @@ public class Driver {
 
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
-		Management management = new Management();
-
-		Parser.parseInitialData("InitialData.xml", management);
-		Parser.parseMenu("Menu.xml", management);
-		Parser.parseOrdersList("OrdersList.xml", management);
-		
+		Management management = Parser.parseInitialData("InitialData.xml");
+	
+		management.addMenu(Parser.parseMenu("Menu.xml"));
+		management.addOrders(Parser.parseOrdersList("OrdersList.xml"));
+		management.simulate();
 		
 
 
