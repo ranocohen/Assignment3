@@ -14,8 +14,8 @@ public class RunnableChef implements Runnable {
 	@XmlElement(name="enduranceRating")
 	private double endurance;
 	
+	
 	public void run() {
-		// TODO Auto-generated method stub
 		
 	}
 
