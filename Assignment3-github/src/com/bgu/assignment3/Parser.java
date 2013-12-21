@@ -9,6 +9,7 @@ import javax.xml.bind.Unmarshaller;
 
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Menu;
+import com.bgu.assignment3.passives.Orders;
 
 
 public class Parser {
@@ -28,5 +29,35 @@ public class Parser {
 			  }
 	}
 
+	public static void parseInitialData(String fileName, Management management) {
+		 try {
+			 
+				File file = new File(fileName);
+				JAXBContext jaxbContext = JAXBContext.newInstance(Management.class);
+		 
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				Management managment = (Management) jaxbUnmarshaller.unmarshal(file);
+				System.out.println(managment);
+		 
+			  } catch (JAXBException e) {
+				e.printStackTrace();
+			  }
+		
+	}
+	public static void parseOrdersList(String fileName, Management management) {
+		 try {
+			 
+				File file = new File(fileName);
+				JAXBContext jaxbContext = JAXBContext.newInstance(Orders.class);
+		 
+				Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+				Orders orders = (Orders) jaxbUnmarshaller.unmarshal(file);
+				System.out.println(orders);
+		 
+			  } catch (JAXBException e) {
+				e.printStackTrace();
+			  }
+		
+	}
 
 }
