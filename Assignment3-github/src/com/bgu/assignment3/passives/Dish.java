@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -25,12 +26,20 @@ public class Dish {
 	
 	@XmlElementWrapper(name = "Ingredients")
 	@XmlElement(name = "Ingredient")
-	private Vector<Ingredient> ingredients;
+	private ArrayList<Ingredient> ingredients;
 	
 	@XmlElementWrapper(name = "KitchenTools")
 	@XmlElement(name = "KitchenTool")
-	private Vector<KitchenTool> kitchenTools;
+	private ArrayList<KitchenTool> kitchenTools;
 	
+	public ArrayList<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public ArrayList<KitchenTool> getKitchenTools() {
+		return kitchenTools;
+	}
+
 	@XmlElement(name = "difficultyRating")
 	private int difficulty;
 	@XmlElement(name = "reward")

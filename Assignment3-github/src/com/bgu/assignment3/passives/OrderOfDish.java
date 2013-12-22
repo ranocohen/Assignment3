@@ -7,6 +7,12 @@ import javax.xml.bind.annotation.XmlElement;
 public class OrderOfDish {
 
 
+	public Dish getDish() {
+		return dish;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
 	public String getDishName() {
 		return dishName;
 	}
