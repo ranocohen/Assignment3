@@ -3,6 +3,8 @@ package com.bgu.assignment3.actions;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
+import org.apache.log4j.Logger;
+
 import com.bgu.assignment3.passives.Ingredient;
 import com.bgu.assignment3.passives.KitchenTool;
 import com.bgu.assignment3.passives.OrderOfDish;
@@ -19,6 +21,8 @@ public class RunnableCookOneDish implements Runnable {
 
 	public void run() {
 		
+		Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
+		
 		getNeededIngredientsFromWarehouse();
 		getNeededKitchenToolsFromWarehouse();
 		
@@ -30,6 +34,9 @@ public class RunnableCookOneDish implements Runnable {
 		}
 		returnNeededKitchenToolsToWarehouse();
 		latch.countDown();
+		
+		Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
+
 	}
 
 	public RunnableCookOneDish(OrderOfDish ood, Warehouse wh , CountDownLatch latch) {

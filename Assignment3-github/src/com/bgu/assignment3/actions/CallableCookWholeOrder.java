@@ -4,6 +4,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.log4j.Logger;
+
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.OrderOfDish;
 import com.bgu.assignment3.passives.Warehouse;
@@ -28,6 +30,9 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	}
 
 	public Order call() throws Exception {
+		//TODO add chef's name
+		Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
+		
 		for (OrderOfDish ood : order.getDishes()) {
 			RunnableCookOneDish rcod = new RunnableCookOneDish(ood,
 					warehouseRef, latch);
@@ -39,6 +44,9 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		} catch (InterruptedException E) {
 
 		}
+		
+		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
+		
 		return order;
 	}
 
