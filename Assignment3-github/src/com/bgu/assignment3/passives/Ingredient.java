@@ -10,6 +10,10 @@ import javax.xml.bind.annotation.XmlElement;
 public class Ingredient {
 	
 	
+	public String getName() {
+		return name;
+	}
+
 	@XmlElement(name="name")
 	private String name;
 	@XmlElement(name="quantity")
@@ -20,6 +24,15 @@ public class Ingredient {
 	@Override
 	public String toString() {
 		return name + " : " + quantity + "\n";
+	}
+	
+	public void CunsumeIngredient(int quantity) {
+		try {
+			semaphore.acquire(quantity);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	void afterUnmarshal(Unmarshaller u, Object parent) {

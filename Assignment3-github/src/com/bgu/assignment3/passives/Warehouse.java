@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -7,7 +8,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
-import com.bgu.assignment3.WarehouseActions;
 
 /**
  * 
@@ -18,10 +18,10 @@ import com.bgu.assignment3.WarehouseActions;
 public class Warehouse implements WarehouseActions {
 	@XmlElementWrapper(name = "Ingredients")
 	@XmlElement(name = "Ingredient")
-	private Vector<Ingredient> ingredients;
+	private ArrayList<Ingredient> ingredients;
 	@XmlElementWrapper(name = "Tools")
 	@XmlElement(name = "KitchenTool")
-	private Vector<KitchenTool> kitchenTools;
+	private ArrayList<KitchenTool> kitchenTools;
 
 	public Warehouse() {
 
@@ -36,7 +36,11 @@ public class Warehouse implements WarehouseActions {
 	 *            - quantity to take
 	 */
 	public void takeKitchenTool(String name, int quantity) {
-
+		for (int i = 0; i < kitchenTools.size(); i++) {
+			if(kitchenTools.get(i).getName() == name) {
+				kitchenTools.get(i).takeKitchenTool(quantity);
+			}
+		}
 	}
 
 	/**
@@ -60,7 +64,7 @@ public class Warehouse implements WarehouseActions {
 	 *            - the kitchen tool quantity
 	 */
 	public void addKitchenTool(String name, int quantity) {
-		// not needed eventually , done via JAXB parsing
+
 	}
 
 	/**
@@ -98,8 +102,11 @@ public class Warehouse implements WarehouseActions {
 	 *            - quantity to take
 	 */
 	public void takeIngredient(String name, int quantity) {
-		// TODO Auto-generated method stub
-
+		for (int i = 0; i < ingredients.size(); i++) {
+			if(ingredients.get(i).getName() == name) {
+				ingredients.get(i).CunsumeIngredient(quantity);
+			}
+		}
 	}
 
 	/**
@@ -111,7 +118,6 @@ public class Warehouse implements WarehouseActions {
 	 *            - the ingredient quantity
 	 */
 	public void addIngredient(String name, int quantity) {
-		// not needed eventually , done via JAXB parsing
 
 	}
 

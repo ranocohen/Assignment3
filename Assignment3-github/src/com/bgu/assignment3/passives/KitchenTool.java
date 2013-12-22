@@ -11,6 +11,10 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class KitchenTool   {
 
+	public String getName() {
+		return name;
+	}
+
 	@XmlElement(name = "name")
 	private String name;
 	@XmlElement(name = "quantity")
@@ -29,8 +33,13 @@ public class KitchenTool   {
 			semaphore = new Semaphore(quantity);
 	}
 	
-	public void takeKitchenTool(int quantity) throws InterruptedException {
-		semaphore.acquire(quantity);
+	public void takeKitchenTool(int quantity) {
+		try {
+			semaphore.acquire(quantity);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(quantity+ "" +this.name+" was taken"); //TODO replace with logger
 	}
 	
