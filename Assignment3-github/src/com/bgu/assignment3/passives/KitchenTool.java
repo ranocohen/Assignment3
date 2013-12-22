@@ -22,10 +22,20 @@ public class KitchenTool   {
 	public String toString() {
 		return name + " : " + quantity + "\n";
 	}
-
+	
 	
 	void afterUnmarshal(Unmarshaller u, Object parent) {
 		if(parent instanceof Warehouse)
 			semaphore = new Semaphore(quantity);
+	}
+	
+	public void takeKitchenTool(int quantity) throws InterruptedException {
+		semaphore.acquire(quantity);
+		System.out.println(quantity+ "" +this.name+" was taken"); //TODO replace with logger
+	}
+	
+	public void returnKitchenTool(int quantity) {
+		semaphore.release(quantity);
+		System.out.println(quantity+ "" +this.name+" was return"); //TODO replace with logger
 	}
 }

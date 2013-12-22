@@ -84,7 +84,7 @@ public class Warehouse implements WarehouseActions {
 	 * 
 	 * @return the quantity of ingredient named {@code name}
 	 */
-	public int getIngredientQuantity(String îame) {
+	public int getIngredientQuantity(String name) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
