@@ -5,6 +5,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -16,21 +17,20 @@ public class Driver {
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
 		Management management = Parser.parseInitialData("InitialData.xml");
-	
+		
 		management.addMenu(Parser.parseMenu("Menu.xml"));
 		management.addOrders(Parser.parseOrdersList("OrdersList.xml"));
 		management.simulate();
 
+		
+		//log4j , notice the log4j.properties file inside bin dir in the project 
+		
+		//log.setLevel(Level.FATAL);
 		log.trace("Trace");
-
 		log.debug("Debug");
-
 		log.info("Info");
-
 		log.warn("Warn");
-
 		log.error("Error");
-
 		log.fatal("Fatal");
 
 
