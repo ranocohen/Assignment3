@@ -33,7 +33,7 @@ public class Management {
 	public void simulate() {
 		//first we calculate the difficulties
 		orders.calcDifficulty(menu);
-		
+		staff.sortChefs();
 		Order next = orders.getNextOrder();
 		cookDish(next);
 	}

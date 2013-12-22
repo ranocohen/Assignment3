@@ -29,6 +29,7 @@ public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 	
 	@XmlTransient
 	private Vector<Future<Order>> ordersInProgress;
+	@XmlTransient
 	private ExecutorService executor = Executors.newFixedThreadPool(10);
 	public void run() {
 		

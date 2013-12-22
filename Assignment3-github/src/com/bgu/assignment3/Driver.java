@@ -5,13 +5,14 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import com.bgu.assignment3.passives.Management;
 
 public class Driver {
-
+	  private static org.apache.log4j.Logger log = Logger.getLogger(Driver.class);
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
 		Management management = Parser.parseInitialData("InitialData.xml");
@@ -19,7 +20,21 @@ public class Driver {
 		management.addMenu(Parser.parseMenu("Menu.xml"));
 		management.addOrders(Parser.parseOrdersList("OrdersList.xml"));
 		management.simulate();
-		
+
+		log.trace("Trace");
+
+		log.debug("Debug");
+
+		log.info("Info");
+
+		log.warn("Warn");
+
+		log.error("Error");
+
+		log.fatal("Fatal");
+
+
+
 
 
 	}
