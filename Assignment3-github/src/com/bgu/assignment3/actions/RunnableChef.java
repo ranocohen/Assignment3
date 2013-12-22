@@ -4,6 +4,7 @@ import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -34,8 +35,19 @@ public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 	private Vector<Future<Order>> ordersInProgress;
 	@XmlTransient
 	private ExecutorService executor = Executors.newCachedThreadPool();
+
+
+	private Semaphore semaphore;
+	
 	public void run() {
-		
+		//while isalive
+		//iterate orders and run them 
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
@@ -55,6 +67,10 @@ public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 		if(this.efficiency - o.efficiency > 0)
 			return -1;
 		return 0;
+	}
+	public void setSemaphore(Semaphore semaphore) {
+		this.semaphore = semaphore;
+		
 	}
 	
 	 

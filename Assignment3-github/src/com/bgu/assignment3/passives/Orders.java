@@ -10,41 +10,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "OrderList")
 public class Orders {
-        
-        public Vector<Order> getOrders() {
+
+	public Vector<Order> getOrders() {
 		return orders;
 	}
 
-		Iterator<Order> iterator;
-        
-        @XmlElementWrapper(name="Orders")
-        @XmlElement(name = "Order")
-        private Vector<Order> orders;
+	Iterator<Order> iterator;
 
-        public Orders() {
-                
-        }
-        
-        
+	@XmlElementWrapper(name = "Orders")
+	@XmlElement(name = "Order")
+	private Vector<Order> orders;
 
-        public Order getNextOrder() {
-                
-                if(iterator.hasNext())
-                        return iterator.next();
-                
-                return null;
-        }
-        
-        void afterUnmarshal(Unmarshaller u, Object parent) {
-                iterator = orders.iterator();
-        }
-        /**
-         * Calculates orders difficulty , and updates the dish inside each order
-         * @param menu Menu of all dishes
-         */
-        public void calcDifficulty(Menu menu) {
-        	for(Order order: orders) {
-        		order.calcOrderDifficulty(menu);
-        	}
-        }
+	public Orders() {
+
+	}
+
+	public Order getNextOrder() {
+
+		if (iterator.hasNext())
+			return iterator.next();
+
+		return null;
+	}
+
+	void afterUnmarshal(Unmarshaller u, Object parent) {
+		iterator = orders.iterator();
+	}
+
+	/**
+	 * Calculates orders difficulty , and updates the dish inside each order
+	 * 
+	 * @param menu
+	 *            Menu of all dishes
+	 */
+	public void calcDifficulty(Menu menu) {
+		for (Order order : orders) {
+			order.calcOrderDifficulty(menu);
+		}
+	}
+
+	public boolean hasOrders() {
+		return orders.size() != 0;
+	}
 }

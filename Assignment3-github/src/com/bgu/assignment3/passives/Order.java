@@ -20,6 +20,10 @@ public class Order {
 	private long id;
 	
 	private int difficulty;
+	public int getDifficulty() {
+		return difficulty;
+	}
+
 	private Status status;
 	
 	@XmlElement(name = "DeliveryAddress")

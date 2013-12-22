@@ -28,5 +28,15 @@ public class Staff {
 	public void sortChefs() {
 		Collections.sort(chefs);
 	}
-	
+	public RunnableChef getApprovingChef(Order order) {
+		for(RunnableChef chef : chefs) {
+			if(chef.acceptingOrder(order.getDifficulty()));
+				return chef;
+		}
+		//couldnt find approving chef , returning null
+		return null;
+	}
+	public int chefCount() {
+		return chefs.size();
+	}
 }
