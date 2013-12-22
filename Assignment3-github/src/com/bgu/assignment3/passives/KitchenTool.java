@@ -47,4 +47,9 @@ public class KitchenTool   {
 		semaphore.release(quantity);
 		System.out.println(quantity+ "" +this.name+" was return"); //TODO replace with logger
 	}
+
+
+	public int getQuantity() {
+		return this.quantity;
+	}
 }

@@ -37,7 +37,13 @@ public class Order {
 		}
 	}
 	
-	
-	
+	public int calculateTotalDishes () {
+		int dishesCount = 0;
+		for(OrderOfDish current : dishes) {
+			dishesCount+= current.getQuantity();
+		}
+		
+		return dishesCount;
+	}
 	
 }
