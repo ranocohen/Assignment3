@@ -60,7 +60,7 @@ public class Warehouse implements WarehouseActions {
 	 *            - the kitchen tool quantity
 	 */
 	public void addKitchenTool(String name, int quantity) {
-
+		// not needed eventually , done via JAXB parsing
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class Warehouse implements WarehouseActions {
 	 *            - the ingredient quantity
 	 */
 	public void addIngredient(String name, int quantity) {
-		// TODO Auto-generated method stub
+		// not needed eventually , done via JAXB parsing
 
 	}
 
