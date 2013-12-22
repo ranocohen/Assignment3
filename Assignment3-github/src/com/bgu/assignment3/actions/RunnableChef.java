@@ -22,6 +22,9 @@ public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 	
 	@XmlElement(name="name")
 	private String name;
+	public String getName() {
+		return name;
+	}
 	@XmlElement(name="efficiencyRating")
 	private double efficiency;
 	public double getEfficiency() {
