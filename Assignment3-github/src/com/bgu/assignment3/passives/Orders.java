@@ -3,6 +3,7 @@ package com.bgu.assignment3.passives;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.text.StyledEditorKit.ItalicAction;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -26,16 +27,14 @@ public class Orders {
 	}
 
 	public Order getNextOrder() {
-
+		iterator = orders.iterator();
 		if (iterator.hasNext())
 			return iterator.next();
-
+		
 		return null;
 	}
 
-	void afterUnmarshal(Unmarshaller u, Object parent) {
-		iterator = orders.iterator();
-	}
+	
 
 	/**
 	 * Calculates orders difficulty , and updates the dish inside each order
