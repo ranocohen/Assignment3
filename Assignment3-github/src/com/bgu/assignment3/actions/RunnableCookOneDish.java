@@ -48,12 +48,7 @@ public class RunnableCookOneDish implements Runnable {
 					current.getQuantity());
 		}
 	}
-	
-	public void getNeededIngredientsFromWarehouse() {
-			//warehouseRef.takeIngredient(current.getName(), current.getQuantity())
-	/**
-	 * Consuming needed kitchen tools from {@link Warehouse}
-	 */
+
 	private void getNeededKitchenToolsFromWarehouse() {
 		for (KitchenTool current : kitchenTool) {
 			warehouseRef.takeKitchenTool(current.getName(),
