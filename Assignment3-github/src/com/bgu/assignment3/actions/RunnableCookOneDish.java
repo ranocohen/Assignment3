@@ -1,6 +1,7 @@
 package com.bgu.assignment3.actions;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 import com.bgu.assignment3.passives.Ingredient;
 import com.bgu.assignment3.passives.KitchenTool;
@@ -14,6 +15,8 @@ public class RunnableCookOneDish implements Runnable {
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<KitchenTool> kitchenTool;
 	private RunnableChef chef;
+	private CountDownLatch latch;
+
 	public void run() {
 		
 		getNeededIngredientsFromWarehouse();
@@ -26,14 +29,15 @@ public class RunnableCookOneDish implements Runnable {
 			e.printStackTrace();
 		}
 		returntNeededKitchenToolsToWarehouse();
-		
+		latch.countDown();
 	}
 
-	public RunnableCookOneDish(OrderOfDish ood, Warehouse wh) {
+	public RunnableCookOneDish(OrderOfDish ood, Warehouse wh , CountDownLatch latch) {
 		this.orderOfDishToCook = ood;
 		this.warehouseRef = wh;
 		this.ingredients = ood.getDish().getIngredients();
 		this.kitchenTool = ood.getDish().getKitchenTools();
+		this.latch = latch;
 	}
 	/**
 	 * Consuming needed ingredients from {@link Warehouse}

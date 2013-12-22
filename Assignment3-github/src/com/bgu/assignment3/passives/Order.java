@@ -29,6 +29,8 @@ public class Order {
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
 	
+	
+
 	public void calcOrderDifficulty(Menu m) {
 		for (int i = 0; i < dishes.size(); i++){
 			Dish dish = m.getDishByName(dishes.get(i).getDishName());
@@ -46,4 +48,7 @@ public class Order {
 		return dishesCount;
 	}
 	
+	public Vector<OrderOfDish> getDishes() {
+		return dishes;
+	}
 }
