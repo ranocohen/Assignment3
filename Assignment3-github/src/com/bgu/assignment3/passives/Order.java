@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 public class Order {
 
 	
-
+	//magic numbers
 	private enum Status { 
 		INCOMPLETE , IN_PROGRESS , COMPLETE , DELIVERED 
 	}
