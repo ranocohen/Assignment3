@@ -28,7 +28,7 @@ public class RunnableCookOneDish implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		returntNeededKitchenToolsToWarehouse();
+		returnNeededKitchenToolsToWarehouse();
 		latch.countDown();
 	}
 
@@ -58,7 +58,7 @@ public class RunnableCookOneDish implements Runnable {
 	/**
 	 * Returning needed kitchen tools to {@link Warehouse}
 	 */
-	private void returntNeededKitchenToolsToWarehouse() {
+	private void returnNeededKitchenToolsToWarehouse() {
 		for (KitchenTool current : kitchenTool) {
 			warehouseRef.returnKitchenTool(current.getName(),
 					current.getQuantity());
