@@ -5,6 +5,10 @@ import java.util.Vector;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.log4j.Logger;
+
+import com.bgu.assignment3.Driver;
+
 @XmlRootElement(name = "Restaurant")
 public class Management {
 	
@@ -36,6 +40,8 @@ public class Management {
 		staff.sortChefs();
 		Order next = orders.getNextOrder();
 		cookDish(next);
+		Logger.getLogger(Management.class).fatal("Fatal-2");
+		
 	}
 	
 	

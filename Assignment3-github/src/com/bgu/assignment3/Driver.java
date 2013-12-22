@@ -13,19 +13,18 @@ import org.w3c.dom.NodeList;
 import com.bgu.assignment3.passives.Management;
 
 public class Driver {
-	  private static org.apache.log4j.Logger log = Logger.getLogger(Driver.class);
+	private static Logger log = Logger.getLogger(Driver.class);
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
 		Management management = Parser.parseInitialData("InitialData.xml");
-		
+
 		management.addMenu(Parser.parseMenu("Menu.xml"));
 		management.addOrders(Parser.parseOrdersList("OrdersList.xml"));
 		management.simulate();
 
-		
 		//log4j , notice the log4j.properties file inside bin dir in the project 
-		
-		//log.setLevel(Level.FATAL);
+
+		log.setLevel(Level.FATAL);
 		log.trace("Trace");
 		log.debug("Debug");
 		log.info("Info");
