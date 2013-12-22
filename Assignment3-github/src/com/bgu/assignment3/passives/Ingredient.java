@@ -19,6 +19,7 @@ public class Ingredient {
 	@XmlElement(name="quantity")
 	private int quantity;
 	
+	
 	private Semaphore semaphore;
 	
 	@Override
@@ -40,4 +41,8 @@ public class Ingredient {
 			semaphore = new Semaphore(quantity);
 		
 	}
+	public int getQuantity() {
+		return quantity;
+	}
+
 }

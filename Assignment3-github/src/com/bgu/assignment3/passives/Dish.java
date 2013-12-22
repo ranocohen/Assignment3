@@ -24,6 +24,10 @@ public class Dish {
 	@XmlElement(name = "expectedCookTime")
 	private long cookTime;
 	
+	public long getCookTime() {
+		return cookTime;
+	}
+
 	@XmlElementWrapper(name = "Ingredients")
 	@XmlElement(name = "Ingredient")
 	private ArrayList<Ingredient> ingredients;
@@ -62,4 +66,5 @@ public class Dish {
 				+ "kitchen tools=" + kt + "\n" + "ingredients  =" + ing + "\n";
 
 	}
+	
 }

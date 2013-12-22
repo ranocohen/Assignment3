@@ -52,7 +52,11 @@ public class Warehouse implements WarehouseActions {
 	 *            - quantity to take
 	 */
 	public void returnKitchenTool(String name, int quantity) {
-
+		for (int i = 0; i < kitchenTools.size(); i++) {
+			if(kitchenTools.get(i).getName() == name) {
+				kitchenTools.get(i).returnKitchenTool(quantity);
+			}
+		}
 	}
 
 	/**
@@ -64,6 +68,7 @@ public class Warehouse implements WarehouseActions {
 	 *            - the kitchen tool quantity
 	 */
 	public void addKitchenTool(String name, int quantity) {
+		// not needed eventually , done via JAXB parsing
 
 	}
 
@@ -118,6 +123,7 @@ public class Warehouse implements WarehouseActions {
 	 *            - the ingredient quantity
 	 */
 	public void addIngredient(String name, int quantity) {
+		// not needed eventually , done via JAXB parsing
 
 	}
 
