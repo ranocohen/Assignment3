@@ -69,8 +69,6 @@ public class Management {
 		approvingChef.setSemaphore(semaphore);
 		threadPool.execute(approvingChef);
 		semaphore.release();
-		
-		
 	}
 
 }

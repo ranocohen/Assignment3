@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.log4j.Logger;
+
 import com.bgu.assignment3.passives.Order;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -42,14 +44,15 @@ public class RunnableChef implements Runnable , Comparable<RunnableChef> {
 	private Semaphore semaphore;
 	
 	public void run() {
-		//while isalive
-		//iterate orders and run them 
+		System.out.println("chef" + getName() +" running");
+		//Logger.getLogger(RunnableChef.class).trace("chef" + getName() +" running");
 		try {
 			semaphore.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//Logger.getLogger(RunnableChef.class).trace("chef" + getName() +" started working");
 	}
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
