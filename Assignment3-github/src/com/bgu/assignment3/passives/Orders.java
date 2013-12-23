@@ -3,8 +3,6 @@ package com.bgu.assignment3.passives;
 import java.util.Iterator;
 import java.util.Vector;
 
-import javax.swing.text.StyledEditorKit.ItalicAction;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;

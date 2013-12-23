@@ -1,7 +1,6 @@
 package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
