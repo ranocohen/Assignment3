@@ -74,6 +74,7 @@ public class Management {
 	private void cookDish(Order order, RunnableChef approvingChef) {
 		Semaphore semaphore = new Semaphore(0);
 		approvingChef.acceptOrder(semaphore, order, warehouse);
+		System.out.println(order.getId());
 		threadPool.execute(approvingChef);
 		orders.removeOrder(order);
 

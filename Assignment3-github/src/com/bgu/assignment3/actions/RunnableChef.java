@@ -1,6 +1,9 @@
 package com.bgu.assignment3.actions;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -10,8 +13,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.Warehouse;
@@ -39,6 +40,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private double endurance;
 	private double pressure;
 	private boolean shutDown;
+	private List<Order> ordersToCook = new Vector<Order>();
 	@XmlTransient
 	private Vector<Future<Order>> ordersInProgress = new Vector<Future<Order>>();
 	@XmlTransient
@@ -51,31 +53,61 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private Warehouse warehouse;
 
 	public void run() {
-		
-			while (!shutDown) {
-				System.out.println("Entered RunnableChef " + getName()
-						+ " with " + semaphore.availablePermits());
-				try {
-					semaphore.acquire();
-					System.out.println("After acquire");
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		synchronized (ordersToCook) {
+			synchronized (ordersInProgress) {
 
-				if (order != null) {
-					System.out.println("Sending order " + order.getId()
-							+ " to ccwd");
-					CallableCookWholeOrder ccwo = new CallableCookWholeOrder(
-							this, order, warehouse, semaphore);
-					Future<Order> result = executor.submit(ccwo);
-					ordersInProgress.add(result);
-					order = null;
-				} else {
-					System.out.println("Order is ready");
+				while (!shutDown && ordersToCook.size() > 0) {
+					System.out.println("Entered RunnableChef " + getName()
+							+ " with " + semaphore.availablePermits());
+					try {
+						semaphore.acquire();
+						System.out.println("After acquire");
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					Iterator<Order> it = ordersToCook.iterator();
+					while(it.hasNext()) {
+						Order current = it.next();
+						System.out.println("Sending order " + current.getId()
+								+ " to ccwd");
+						CallableCookWholeOrder ccwo = new CallableCookWholeOrder(
+								this, order, warehouse, semaphore);
+						Future<Order> result = executor.submit(ccwo);
+						ordersInProgress.add(result);
+						it.remove();
+						//if (ordersToCook.size() == 0)
+							//this.shutDown = true;
+					}
+
+					Iterator<Future<Order>> it2 = ordersInProgress.iterator();
+					while(it2.hasNext()) {
+						Future<Order> current = it2.next();
+						if (current != null && current.isDone()) {
+							Order ready;
+							try {
+								ready = current.get();
+								System.out.println(ready.getId() + " IS READY");
+								it2.remove();
+								
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					
+						}
+
+					}
+
 				}
 			}
-		
+		}
+
 		/*
 		 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
 		 * " running");
@@ -83,7 +115,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 		// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
 		// +" started working");
-	}
+	
 
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
@@ -108,6 +140,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public void acceptOrder(Semaphore semaphore, Order order, Warehouse wh) {
+		this.ordersToCook.add(order);
 		this.semaphore = semaphore;
 		this.order = order;
 		this.warehouse = wh;
