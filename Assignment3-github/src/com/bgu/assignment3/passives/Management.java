@@ -3,6 +3,7 @@ package com.bgu.assignment3.passives;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -46,7 +47,7 @@ public class Management {
 		staff.sortChefs();
 		threadPool = Executors.newFixedThreadPool(staff.chefCount());
 		boolean shouldRun = true;
-
+		Logger.getLogger(Management.class).fatal("Managment starting to look for chefs");
 		while (shouldRun) {
 			Order nextOrder = orders.getNextOrder();
 			if(!orders.hasOrders())
@@ -60,15 +61,24 @@ public class Management {
 			
 			
 		}
-		Logger.getLogger(Management.class).fatal("DONE MADAKAFA");
+		threadPool.shutdown();
+		try {
+			threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.HOURS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Logger.getLogger(Management.class).fatal("Managment is DONE!");
 
 	}
 
 	private void cookDish(Order order, RunnableChef approvingChef) {
-		Semaphore semaphore = new Semaphore(0);
-		approvingChef.setSemaphore(semaphore);
+		Semaphore semaphore = new Semaphore(0);	
+		approvingChef.acceptOrder(semaphore, order, warehouse);
 		threadPool.execute(approvingChef);
-		semaphore.release();
+		orders.removeOrder(order);
+		
+		
 	}
 
 }

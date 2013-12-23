@@ -21,25 +21,27 @@ public class RunnableCookOneDish implements Runnable {
 
 	public void run() {
 		
-		Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
+		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
 		
 		getNeededIngredientsFromWarehouse();
 		getNeededKitchenToolsFromWarehouse();
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
-			Thread.sleep(timeToSleep);
+			//Thread.sleep(timeToSleep);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		returnNeededKitchenToolsToWarehouse();
 		latch.countDown();
 		
-		Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
+		//Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
 
 	}
 
-	public RunnableCookOneDish(OrderOfDish ood, Warehouse wh , CountDownLatch latch) {
+	public RunnableCookOneDish(RunnableChef chef , OrderOfDish ood, Warehouse wh , CountDownLatch latch) {
+		this.chef = chef;
 		this.orderOfDishToCook = ood;
 		this.warehouseRef = wh;
 		this.ingredients = ood.getDish().getIngredients();

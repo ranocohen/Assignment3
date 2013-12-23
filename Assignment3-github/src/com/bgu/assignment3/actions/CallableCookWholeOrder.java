@@ -3,6 +3,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 import org.apache.log4j.Logger;
 
@@ -16,14 +17,15 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	private CountDownLatch latch;
 	private ExecutorService threadPool;
 	private Order order;
+	private Semaphore semaphore;
 
-	public CallableCookWholeOrder(RunnableChef chef, Order order, Warehouse wh) {
+	public CallableCookWholeOrder(RunnableChef chef, Order order, Warehouse wh, Semaphore semaphore) {
 		this.chef = chef;
 		this.order = order;
 		this.warehouseRef = wh;
-
+		this.semaphore = semaphore;
 		int dishesCount = order.calculateTotalDishes();
-
+		
 		threadPool = Executors.newFixedThreadPool(dishesCount);
 		latch = new CountDownLatch(dishesCount);
 
@@ -34,17 +36,22 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
 		
 		for (OrderOfDish ood : order.getDishes()) {
-			RunnableCookOneDish rcod = new RunnableCookOneDish(ood,
-					warehouseRef, latch);
-			threadPool.execute(rcod);
+			for(int j =0 ;j< ood.getQuantity(); j++)
+			{
+				RunnableCookOneDish rcod = new RunnableCookOneDish(chef,ood,
+						warehouseRef, latch);
+				threadPool.execute(rcod);	
+			}
+			
 		}
+		threadPool.shutdown();
 		//wait for all threads to finish
 		try {
 			latch.await();
 		} catch (InterruptedException E) {
 
 		}
-		
+		semaphore.release();
 		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
 		
 		return order;

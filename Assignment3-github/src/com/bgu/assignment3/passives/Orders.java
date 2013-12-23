@@ -49,4 +49,8 @@ public class Orders {
 	public boolean hasOrders() {
 		return orders.size() != 0;
 	}
+
+	public void removeOrder(Order order) {
+		orders.remove(order);
+	}
 }
