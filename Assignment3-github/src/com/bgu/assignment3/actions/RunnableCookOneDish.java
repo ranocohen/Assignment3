@@ -21,7 +21,7 @@ public class RunnableCookOneDish implements Runnable {
 
 	public void run() {
 		
-		Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
+		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
 		
 		getNeededIngredientsFromWarehouse();
 		getNeededKitchenToolsFromWarehouse();
@@ -35,7 +35,7 @@ public class RunnableCookOneDish implements Runnable {
 		returnNeededKitchenToolsToWarehouse();
 		latch.countDown();
 		
-		Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
+		//Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
 
 	}
 

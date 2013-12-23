@@ -31,7 +31,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 
 	public Order call() throws Exception {
 		//TODO add chef's name
-		Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
+		//Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
 		
 		for (OrderOfDish ood : order.getDishes()) {
 			RunnableCookOneDish rcod = new RunnableCookOneDish(ood,
@@ -45,7 +45,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 
 		}
 		
-		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
+		//Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
 		
 		return order;
 	}
