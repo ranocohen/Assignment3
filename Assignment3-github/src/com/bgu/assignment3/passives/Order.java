@@ -19,6 +19,10 @@ public class Order {
 	@XmlAttribute(name="id")
 	private long id;
 	
+	public long getId() {
+		return id;
+	}
+
 	private int difficulty;
 	public int getDifficulty() {
 		return difficulty;

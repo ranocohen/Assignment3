@@ -38,7 +38,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	@XmlElement(name = "enduranceRating")
 	private double endurance;
 	private double pressure;
-
+	private boolean shutDown;
 	@XmlTransient
 	private Vector<Future<Order>> ordersInProgress = new Vector<Future<Order>>();
 	@XmlTransient
@@ -52,30 +52,35 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	public void run() {
 		
-		try {
-			semaphore.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(order != null) {
-			System.out.println("Order recieved");		
-			CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this, order,
-					warehouse,semaphore);
-			Future<Order> result = executor.submit(ccwo);
-			ordersInProgress.add(result);
-			order = null;
-		}
-		else {
-			System.out.println("Order is ready");		
-		}
-	
-		/*Logger.getLogger(RunnableChef.class).trace(
-				"chef" + getName() + " running");
-		*/
+			while (!shutDown) {
+				System.out.println("Entered RunnableChef " + getName()
+						+ " with " + semaphore.availablePermits());
+				try {
+					semaphore.acquire();
+					System.out.println("After acquire");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+				if (order != null) {
+					System.out.println("Sending order " + order.getId()
+							+ " to ccwd");
+					CallableCookWholeOrder ccwo = new CallableCookWholeOrder(
+							this, order, warehouse, semaphore);
+					Future<Order> result = executor.submit(ccwo);
+					ordersInProgress.add(result);
+					order = null;
+				} else {
+					System.out.println("Order is ready");
+				}
+			}
 		
+		/*
+		 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
+		 * " running");
+		 */
+
 		// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
 		// +" started working");
 	}
@@ -106,6 +111,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 		this.semaphore = semaphore;
 		this.order = order;
 		this.warehouse = wh;
+		System.out.println("Sending order from managment");
 		semaphore.release();
 	}
 

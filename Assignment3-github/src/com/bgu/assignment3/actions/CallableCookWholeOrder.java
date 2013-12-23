@@ -34,12 +34,13 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	public Order call() throws Exception {
 		//TODO add chef's name
 		//Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
-		
+		System.out.println("Starting to preper WHOLE order");
 		for (OrderOfDish ood : order.getDishes()) {
 			for(int j =0 ;j< ood.getQuantity(); j++)
 			{
 				RunnableCookOneDish rcod = new RunnableCookOneDish(chef,ood,
 						warehouseRef, latch);
+				System.out.println("Starting to preper "+ood.getDishName());
 				threadPool.execute(rcod);	
 			}
 			
@@ -47,18 +48,14 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		threadPool.shutdown();
 		//wait for all threads to finish
 		try {
+			System.out.println("Waiting for latch");
 			latch.await();
 		} catch (InterruptedException E) {
 
 		}
-<<<<<<< HEAD
+		System.out.println("Relaesing semaphore");
 		semaphore.release();
-		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
-=======
-		
-		//Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
->>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
-		
+	//	Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");		
 		return order;
 	}
 

@@ -24,8 +24,8 @@ public class RunnableCookOneDish implements Runnable {
 		
 		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
 		
-		getNeededIngredientsFromWarehouse();
-		getNeededKitchenToolsFromWarehouse();
+	//	getNeededIngredientsFromWarehouse();
+	//	getNeededKitchenToolsFromWarehouse();
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
