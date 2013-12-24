@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class KitchenTool   {
+public class KitchenTool implements Comparable<KitchenTool>   {
 
 	public String getName() {
 		return name;
@@ -51,4 +51,11 @@ public class KitchenTool   {
 	public int getQuantity() {
 		return this.quantity;
 	}
+
+
+	public int compareTo(KitchenTool o) {
+		return this.name.compareTo(o.name);
+	}
+	
+	
 }

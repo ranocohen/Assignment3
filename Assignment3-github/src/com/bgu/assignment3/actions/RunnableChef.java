@@ -51,7 +51,6 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private Warehouse warehouse;
 
 	public void run() {
-
 		while (!shutDown) {
 			System.out.println("Entered RunnableChef " + getName() + " with "
 					+ semaphore.availablePermits());
