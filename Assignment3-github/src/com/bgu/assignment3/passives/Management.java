@@ -28,9 +28,9 @@ public class Management {
 	private Menu menu;
 
 	private ExecutorService threadPool;
-
+	
 	public Management() {
-
+		
 	}
 
 	public void addOrders(Orders orders) {
@@ -45,39 +45,40 @@ public class Management {
 		// first we calculate the difficulties
 		orders.calcDifficulty(menu);
 		staff.sortChefs();
+		
 		threadPool = Executors.newFixedThreadPool(staff.chefCount());
+		staff.executeChefs(threadPool);
+		
 		boolean shouldRun = true;
-		Logger.getLogger(Management.class).fatal(
-				"Managment starting to look for chefs");
+		Logger.getLogger(Management.class).fatal("Managment starting to look for chefs");
 		while (shouldRun) {
 			Order nextOrder = orders.getNextOrder();
-			if (!orders.hasOrders()) {
+			if(!orders.hasOrders())
+			{
 				shouldRun = false;
 				continue;
 			}
 			RunnableChef approvingChef = staff.getApprovingChef(nextOrder);
-			if (approvingChef != null)
-				cookDish(nextOrder, approvingChef);
-
+			if(approvingChef != null)
+				cookDish(nextOrder , approvingChef);
+			
+			
 		}
-		threadPool.shutdown();
+		/*threadPool.shutdown();
 		try {
 			threadPool.awaitTermination(Long.MAX_VALUE, TimeUnit.HOURS);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Logger.getLogger(Management.class).fatal("Managment is DONE!");
+		Logger.getLogger(Management.class).fatal("Managment is DONE!");*/
 
 	}
 
 	private void cookDish(Order order, RunnableChef approvingChef) {
-		Semaphore semaphore = new Semaphore(0);
-		approvingChef.acceptOrder(semaphore, order, warehouse);
-		System.out.println(order.getId());
-		threadPool.execute(approvingChef);
+		System.out.println("COOK");
+		approvingChef.acceptOrder(order, warehouse);
 		orders.removeOrder(order);
-
 	}
 
 }

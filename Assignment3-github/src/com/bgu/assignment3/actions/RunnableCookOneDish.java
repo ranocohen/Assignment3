@@ -21,15 +21,15 @@ public class RunnableCookOneDish implements Runnable {
 	private CountDownLatch latch;
 
 	public void run() {
-		
+		long startCook = System.currentTimeMillis();
 		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
 		
-	//	getNeededIngredientsFromWarehouse();
-	//	getNeededKitchenToolsFromWarehouse();
+		getNeededIngredientsFromWarehouse();
+		getNeededKitchenToolsFromWarehouse();
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
-			//Thread.sleep(timeToSleep);
+		//Thread.sleep(timeToSleep);
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -38,7 +38,7 @@ public class RunnableCookOneDish implements Runnable {
 		latch.countDown();
 		
 		//Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
-
+		
 	}
 
 	public RunnableCookOneDish(RunnableChef chef , OrderOfDish ood, Warehouse wh , CountDownLatch latch) {
