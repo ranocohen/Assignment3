@@ -46,11 +46,13 @@ public class Staff {
 	public int chefCount() {
 		return chefs.size();
 	}
-	public void executeChefs(ExecutorService threadPool) {
+	public void executeChefs() {
 		for(RunnableChef chef : chefs) 
 		{
-			threadPool.execute(chef);
+			Logger.getLogger(Management.class).info("Chef "+ chef.getName() +  " has started to run");
 			chef.init();
+			Thread t = new Thread(chef);
+			t.start();
 		}
 			
 		

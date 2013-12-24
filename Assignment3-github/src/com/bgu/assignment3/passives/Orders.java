@@ -28,7 +28,7 @@ public class Orders {
 		iterator = orders.iterator();
 		if (iterator.hasNext())
 			return iterator.next();
-		
+		// TODO catch null 
 		return null;
 	}
 

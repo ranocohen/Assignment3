@@ -55,11 +55,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	public void run() {
 		while (!shutDown) {
-			System.out.println("Entered RunnableChef " + getName() + " with "
-					+ semaphore.availablePermits());
 			try {
 				semaphore.acquire();
-				System.out.println("After acquire");
+
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -92,7 +90,6 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 		if (orderDifficulty <= endurance - pressure) {
 			Logger.getLogger(Management.class).info(this.getName() + " accepting order");
-
 			return true;
 		}	
 		Logger.getLogger(Management.class).info(this.getName() + " deinided order");
@@ -109,6 +106,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	public void acceptOrder(Order order, Warehouse wh) {
 		synchronized (ordersToCook) {
+			
+			increasePressure(order.getDifficulty());
 			this.ordersToCook.add(order);
 		}
 
@@ -129,7 +128,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
 				Future<Order> result = executor.submit(ccwo);
-				increasePressure(current.getDifficulty());
+				
 				
 				ordersInProgress.add(result);
 				result = null;
@@ -141,7 +140,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	private void increasePressure(int difficulty) {
+		
 		this.pressure += difficulty;
+		Logger.getLogger(Management.class).info(this.getName() + "increased pressure to " +pressure);
 		
 	}
 
@@ -174,6 +175,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	private void decreasePressure(int difficulty) {
 		this.pressure -= difficulty;
+		Logger.getLogger(Management.class).info(this.getName() + "decreased pressure to " +pressure);
 		
 	}
 
