@@ -48,74 +48,32 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	private Semaphore semaphore;
 
-	private Order order;
-
 	private Warehouse warehouse;
 
 	public void run() {
-		synchronized (ordersToCook) {
-			synchronized (ordersInProgress) {
 
-				while (!shutDown && ordersToCook.size() > 0) {
-					System.out.println("Entered RunnableChef " + getName()
-							+ " with " + semaphore.availablePermits());
-					try {
-						semaphore.acquire();
-						System.out.println("After acquire");
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					Iterator<Order> it = ordersToCook.iterator();
-					while(it.hasNext()) {
-						Order current = it.next();
-						System.out.println("Sending order " + current.getId()
-								+ " to ccwd");
-						CallableCookWholeOrder ccwo = new CallableCookWholeOrder(
-								this, order, warehouse, semaphore);
-						Future<Order> result = executor.submit(ccwo);
-						ordersInProgress.add(result);
-						it.remove();
-						//if (ordersToCook.size() == 0)
-							//this.shutDown = true;
-					}
-
-					Iterator<Future<Order>> it2 = ordersInProgress.iterator();
-					while(it2.hasNext()) {
-						Future<Order> current = it2.next();
-						if (current != null && current.isDone()) {
-							Order ready;
-							try {
-								ready = current.get();
-								System.out.println(ready.getId() + " IS READY");
-								it2.remove();
-								
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							} catch (ExecutionException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					
-						}
-
-					}
-
-				}
+		while (!shutDown) {
+			System.out.println("Entered RunnableChef " + getName() + " with "
+					+ semaphore.availablePermits());
+			try {
+				semaphore.acquire();
+				System.out.println("After acquire");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			cookOrder();
+			fetchOrder();
 		}
+	}
 
-		/*
-		 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
-		 * " running");
-		 */
+	/*
+	 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
+	 * " running");
+	 */
 
-		// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
-		// +" started working");
-	
+	// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
+	// +" started working");
 
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
@@ -139,13 +97,63 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 		return 0;
 	}
 
-	public void acceptOrder(Semaphore semaphore, Order order, Warehouse wh) {
-		this.ordersToCook.add(order);
-		this.semaphore = semaphore;
-		this.order = order;
+	public void acceptOrder(Order order, Warehouse wh) {
+		synchronized (ordersToCook) {
+			this.ordersToCook.add(order);
+		}
+
+		
 		this.warehouse = wh;
 		System.out.println("Sending order from managment");
 		semaphore.release();
 	}
 
+	private void cookOrder() {
+		synchronized (ordersToCook) {
+
+			Iterator<Order> it = ordersToCook.iterator();
+			while (it.hasNext()) {
+				Order current = it.next();
+				System.out.println("Sending order " + current.getId()
+						+ " to ccwd");
+				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
+						current, warehouse, semaphore);
+				Future<Order> result = executor.submit(ccwo);
+				ordersInProgress.add(result);
+				result = null;
+				it.remove();
+				// if (ordersToCook.size() == 0)
+				// this.shutDown = true;
+			}
+		}
+	}
+
+	public synchronized void fetchOrder() {
+		System.out.println("FETCHING ORDER " + ordersInProgress.size() );
+		Iterator<Future<Order>> it2 = ordersInProgress.iterator();
+		while (it2.hasNext()) {
+			Future<Order> current = it2.next();
+			if (current != null && current.isDone()) {
+				Order ready;
+				try {
+					ready = current.get();
+					System.out.println(ready.getId() + " IS READY");
+					ready = null;
+					it2.remove();
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+	}
+
+	public void init() {
+		this.semaphore = new Semaphore(0);
+	}
 }

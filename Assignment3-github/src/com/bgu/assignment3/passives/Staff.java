@@ -2,6 +2,7 @@ package com.bgu.assignment3.passives;
 
 import java.util.Collections;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -38,5 +39,14 @@ public class Staff {
 	}
 	public int chefCount() {
 		return chefs.size();
+	}
+	public void executeChefs(ExecutorService threadPool) {
+		for(RunnableChef chef : chefs) 
+		{
+			threadPool.execute(chef);
+			chef.init();
+		}
+			
+		
 	}
 }
