@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
@@ -26,6 +27,7 @@ public class Management {
 
 	private Orders orders;
 	private Menu menu;
+	private ArrayBlockingQueue<Integer> OrdersForDelivery;
 
 	private ExecutorService threadPool;
 	

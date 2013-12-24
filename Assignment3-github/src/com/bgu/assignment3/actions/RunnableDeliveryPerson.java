@@ -8,6 +8,14 @@ public class RunnableDeliveryPerson implements Runnable{
 	@XmlElement(name="speed")
 	private double speed;
 	
+	
+	
+	public RunnableDeliveryPerson() {
+		
+	}
+
+
+
 	public void run() {
 		// TODO Auto-generated method stub
 		
