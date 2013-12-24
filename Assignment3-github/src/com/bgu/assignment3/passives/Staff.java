@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import org.apache.log4j.Logger;
+
 import com.bgu.assignment3.actions.RunnableChef;
 import com.bgu.assignment3.actions.RunnableDeliveryPerson;
 
@@ -31,9 +33,13 @@ public class Staff {
 	}
 	public RunnableChef getApprovingChef(Order order) {
 		for(RunnableChef chef : chefs) {
-			if(chef.acceptingOrder(order.getDifficulty()));
+			if(chef.acceptingOrder(order.getDifficulty())){
+				Logger.getLogger(Management.class).info("Found a chef too cook order " +order.getId()  );
 				return chef;
+			}
 		}
+		Logger.getLogger(Management.class).info("Could not find a chef right now to cook " +order.getId()  );
+
 		//couldnt find approving chef , returning null
 		return null;
 	}

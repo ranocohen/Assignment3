@@ -50,9 +50,10 @@ public class Management {
 		staff.executeChefs(threadPool);
 		
 		boolean shouldRun = true;
-		Logger.getLogger(Management.class).fatal("Managment starting to look for chefs");
+		Logger.getLogger(Management.class).info("Managment starting to look for chefs");
 		while (shouldRun) {
 			Order nextOrder = orders.getNextOrder();
+			Logger.getLogger(Management.class).info("Looking for chef to cook "+nextOrder.getId());
 			if(!orders.hasOrders())
 			{
 				shouldRun = false;

@@ -14,6 +14,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.log4j.Logger;
+
+import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.Warehouse;
 
@@ -82,16 +85,24 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	 * @return true if this chef accepts an order with given orderDifficulty
 	 */
 	public boolean acceptingOrder(double orderDifficulty) {
-		if (orderDifficulty < endurance - pressure)
-			return true;
+		Logger.getLogger(Management.class).info("Chef "+getName() + " checking for approval " +
+	"OrderDiff = " +orderDifficulty 
+	+" endurae = " + endurance
+	+" pressure = " + pressure);
 
+		if (orderDifficulty <= endurance - pressure) {
+			Logger.getLogger(Management.class).info(this.getName() + " accepting order");
+
+			return true;
+		}	
+		Logger.getLogger(Management.class).info(this.getName() + " deinided order");
 		return false;
 	}
 
 	public int compareTo(RunnableChef o) {
-		if (this.efficiency - o.efficiency < 0)
-			return 1;
 		if (this.efficiency - o.efficiency > 0)
+			return 1;
+		if (this.efficiency - o.efficiency < 0)
 			return -1;
 		return 0;
 	}
@@ -118,6 +129,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
 				Future<Order> result = executor.submit(ccwo);
+				increasePressure(current.getDifficulty());
+				
 				ordersInProgress.add(result);
 				result = null;
 				it.remove();
@@ -125,6 +138,11 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				// this.shutDown = true;
 			}
 		}
+	}
+
+	private void increasePressure(int difficulty) {
+		this.pressure += difficulty;
+		
 	}
 
 	public synchronized void fetchOrder() {
@@ -135,11 +153,13 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			if (current != null && current.isDone()) {
 				Order ready;
 				try {
+					
 					ready = current.get();
 					System.out.println(ready.getId() + " IS READY");
+					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();
-
+					
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -150,6 +170,11 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			}
 
 		}
+	}
+
+	private void decreasePressure(int difficulty) {
+		this.pressure -= difficulty;
+		
 	}
 
 	public void init() {
