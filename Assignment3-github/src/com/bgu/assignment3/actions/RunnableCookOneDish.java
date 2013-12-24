@@ -29,13 +29,21 @@ public class RunnableCookOneDish implements Runnable {
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
-		//Thread.sleep(timeToSleep);
-			Thread.sleep(100);
+		Thread.sleep(timeToSleep);
+			//Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		returnNeededKitchenToolsToWarehouse();
+		
+		
+		//stop measuring time before reporting to CallableCookWholeOrder latch
+		long endCook = System.currentTimeMillis();
+		long TotalActualCookTime = endCook - startCook;
+		
 		latch.countDown();
+		
+		
 		
 		//Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
 		

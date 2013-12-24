@@ -18,7 +18,7 @@ public class Parser {
 
 	public static Management parseInitialData(String fileName) {
 		 try {
-			 
+			 	
 				File file = new File(fileName);
 				JAXBContext jaxbContext = JAXBContext.newInstance(Management.class);
 		 
