@@ -56,11 +56,12 @@
 	</target>
 	<target name="run">
 	    <echo> Running program </echo>
+	    <echo>${arg0} ${arg1} ${arg2} </echo>
 		<java classname="com.bgu.assignment3.Driver" failonerror="true"
 			fork="yes">
-			<arg value="InitialData.xml" />
-			<arg value="Menu.xml" />
-			<arg value="OrdersList.xml" />
+			<arg value="${arg0}" />
+            <arg value="${arg1}" />
+            <arg value="${arg2}" />
 			<classpath refid="Assignment3-github.classpath" />
 		</java>
 	</target>
@@ -83,4 +84,18 @@
 			</manifest>
 		</jar>
 	</target>
+	
+	<target name="run_unit_tests" depends="build">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit printsummary="yes" haltonfailure="no">   
+            <classpath refid="Assignment3-github.classpath" />
+
+            <formatter type="xml"/>
+            <batchtest todir="${junit.output.dir}">
+                    <fileset dir="${src}/com/bgu/assignment3/tests">
+                            <include name="**/*Test*.java"/>
+                    </fileset>
+            </batchtest>
+        </junit>
+</target>
 </project>
