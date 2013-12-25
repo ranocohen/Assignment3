@@ -2,6 +2,7 @@ package com.bgu.assignment3.passives;
 
 import java.util.Collections;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -46,11 +47,14 @@ public class Staff {
 	public int chefCount() {
 		return chefs.size();
 	}
-	public void executeChefs() {
+	public int deliveryCount() {
+		return deliveryPersons.size();
+	}
+	public void executeChefs(BlockingQueue<Order> readyOrders) {
 		for(RunnableChef chef : chefs) 
 		{
 			Logger.getLogger(Management.class).info("Chef "+ chef.getName() +  " has started to run");
-			chef.init();
+			chef.init(readyOrders);
 			Thread t = new Thread(chef);
 			t.start();
 		}

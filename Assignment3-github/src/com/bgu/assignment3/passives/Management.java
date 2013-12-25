@@ -1,5 +1,7 @@
 package com.bgu.assignment3.passives;
 
+import java.util.concurrent.ArrayBlockingQueue;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +23,7 @@ public class Management {
 
 	private Orders orders;
 	private Menu menu;
-
+	private ArrayBlockingQueue<Order> readyOrders;
 	
 	public Management() {
 		
@@ -36,23 +38,25 @@ public class Management {
 	}
 
 	public void simulate() {
+		readyOrders = new ArrayBlockingQueue<Order>(staff.deliveryCount());
 		// first we calculate the difficulties
 		orders.calcDifficulty(menu);
 		staff.sortChefs();
-		staff.executeChefs();
+		staff.executeChefs(readyOrders);
 		
 		boolean shouldRun = true;
 		Logger.getLogger(Management.class).info("Managment starting to look for chefs");
 		int shouldWait = 0;
 		while (shouldRun) {
-			Order nextOrder = orders.getNextOrder();
-			Logger.getLogger(Management.class).info("Looking for chef to cook "+nextOrder.getId());
-			
 			if(!orders.hasOrders())
 			{
 				shouldRun = false;
 				continue;
 			}
+			Order nextOrder = orders.getNextOrder();
+			Logger.getLogger(Management.class).info("Looking for chef to cook "+nextOrder.getId());
+			
+	
 			RunnableChef approvingChef = staff.getApprovingChef(nextOrder);
 			if(approvingChef != null) {
 				cookDish(nextOrder , approvingChef);
@@ -62,7 +66,19 @@ public class Management {
 				shouldWait = 0;
 			
 			if(shouldWait >= staff.chefCount()) {
-				//TODO wait somehow
+				try {
+					synchronized (readyOrders) {
+						readyOrders.wait();
+						if(readyOrders.size() > 0)
+							Logger.getLogger(Management.class).info(readyOrders.take().getId() + " is ready for delivery");	
+					}
+					
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// if we got notified then 1 chef finished
+				
 			}
 				
 		}

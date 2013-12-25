@@ -3,6 +3,7 @@ package com.bgu.assignment3.actions;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -52,6 +53,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private Semaphore semaphore;
 
 	private Warehouse warehouse;
+
+	private BlockingQueue<Order> readyOrders;
 
 	public void run() {
 		while (!shutDown) {
@@ -156,6 +159,11 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				try {
 					
 					ready = current.get();
+					synchronized (readyOrders) {
+						readyOrders.put(ready);
+						readyOrders.notifyAll();	
+					}
+					
 					System.out.println(ready.getId() + " IS READY");
 					decreasePressure(ready.getDifficulty());
 					ready = null;
@@ -179,7 +187,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 		
 	}
 
-	public void init() {
+	public void init(BlockingQueue<Order> readyOrders) {
+		this.readyOrders = readyOrders;
 		this.semaphore = new Semaphore(0);
 	}
 }
