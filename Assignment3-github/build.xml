@@ -54,9 +54,13 @@
 		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
 		<antcall target="build" />
 	</target>
-	<target name="Driver">
+	<target name="run">
+	    <echo> Running program </echo>
 		<java classname="com.bgu.assignment3.Driver" failonerror="true"
 			fork="yes">
+			<arg value="InitialData.xml" />
+			<arg value="Menu.xml" />
+			<arg value="OrdersList.xml" />
 			<classpath refid="Assignment3-github.classpath" />
 		</java>
 	</target>
@@ -69,5 +73,14 @@
 	<target name="compile">
 		<mkdir dir="build/classes" />
 		<javac srcdir="src" destdir="build/classes" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/Main.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="com.bgu.assignment3.Driver" />
+			</manifest>
+		</jar>
 	</target>
 </project>
