@@ -11,12 +11,12 @@ public class RunnableDeliveryPerson implements Runnable{
 	private double speed;
 	
 	
-	String address;
+/*	String address;
 	private ArrayBlockingQueue<Integer> deliveryQueue;
-	
-	public RunnableDeliveryPerson(ArrayBlockingQueue<Integer> delQueue,String addr) {
-		this.deliveryQueue = delQueue;
-		this.address = addr;
+	*/
+	public RunnableDeliveryPerson(/*ArrayBlockingQueue<Integer> delQueue,String addr*/) {
+/*		this.deliveryQueue = delQueue;
+		this.address = addr;*/
 	}
 
 
