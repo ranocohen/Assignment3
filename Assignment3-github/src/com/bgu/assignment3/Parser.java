@@ -34,7 +34,6 @@ public class Parser {
 	}
 	public static Menu parseMenu(String fileName) {
 		 try {
-			 
 				File file = new File("Menu.xml");
 				JAXBContext jaxbContext = JAXBContext.newInstance(Menu.class);
 		 

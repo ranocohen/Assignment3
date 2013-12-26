@@ -1,7 +1,15 @@
 package com.bgu.assignment3.passives;
 
+<<<<<<< HEAD
 import java.util.Iterator;
 import java.util.concurrent.ArrayBlockingQueue;
+=======
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+>>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,7 +30,12 @@ public class Management {
 
 	private Orders orders;
 	private Menu menu;
+<<<<<<< HEAD
 	private ArrayBlockingQueue<Order> readyOrders;
+=======
+	private ArrayBlockingQueue<Integer> OrdersForDelivery;
+
+>>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
 	
 	
 	private boolean allOrdersDelivered; 

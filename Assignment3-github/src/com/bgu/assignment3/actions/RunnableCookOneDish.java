@@ -41,6 +41,8 @@ public class RunnableCookOneDish implements Runnable {
 		long endCook = System.currentTimeMillis();
 		long TotalActualCookTime = endCook - startCook;
 		
+		System.out.println(TotalActualCookTime);
+		
 		latch.countDown();
 		
 		
