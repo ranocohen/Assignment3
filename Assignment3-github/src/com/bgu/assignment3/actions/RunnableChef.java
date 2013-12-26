@@ -66,17 +66,10 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				e.printStackTrace();
 			}
 			cookOrder();
+			
 			fetchOrder();
 		}
 	}
-
-	/*
-	 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
-	 * " running");
-	 */
-
-	// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
-	// +" started working");
 
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
@@ -113,10 +106,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			increasePressure(order.getDifficulty());
 			this.ordersToCook.add(order);
 		}
-
-		
 		this.warehouse = wh;
-		System.out.println("Sending order from managment");
 		semaphore.release();
 	}
 
@@ -150,7 +140,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public synchronized void fetchOrder() {
-		System.out.println("FETCHING ORDER " + ordersInProgress.size() );
+		
 		Iterator<Future<Order>> it2 = ordersInProgress.iterator();
 		while (it2.hasNext()) {
 			Future<Order> current = it2.next();
@@ -160,11 +150,12 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 					
 					ready = current.get();
 					synchronized (readyOrders) {
+						Logger.getLogger(Management.class).info(ready.getId() +" is ready , notifying managment");
 						readyOrders.put(ready);
 						readyOrders.notifyAll();	
 					}
 					
-					System.out.println(ready.getId() + " IS READY");
+					
 					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();

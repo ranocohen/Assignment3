@@ -16,10 +16,10 @@ public class Driver {
 	private static Logger log = Logger.getLogger(Driver.class);
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
-		Management management = Parser.parseInitialData("InitialData.xml");
+		Management management = Parser.parseInitialData("InitialData2.xml");
 
-		management.addMenu(Parser.parseMenu("Menu.xml"));
-		management.addOrders(Parser.parseOrdersList("OrdersList.xml"));
+		management.addMenu(Parser.parseMenu("Menu2.xml"));
+		management.addOrders(Parser.parseOrdersList("OrdersList2.xml"));
 		management.simulate();
 
 		//log4j , notice the log4j.properties file inside bin dir in the project 
@@ -31,10 +31,6 @@ public class Driver {
 		log.warn("Warn");
 		log.error("Error");
 		log.fatal("Fatal");
-
-
-
-
 
 	}
 

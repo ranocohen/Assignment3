@@ -1,13 +1,12 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Iterator;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
-
-import com.bgu.assignment3.actions.RunnableChef;
 
 @XmlRootElement(name = "Restaurant")
 public class Management {
@@ -25,8 +24,11 @@ public class Management {
 	private Menu menu;
 	private ArrayBlockingQueue<Order> readyOrders;
 	
+	
+	private boolean allOrdersDelivered; 
+	private int deliveredCount;
 	public Management() {
-		
+
 	}
 
 	public void addOrders(Orders orders) {
@@ -43,51 +45,47 @@ public class Management {
 		orders.calcDifficulty(menu);
 		staff.sortChefs();
 		staff.executeChefs(readyOrders);
-		
+
 		boolean shouldRun = true;
-		Logger.getLogger(Management.class).info("Managment starting to look for chefs");
-		int shouldWait = 0;
-		while (shouldRun) {
-			if(!orders.hasOrders())
-			{
-				shouldRun = false;
-				continue;
-			}
-			Order nextOrder = orders.getNextOrder();
-			Logger.getLogger(Management.class).info("Looking for chef to cook "+nextOrder.getId());
-			
 	
-			RunnableChef approvingChef = staff.getApprovingChef(nextOrder);
-			if(approvingChef != null) {
-				cookDish(nextOrder , approvingChef);
-				shouldWait++;
-			}
-			else
-				shouldWait = 0;
+		
+		while (orders.hasOrders() || !allOrdersDelivered) {
 			
-			if(shouldWait >= staff.chefCount()) {
-				try {
-					synchronized (readyOrders) {
-						readyOrders.wait();
-						if(readyOrders.size() > 0)
-							Logger.getLogger(Management.class).info(readyOrders.take().getId() + " is ready for delivery");	
+			
+			  if(!orders.deployOrder(staff, warehouse))
+			  {
+				  
+					Logger.getLogger(Management.class).info(
+							"All chefs are busy , managment is waiting");
+					try {
+						synchronized (readyOrders) {
+							readyOrders.wait();
+						}
+						
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+			  }
+				if(readyOrders.size() > 0 ) {
 					
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Iterator<Order> it = readyOrders.iterator();
+					while(it.hasNext())
+					{
+						Logger.getLogger(Management.class).info(
+							"Delvering " +	it.next().getId());
+						it.remove();
+						
+					}
 				}
-				// if we got notified then 1 chef finished
 				
-			}
-				
+			
 		}
+							
+	
 	}
 
-	private void cookDish(Order order, RunnableChef approvingChef) {
-		System.out.println("COOK");
-		approvingChef.acceptOrder(order, warehouse);
-		orders.removeOrder(order);
-	}
+
+	
 
 }
