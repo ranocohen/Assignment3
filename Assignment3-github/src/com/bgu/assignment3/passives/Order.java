@@ -37,7 +37,11 @@ public class Order {
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
 	
-	
+	public int calcDistance(Address src) {
+		
+		return 1;
+	}
+
 
 	public void calcOrderDifficulty(Menu m) {
 		for (int i = 0; i < dishes.size(); i++){

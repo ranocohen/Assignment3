@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
-
 	double x;
 	double y;
 }
