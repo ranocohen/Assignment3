@@ -46,6 +46,8 @@ public class Management {
 
 	public void simulate() {
 		
+		Statistics.StatisticsClass statistics = new Statistics.StatisticsClass();
+		
 		long startProg = System.currentTimeMillis();
 		
 		readyOrders = new ArrayBlockingQueue<Order>(staff.deliveryCount());

@@ -10,6 +10,7 @@ import com.bgu.assignment3.passives.Ingredient;
 import com.bgu.assignment3.passives.KitchenTool;
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.OrderOfDish;
+import com.bgu.assignment3.passives.Statistics;
 import com.bgu.assignment3.passives.Warehouse;
 
 public class RunnableCookOneDish implements Runnable {
@@ -25,8 +26,8 @@ public class RunnableCookOneDish implements Runnable {
 		long startCook = System.currentTimeMillis();
 		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
 		
-		//getNeededIngredientsFromWarehouse();
-		//getNeededKitchenToolsFromWarehouse();
+		getNeededIngredientsFromWarehouse();
+		getNeededKitchenToolsFromWarehouse();
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
@@ -67,6 +68,7 @@ public class RunnableCookOneDish implements Runnable {
 		for (Ingredient current : ingredients) {
 			warehouseRef.takeIngredient(current.getName(),
 					current.getQuantity());
+			Statistics.StatisticsClass.addIngredientToStatistic(current);
 		}
 	}
 
