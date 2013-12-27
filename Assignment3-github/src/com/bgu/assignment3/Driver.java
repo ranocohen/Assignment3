@@ -16,19 +16,13 @@ public class Driver {
 	private static Logger log = Logger.getLogger(Driver.class);
 	public static void main(String[] args) {
 		System.out.println("Assignment 3");
-<<<<<<< HEAD
-		Management management = Parser.parseInitialData("InitialData2.xml");
-=======
-		Management management = Parser.parseInitialData(args[0]);
->>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
 
-<<<<<<< HEAD
-		management.addMenu(Parser.parseMenu("Menu2.xml"));
-		management.addOrders(Parser.parseOrdersList("OrdersList2.xml"));
-=======
+		
+
+		Management management = Parser.parseInitialData(args[0]);
 		management.addMenu(Parser.parseMenu(args[1]));
 		management.addOrders(Parser.parseOrdersList(args[2]));
->>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
+
 		management.simulate();
 
 		//log4j , notice the log4j.properties file inside bin dir in the project 
