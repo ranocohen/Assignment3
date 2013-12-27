@@ -9,18 +9,21 @@ public class Statistics {
 		
 		public StatisticsClass() {
 			consumedIngredients = new ArrayList<Ingredient>();
+			deliveredOrders = new ArrayList<Order>();
 		}
 		
-		private ArrayList<Order> deliveredOrders;
+		private static ArrayList<Order> deliveredOrders;
 		private static ArrayList<Ingredient> consumedIngredients;
 		
 		public static void addIngredientToStatistic(Ingredient ing) {
 			consumedIngredients.add(ing);
 		}
 		
-		public void addDeliveredOrderToStatistics(Order o) {
-			this.deliveredOrders.add(o);
+		public static void addDeliveredOrderToStatistics(Order o) {
+			deliveredOrders.add(o);
 		}
+		
+		
 	}
 
 }
