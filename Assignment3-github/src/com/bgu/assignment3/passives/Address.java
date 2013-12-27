@@ -14,4 +14,15 @@ public class Address {
 	}
 	double x;
 	double y;
+	
+	/**
+	 * 
+	 * @return the distance(Euclidean) from other address
+	 */
+	public int distanceFrom(Address other) { 
+		double deltaX = this.x - other.x;
+		double deltaY = this.y - other.y;
+		
+		return (int) Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+	}
 }

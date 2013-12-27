@@ -4,7 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import com.bgu.assignment3.passives.Order;
+import com.bgu.assignment3.passives.Address;
 
 public class RunnableDeliveryPerson implements Runnable{
 	@XmlElement(name="name")
@@ -12,12 +12,12 @@ public class RunnableDeliveryPerson implements Runnable{
 	@XmlElement(name="speed")
 	private double speed;
 	
-	
+	private Address resturantAddress;
 	String address;
 	private ArrayBlockingQueue<Integer> deliveryQueue;
 	
-	public RunnableDeliveryPerson() {
-		
+	public RunnableDeliveryPerson(Address resturantAddress ) {
+		this.resturantAddress = resturantAddress;
 	}
 	
 	public RunnableDeliveryPerson(ArrayBlockingQueue<Integer> delQueue,String addr) {
@@ -28,5 +28,5 @@ public class RunnableDeliveryPerson implements Runnable{
 	public void run() {
 		
 	}
-
+	
 }
