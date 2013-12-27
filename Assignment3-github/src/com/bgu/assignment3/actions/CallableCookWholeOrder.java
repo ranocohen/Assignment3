@@ -50,7 +50,6 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		threadPool.shutdown();
 		// wait for all threads to finish
 		try {
-			
 			latch.await();
 		} catch (InterruptedException E) {
 

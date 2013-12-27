@@ -1,7 +1,10 @@
 package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.Semaphore;
 
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -42,7 +45,7 @@ public class Dish {
 	public ArrayList<KitchenTool> getKitchenTools() {
 		return kitchenTools;
 	}
-
+	
 	@XmlElement(name = "difficultyRating")
 	private int difficulty;
 	@XmlElement(name = "reward")
@@ -65,5 +68,7 @@ public class Dish {
 				+ "kitchen tools=" + kt + "\n" + "ingredients  =" + ing + "\n";
 
 	}
-	
+	void afterUnmarshal(Unmarshaller u, Object parent) {
+		Collections.sort(this.kitchenTools);
+	}
 }

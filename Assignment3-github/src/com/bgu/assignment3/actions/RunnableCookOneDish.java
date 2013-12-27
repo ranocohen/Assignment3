@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.passives.Ingredient;
 import com.bgu.assignment3.passives.KitchenTool;
+import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.OrderOfDish;
 import com.bgu.assignment3.passives.Warehouse;
 
@@ -29,8 +30,8 @@ public class RunnableCookOneDish implements Runnable {
 		
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
-		Thread.sleep(timeToSleep);
-		//	Thread.sleep(100);
+		//Thread.sleep(timeToSleep);
+		Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +42,7 @@ public class RunnableCookOneDish implements Runnable {
 		long endCook = System.currentTimeMillis();
 		long TotalActualCookTime = endCook - startCook;
 		
-		System.out.println(TotalActualCookTime);
+		Logger.getLogger(Management.class).info(orderOfDishToCook.getDishName() + " cooked in " + TotalActualCookTime);;
 		
 		latch.countDown();
 		

@@ -62,7 +62,7 @@ public class Warehouse implements WarehouseActions {
 	 */
 	public void returnKitchenTool(String name, int quantity) {
 		for (int i = 0; i < kitchenTools.size(); i++) {
-			if(kitchenTools.get(i).getName() == name) {
+			if(kitchenTools.get(i).getName().equals(name)) {
 				kitchenTools.get(i).returnKitchenTool(quantity);
 			}
 		}

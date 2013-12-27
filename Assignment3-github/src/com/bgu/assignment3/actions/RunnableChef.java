@@ -116,8 +116,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			Iterator<Order> it = ordersToCook.iterator();
 			while (it.hasNext()) {
 				Order current = it.next();
-				System.out.println("Sending order " + current.getId()
-						+ " to ccwd");
+
+				Logger.getLogger(Management.class).info("Sending "+current.toString() +" to ccwd");
+				
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
 				Future<Order> result = executor.submit(ccwo);

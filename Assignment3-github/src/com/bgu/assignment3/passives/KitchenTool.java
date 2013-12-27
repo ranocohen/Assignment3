@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+import org.apache.log4j.Logger;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class KitchenTool implements Comparable<KitchenTool>   {
 
@@ -34,17 +36,22 @@ public class KitchenTool implements Comparable<KitchenTool>   {
 	
 	public void takeKitchenTool(int quantity) {
 		try {
+			Logger.getLogger(Management.class).info(
+					"trying to take "+quantity +" " + name);
 			semaphore.acquire(quantity);
+			Logger.getLogger(Management.class).info(
+					"took "+quantity +" " + name);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(quantity+ "" +this.name+" was taken"); //TODO replace with logger
+		
 	}
 	
 	public void returnKitchenTool(int quantity) {
+		Logger.getLogger(Management.class).info(
+				"releasing "+quantity +" " + name);
 		semaphore.release(quantity);
-		System.out.println(quantity+ "" +this.name+" was return"); //TODO replace with logger
 	}
 
 

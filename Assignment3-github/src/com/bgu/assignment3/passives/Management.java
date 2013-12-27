@@ -50,11 +50,9 @@ public class Management {
 		orders.calcDifficulty(menu);
 		staff.sortChefs();
 		staff.executeChefs(readyOrders);
-
-		boolean shouldRun = true;
 	
 		
-		while (orders.hasOrders() || !allOrdersDelivered) {
+		while (orders.hasOrders() && !allOrdersDelivered) {
 			
 			
 			  if(!orders.deployOrder(staff, warehouse))
@@ -78,7 +76,7 @@ public class Management {
 					while(it.hasNext())
 					{
 						Logger.getLogger(Management.class).info(
-							"Delvering " +	it.next().getId());
+							"Delvering " +	it.next().toString());
 						it.remove();
 						
 					}

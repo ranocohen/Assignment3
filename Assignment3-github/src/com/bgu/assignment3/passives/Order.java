@@ -55,7 +55,16 @@ public class Order {
 		
 		return dishesCount;
 	}
-	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[ Order  ")
+		.append("id = "+getId() +" ]");
+		
+		
+		return builder.toString();
+		
+	}
 	public Vector<OrderOfDish> getDishes() {
 		return dishes;
 	}
