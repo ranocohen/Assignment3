@@ -48,7 +48,6 @@ public class Management {
 		readyOrders = new ArrayBlockingQueue<Order>(staff.deliveryCount());
 		// first we calculate the difficulties
 		orders.calcDifficulty(menu);
-		
 		staff.sortChefs();
 		staff.executeChefs(readyOrders);
 
