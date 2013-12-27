@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 
+import org.apache.log4j.Logger;
+
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.OrderOfDish;
 import com.bgu.assignment3.passives.Warehouse;
@@ -36,7 +38,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	public Order call() throws Exception {
 		long cookStart = System.currentTimeMillis();
 		// TODO add chef's name
-		// Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
+		Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
 		for (OrderOfDish ood : order.getDishes()) {
 			for (int j = 0; j < ood.getQuantity(); j++) {
 				orderExcpectedCookTime += ood.getDish().getCookTime()
@@ -50,16 +52,20 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		threadPool.shutdown();
 		// wait for all threads to finish
 		try {
+			
+			
 			latch.await();
+			Logger.getLogger(CallableCookWholeOrder.class).trace("latch finished");
 		} catch (InterruptedException E) {
 
 		}
 
 		semaphore.release();
-		// Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order");
+		
 		long cookEnd = System.currentTimeMillis();
 
 		actualCookTime = cookEnd - cookStart;
+		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order in "+actualCookTime);
 		return order;
 	}
 
