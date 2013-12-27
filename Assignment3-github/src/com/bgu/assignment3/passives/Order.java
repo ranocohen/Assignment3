@@ -58,8 +58,11 @@ public class Order {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("[ Order  ")
-		.append("id = "+getId() +" ]");
+		builder.append("[ Order ] ")
+		.append("id = "+getId() +" \n ");
+		
+		for(OrderOfDish ood : dishes) 
+			builder.append(ood.getDishName() + " " + ood.getQuantity()+ "\n ");
 		
 		
 		return builder.toString();
