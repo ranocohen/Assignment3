@@ -2,6 +2,7 @@ package com.bgu.assignment3.passives;
 
 import java.util.Collections;
 import java.util.Vector;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 
@@ -57,6 +58,17 @@ public class Staff {
 			Logger.getLogger(Management.class).info("Chef "+ chef.getName() +  " has started to run");
 			chef.init(readyOrders);
 			Thread t = new Thread(chef);
+			t.start();
+		}
+			
+		
+	}
+	public void executeDeliveryPersons(ArrayBlockingQueue<Order> deliveryQueue, Address resturantAddress) {
+		for(RunnableDeliveryPerson dp : deliveryPersons) 
+		{
+			dp.init(deliveryQueue, resturantAddress);
+			Logger.getLogger(Management.class).info("DeliveryPerson "+ dp.toString() +  " has started to run");
+			Thread t = new Thread(dp);
 			t.start();
 		}
 			
