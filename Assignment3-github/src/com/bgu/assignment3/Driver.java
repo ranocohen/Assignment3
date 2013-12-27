@@ -28,12 +28,12 @@ public class Driver {
 		//log4j , notice the log4j.properties file inside bin dir in the project 
 
 		log.setLevel(Level.FATAL);
-		log.trace("Trace");
+/*		log.trace("Trace");
 		log.debug("Debug");
 		log.info("Info");
 		log.warn("Warn");
 		log.error("Error");
-		log.fatal("Fatal");
+		log.fatal("Fatal");*/
 
 	}
 

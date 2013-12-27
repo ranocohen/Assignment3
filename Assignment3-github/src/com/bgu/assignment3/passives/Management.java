@@ -45,6 +45,9 @@ public class Management {
 	}
 
 	public void simulate() {
+		
+		long startProg = System.currentTimeMillis();
+		
 		readyOrders = new ArrayBlockingQueue<Order>(staff.deliveryCount());
 		// first we calculate the difficulties
 		orders.calcDifficulty(menu);
@@ -86,6 +89,11 @@ public class Management {
 		}
 							
 	
+		long endProg = System.currentTimeMillis();
+		
+		long TotalActualCookTime = endProg - startProg;
+		
+		Logger.getLogger(Management.class).info("Program runtime:" + TotalActualCookTime);;
 	}
 
 
