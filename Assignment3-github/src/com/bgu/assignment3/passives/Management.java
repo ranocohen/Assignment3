@@ -51,7 +51,7 @@ public class Management {
 		staff.sortChefs();
 		staff.executeChefs(readyOrders);
 	
-		
+		synchronized (readyOrders) {
 		while (orders.hasOrders() && !allOrdersDelivered) {
 			
 			
@@ -61,15 +61,15 @@ public class Management {
 					Logger.getLogger(Management.class).info(
 							"All chefs are busy , managment is waiting");
 					try {
-						synchronized (readyOrders) {
 							readyOrders.wait();
-						}
+						
 						
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			  }
+		}
 				if(readyOrders.size() > 0 ) {
 					
 					Iterator<Order> it = readyOrders.iterator();
