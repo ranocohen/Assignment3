@@ -32,32 +32,32 @@ public class Orders {
 		iterator = orders.iterator();
 		if (iterator.hasNext())
 			return iterator.next();
-		// TODO catch null 
+		// TODO catch null
 		return null;
 	}
-	
-	public boolean deployOrder(Staff staff , Warehouse wh) {
+
+	public boolean deployOrder(Staff staff, Warehouse wh) {
 		Logger.getLogger(Management.class).info(
 				"Managment starting to look for chefs");
 		boolean foundChef = false;
 		iterator = orders.iterator();
 		while (iterator.hasNext()) {
 			Order current = iterator.next();
-			Logger.getLogger(Management.class).info("Looking for chef to cook " + current.getId());
-			RunnableChef acceptingChef = staff.getApprovingChef(current);
-			if(acceptingChef != null)
-			{
-				foundChef = true;
-				acceptingChef.acceptOrder(current, wh);
-				synchronized (orders) {
-					iterator.remove();
+			if (current.isInComplete()) {
+
+				Logger.getLogger(Management.class).info(
+						"Looking for chef to cook " + current.getId());
+				RunnableChef acceptingChef = staff.getApprovingChef(current);
+				if (acceptingChef != null) {
+					foundChef = true;
+					acceptingChef.acceptOrder(current, wh);
+
 				}
 			}
 		}
 		return foundChef;
-		
-	}
 
+	}
 
 	/**
 	 * Calculates orders difficulty , and updates the dish inside each order
@@ -67,7 +67,7 @@ public class Orders {
 	 */
 	public void calcDifficulty(Menu menu) {
 		for (Order order : orders) {
-			order.calcOrderDifficulty(menu);
+			order.init(menu);
 		}
 	}
 
@@ -78,4 +78,6 @@ public class Orders {
 	public void removeOrder(Order order) {
 		orders.remove(order);
 	}
+
+	
 }

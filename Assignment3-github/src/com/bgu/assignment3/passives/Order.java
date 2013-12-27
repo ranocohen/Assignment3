@@ -37,6 +37,7 @@ public class Order {
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
 	
+<<<<<<< HEAD
 	public int calcDistance(Address src) {
 		int distance = 0;
 		
@@ -49,6 +50,13 @@ public class Order {
 	}
 
 
+=======
+	
+	public void init(Menu m) {
+		calcOrderDifficulty(m);
+		this.status = Status.INCOMPLETE;
+	}
+>>>>>>> branch 'master' of https://github.com/ranocohen/Assignment3.git
 	public void calcOrderDifficulty(Menu m) {
 		for (int i = 0; i < dishes.size(); i++){
 			Dish dish = m.getDishByName(dishes.get(i).getDishName());
@@ -80,5 +88,11 @@ public class Order {
 	}
 	public Vector<OrderOfDish> getDishes() {
 		return dishes;
+	}
+	public void setIsInProgress() {
+		this.status = Status.IN_PROGRESS;
+	}
+	public boolean isInComplete() {
+		return status == Status.INCOMPLETE;
 	}
 }
