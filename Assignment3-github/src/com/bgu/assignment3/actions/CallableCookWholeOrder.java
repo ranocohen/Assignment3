@@ -39,7 +39,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	public Order call() throws Exception {
 		long cookStart = System.currentTimeMillis();
 		// TODO add chef's name
-		Logger.getLogger(CallableCookWholeOrder.class).trace("started cooking whole order");
+		Logger.getLogger(Management.class).trace("started cooking whole order");
 		for (OrderOfDish ood : order.getDishes()) {
 			for (int j = 0; j < ood.getQuantity(); j++) {
 				orderExcpectedCookTime += ood.getDish().getCookTime()
@@ -53,9 +53,9 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		threadPool.shutdown();
 		// wait for all threads to finish
 		try {
-			Logger.getLogger(Management.class).info(" b4 latch ");
+			Logger.getLogger(Management.class).trace(" b4 latch ");
 			latch.await();
-			Logger.getLogger(Management.class).info("latch finished");
+			Logger.getLogger(Management.class).trace("latch finished");
 		} catch (InterruptedException E) {
 
 		}
