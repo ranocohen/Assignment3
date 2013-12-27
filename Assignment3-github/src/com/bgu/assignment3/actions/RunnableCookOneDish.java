@@ -30,7 +30,7 @@ public class RunnableCookOneDish implements Runnable {
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
 		Thread.sleep(timeToSleep);
-			//Thread.sleep(100);
+		//	Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

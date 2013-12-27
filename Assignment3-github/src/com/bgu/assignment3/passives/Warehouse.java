@@ -1,6 +1,7 @@
 package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -22,8 +23,17 @@ public class Warehouse implements WarehouseActions {
 	@XmlElement(name = "KitchenTool")
 	private ArrayList<KitchenTool> kitchenTools;
 
+
 	public Warehouse() {
 
+	}
+	
+	/**
+	 * sort the warehouse kitchen tools and ingredients in ordder to help avoid deadlock (preserves order)
+	 */
+	public void sortWarehouse() {
+		Collections.sort(kitchenTools);
+		Collections.sort(ingredients);
 	}
 
 	/**
@@ -36,7 +46,7 @@ public class Warehouse implements WarehouseActions {
 	 */
 	public void takeKitchenTool(String name, int quantity) {
 		for (int i = 0; i < kitchenTools.size(); i++) {
-			if(kitchenTools.get(i).getName() == name) {
+			if(kitchenTools.get(i).getName().equals(name)) {
 				kitchenTools.get(i).takeKitchenTool(quantity);
 			}
 		}
@@ -107,7 +117,7 @@ public class Warehouse implements WarehouseActions {
 	 */
 	public void takeIngredient(String name, int quantity) {
 		for (int i = 0; i < ingredients.size(); i++) {
-			if(ingredients.get(i).getName() == name) {
+			if(ingredients.get(i).getName().equals(name)) {
 				ingredients.get(i).CunsumeIngredient(quantity);
 			}
 		}

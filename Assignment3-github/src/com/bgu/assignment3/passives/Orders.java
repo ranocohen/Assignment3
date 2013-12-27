@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.apache.log4j.Logger;
+
+import com.bgu.assignment3.actions.RunnableChef;
+
 @XmlRootElement(name = "OrderList")
 public class Orders {
 
@@ -31,8 +35,29 @@ public class Orders {
 		// TODO catch null 
 		return null;
 	}
-
 	
+	public boolean deployOrder(Staff staff , Warehouse wh) {
+		Logger.getLogger(Management.class).info(
+				"Managment starting to look for chefs");
+		boolean foundChef = false;
+		iterator = orders.iterator();
+		while (iterator.hasNext()) {
+			Order current = iterator.next();
+			Logger.getLogger(Management.class).info("Looking for chef to cook " + current.getId());
+			RunnableChef acceptingChef = staff.getApprovingChef(current);
+			if(acceptingChef != null)
+			{
+				foundChef = true;
+				acceptingChef.acceptOrder(current, wh);
+				synchronized (orders) {
+					iterator.remove();
+				}
+			}
+		}
+		return foundChef;
+		
+	}
+
 
 	/**
 	 * Calculates orders difficulty , and updates the dish inside each order

@@ -3,6 +3,7 @@ package com.bgu.assignment3.actions;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,6 +54,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	private Warehouse warehouse;
 
+	private BlockingQueue<Order> readyOrders;
+
 	public void run() {
 		while (!shutDown) {
 			try {
@@ -63,17 +66,10 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				e.printStackTrace();
 			}
 			cookOrder();
+			
 			fetchOrder();
 		}
 	}
-
-	/*
-	 * Logger.getLogger(RunnableChef.class).trace( "chef" + getName() +
-	 * " running");
-	 */
-
-	// Logger.getLogger(RunnableChef.class).trace("chef" + getName()
-	// +" started working");
 
 	/**
 	 * Accepts order only if orderDifficulty < endurace - pressure
@@ -110,10 +106,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			increasePressure(order.getDifficulty());
 			this.ordersToCook.add(order);
 		}
-
-		
 		this.warehouse = wh;
-		System.out.println("Sending order from managment");
 		semaphore.release();
 	}
 
@@ -147,7 +140,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public synchronized void fetchOrder() {
-		System.out.println("FETCHING ORDER " + ordersInProgress.size() );
+		
 		Iterator<Future<Order>> it2 = ordersInProgress.iterator();
 		while (it2.hasNext()) {
 			Future<Order> current = it2.next();
@@ -156,7 +149,13 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				try {
 					
 					ready = current.get();
-					System.out.println(ready.getId() + " IS READY");
+					synchronized (readyOrders) {
+						Logger.getLogger(Management.class).info(ready.getId() +" is ready , notifying managment");
+						readyOrders.put(ready);
+						readyOrders.notifyAll();	
+					}
+					
+					
 					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();
@@ -179,7 +178,8 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 		
 	}
 
-	public void init() {
+	public void init(BlockingQueue<Order> readyOrders) {
+		this.readyOrders = readyOrders;
 		this.semaphore = new Semaphore(0);
 	}
 }
