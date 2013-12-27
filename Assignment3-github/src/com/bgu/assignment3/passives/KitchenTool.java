@@ -36,12 +36,12 @@ public class KitchenTool implements Comparable<KitchenTool>   {
 	
 	public void takeKitchenTool(int quantity) {
 		try {
-			Logger.getLogger(Management.class).info(Thread.currentThread().toString()
-					+ " trying to take "+quantity +" " + name + 
-					" , avaiable : "+semaphore.availablePermits());
+		//	Logger.getLogger(Management.class).info(Thread.currentThread().toString()
+			//		+ " trying to take "+quantity +" " + name + 
+		//			" , avaiable : "+semaphore.availablePermits());
 			semaphore.acquire(quantity);
-			Logger.getLogger(Management.class).info(
-					Thread.currentThread().toString() + " took "+quantity +" " + name);
+	//		Logger.getLogger(Management.class).info(
+	//				Thread.currentThread().toString() + " took "+quantity +" " + name);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,8 +50,8 @@ public class KitchenTool implements Comparable<KitchenTool>   {
 	}
 	
 	public void returnKitchenTool(int quantity) {
-		Logger.getLogger(Management.class).info(
-				Thread.currentThread().toString() + " releasing "+quantity +" " + name);
+	//	Logger.getLogger(Management.class).info(
+	//			Thread.currentThread().toString() + " releasing "+quantity +" " + name);
 		semaphore.release(quantity);
 	}
 

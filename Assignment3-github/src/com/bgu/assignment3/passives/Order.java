@@ -38,7 +38,10 @@ public class Order {
 	private Vector<OrderOfDish> dishes;
 	
 	
-
+	public void init(Menu m) {
+		calcOrderDifficulty(m);
+		this.status = Status.INCOMPLETE;
+	}
 	public void calcOrderDifficulty(Menu m) {
 		for (int i = 0; i < dishes.size(); i++){
 			Dish dish = m.getDishByName(dishes.get(i).getDishName());
@@ -70,5 +73,11 @@ public class Order {
 	}
 	public Vector<OrderOfDish> getDishes() {
 		return dishes;
+	}
+	public void setIsInProgress() {
+		this.status = Status.IN_PROGRESS;
+	}
+	public boolean isInComplete() {
+		return status == Status.INCOMPLETE;
 	}
 }

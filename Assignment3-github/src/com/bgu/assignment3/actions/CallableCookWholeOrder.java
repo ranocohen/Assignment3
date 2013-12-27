@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.OrderOfDish;
 import com.bgu.assignment3.passives.Warehouse;
@@ -52,20 +53,20 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		threadPool.shutdown();
 		// wait for all threads to finish
 		try {
-			
-			
+			Logger.getLogger(Management.class).info(" b4 latch ");
 			latch.await();
-			Logger.getLogger(CallableCookWholeOrder.class).trace("latch finished");
+			Logger.getLogger(Management.class).info("latch finished");
 		} catch (InterruptedException E) {
 
 		}
 
-		semaphore.release();
+	
 		
 		long cookEnd = System.currentTimeMillis();
 
 		actualCookTime = cookEnd - cookStart;
-		Logger.getLogger(CallableCookWholeOrder.class).trace("finished cooking whole order in "+actualCookTime);
+		Logger.getLogger(Management.class).info("finished cooking whole order in "+actualCookTime);
+		semaphore.release();
 		return order;
 	}
 

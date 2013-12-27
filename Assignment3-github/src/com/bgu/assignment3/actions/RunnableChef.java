@@ -59,14 +59,14 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	public void run() {
 		while (!shutDown) {
 			try {
-				semaphore.acquire();
-
+			 semaphore.acquire();
+			
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			 e.printStackTrace();
 			}
 			cookOrder();
-			
+
 			fetchOrder();
 		}
 	}
@@ -79,16 +79,18 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	 * @return true if this chef accepts an order with given orderDifficulty
 	 */
 	public boolean acceptingOrder(double orderDifficulty) {
-		Logger.getLogger(Management.class).info("Chef "+getName() + " checking for approval " +
-	"OrderDiff = " +orderDifficulty 
-	+" endurae = " + endurance
-	+" pressure = " + pressure);
+		Logger.getLogger(Management.class).info(
+				"Chef " + getName() + " checking for approval "
+						+ "OrderDiff = " + orderDifficulty + " endurae = "
+						+ endurance + " pressure = " + pressure);
 
 		if (orderDifficulty <= endurance - pressure) {
-			Logger.getLogger(Management.class).info(this.getName() + " accepting order");
+			Logger.getLogger(Management.class).info(
+					this.getName() + " accepting order");
 			return true;
-		}	
-		Logger.getLogger(Management.class).info(this.getName() + " deinided order");
+		}
+		Logger.getLogger(Management.class).info(
+				this.getName() + " deinided order");
 		return false;
 	}
 
@@ -101,31 +103,29 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public void acceptOrder(Order order, Warehouse wh) {
-		synchronized (ordersToCook) {
-			
-			increasePressure(order.getDifficulty());
-			this.ordersToCook.add(order);
-		}
+		order.setIsInProgress();
+		increasePressure(order.getDifficulty());
+		this.ordersToCook.add(order);
+
 		this.warehouse = wh;
 		semaphore.release();
 	}
 
-	private void cookOrder() {
+	private synchronized void cookOrder() {
 		synchronized (ordersToCook) {
 
 			Iterator<Order> it = ordersToCook.iterator();
 			while (it.hasNext()) {
 				Order current = it.next();
 
-				Logger.getLogger(Management.class).info("Sending "+current.toString() +" to ccwd");
-				
+				Logger.getLogger(Management.class).info(
+						"Sending " + current.toString() + " to ccwd");
+
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
 				Future<Order> result = executor.submit(ccwo);
-				
-				
+
 				ordersInProgress.add(result);
-				result = null;
 				it.remove();
 				// if (ordersToCook.size() == 0)
 				// this.shutDown = true;
@@ -134,33 +134,35 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	private void increasePressure(int difficulty) {
-		
+
 		this.pressure += difficulty;
-		Logger.getLogger(Management.class).info(this.getName() + "increased pressure to " +pressure);
-		
+		Logger.getLogger(Management.class).info(
+				this.getName() + "increased pressure to " + pressure);
+
 	}
 
-	public synchronized void fetchOrder() {
-		
+	public void fetchOrder() {
+
 		Iterator<Future<Order>> it2 = ordersInProgress.iterator();
 		while (it2.hasNext()) {
 			Future<Order> current = it2.next();
 			if (current != null && current.isDone()) {
 				Order ready;
 				try {
-					
+
 					ready = current.get();
 					synchronized (readyOrders) {
-						Logger.getLogger(Management.class).info(ready.getId() +" is ready , notifying managment");
+						Logger.getLogger(Management.class).info(
+								ready.getId()
+										+ " is ready , notifying managment");
 						readyOrders.put(ready);
-						readyOrders.notifyAll();	
+						readyOrders.notifyAll();
 					}
-					
-					
+
 					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();
-					
+
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -175,8 +177,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	private void decreasePressure(int difficulty) {
 		this.pressure -= difficulty;
-		Logger.getLogger(Management.class).info(this.getName() + "decreased pressure to " +pressure);
-		
+		Logger.getLogger(Management.class).info(
+				this.getName() + "decreased pressure to " + pressure);
+
 	}
 
 	public void init(BlockingQueue<Order> readyOrders) {
