@@ -38,8 +38,14 @@ public class Order {
 	private Vector<OrderOfDish> dishes;
 	
 	public int calcDistance(Address src) {
+		int distance = 0;
 		
-		return 1;
+		long dis = Math.round( Math.sqrt(Math.pow(src.x-this.deliveryAddress.getX(), 2) + 
+							 Math.pow(src.x-this.deliveryAddress.getX(), 2)) );
+		
+		distance = (int) dis;
+		
+		return distance;
 	}
 
 
