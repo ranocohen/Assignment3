@@ -55,7 +55,7 @@ public class Management {
 		orders.calcDifficulty(menu);
 		staff.sortChefs();
 		staff.executeChefs(readyOrders);
-	
+		staff.executeDeliveryPersons(readyOrders, address);
 		synchronized (readyOrders) {
 		while (orders.hasOrders() && !allOrdersDelivered) {
 			
@@ -80,10 +80,8 @@ public class Management {
 					Iterator<Order> it = readyOrders.iterator();
 					while(it.hasNext())
 					{
-						Logger.getLogger(Management.class).info(
-							"Delvering " +	it.next().toString());
-						it.remove();
-						
+					//	it.remove();
+
 					}
 				}
 				

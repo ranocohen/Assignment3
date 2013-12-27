@@ -43,7 +43,7 @@ public class RunnableCookOneDish implements Runnable {
 		long endCook = System.currentTimeMillis();
 		long TotalActualCookTime = endCook - startCook;
 		
-		Logger.getLogger(Management.class).info(orderOfDishToCook.getDishName() + 
+		Logger.getLogger(Management.class).trace(orderOfDishToCook.getDishName() + 
 				" cooked in " + TotalActualCookTime +" latch count "+latch.getCount());
 		
 		
