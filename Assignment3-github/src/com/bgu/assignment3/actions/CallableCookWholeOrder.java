@@ -65,6 +65,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		long cookEnd = System.currentTimeMillis();
 
 		actualCookTime = cookEnd - cookStart;
+		order.setActualCookTime(actualCookTime);
 		Logger.getLogger(Management.class).info("finished cooking whole order in "+actualCookTime);
 		semaphore.release();
 		return order;

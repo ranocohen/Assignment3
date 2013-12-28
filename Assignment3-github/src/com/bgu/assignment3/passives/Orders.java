@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.actions.RunnableChef;
+import com.bgu.assignment3.passives.Order.Status;
 
 @XmlRootElement(name = "OrderList")
 public class Orders {
@@ -43,7 +44,7 @@ public class Orders {
 		iterator = orders.iterator();
 		while (iterator.hasNext()) {
 			Order current = iterator.next();
-			if (current.isInComplete()) {
+			if (current.getStatus() == Status.INCOMPLETE) {
 
 				Logger.getLogger(Management.class).info(
 						"Looking for chef to cook " + current.getId());
@@ -71,8 +72,14 @@ public class Orders {
 		}
 	}
 
-	public boolean hasOrders() {
-		return orders.size() != 0;
+	public boolean allDelivered() {
+		boolean allDelivered = true;
+		for(Order current : orders) {
+			if(current.getStatus() != Status.DELIVERED)
+				return false;
+			
+		}
+		return allDelivered;
 	}
 
 	public void removeOrder(Order order) {

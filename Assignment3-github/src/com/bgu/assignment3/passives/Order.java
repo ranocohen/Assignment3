@@ -7,89 +7,145 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+
+import org.apache.log4j.Logger;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Order {
 
-	
-	//magic numbers
-	private enum Status { 
-		INCOMPLETE , IN_PROGRESS , COMPLETE , DELIVERED 
+	// magic numbers
+	public enum Status {
+		INCOMPLETE, IN_PROGRESS, COMPLETE, DELIVERED
 	}
-	
-	@XmlAttribute(name="id")
+
+	@XmlAttribute(name = "id")
 	private long id;
-	
+
 	public long getId() {
 		return id;
 	}
 
 	private int difficulty;
+	private long expectedTime;
+	private long actualCookTime;
+	private long expectedDeliveryTime;
+	private int reward;
+
 	public int getDifficulty() {
 		return difficulty;
 	}
 
 	private Status status;
-	
+
 	@XmlElement(name = "DeliveryAddress")
 	private Address deliveryAddress;
-	
-	@XmlElementWrapper(name="Dishes")
+
+	@XmlElementWrapper(name = "Dishes")
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
-	
+
 	public int calcDistance(Address src) {
 		int distance = 0;
-		
-		long dis = Math.round( Math.sqrt(Math.pow(src.x-this.deliveryAddress.getX(), 2) + 
-							 Math.pow(src.x-this.deliveryAddress.getX(), 2)) );
-		
+
+		long dis = Math.round(Math.sqrt(Math.pow(
+				src.x - this.deliveryAddress.getX(), 2)
+				+ Math.pow(src.x - this.deliveryAddress.getX(), 2)));
+
 		distance = (int) dis;
-		
+		this.expectedDeliveryTime = distance;
 		return distance;
 	}
 
-
-	
 	public void init(Menu m) {
 		calcOrderDifficulty(m);
 		this.status = Status.INCOMPLETE;
 	}
+
 	public void calcOrderDifficulty(Menu m) {
-		for (int i = 0; i < dishes.size(); i++){
+		for (int i = 0; i < dishes.size(); i++) {
 			Dish dish = m.getDishByName(dishes.get(i).getDishName());
 			dishes.get(i).setDish(dish);
 			this.difficulty += dish.getDifficulty();
 		}
-	}
-	
-	public int calculateTotalDishes () {
-		int dishesCount = 0;
-		for(OrderOfDish current : dishes) {
-			dishesCount+= current.getQuantity();
-		}
+		calcReward();
+		calcExpectedTime();
 		
+		
+	}
+
+	private void calcReward() {
+		reward = 0;
+		for (int i = 0; i < dishes.size(); i++) {
+
+			Dish dish = dishes.get(i).getDish();
+			reward+=dish.getReward();
+
+		}
+	}
+
+	private void calcExpectedTime() {
+		expectedTime = 0;
+		for (int i = 0; i < dishes.size(); i++) {
+
+			Dish dish = dishes.get(i).getDish();
+
+			if (i == 0)
+				expectedTime = dish.getCookTime();
+			else if (dish.getCookTime() > expectedTime)
+				expectedTime = dish.getCookTime();
+
+		}
+
+	}
+
+	public int calculateTotalDishes() {
+		int dishesCount = 0;
+		for (OrderOfDish current : dishes) {
+			dishesCount += current.getQuantity();
+		}
+
 		return dishesCount;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("[ Order ] ")
-		.append("id = "+getId() +" \n ");
-		
-		for(OrderOfDish ood : dishes) 
-			builder.append(ood.getDishName() + " " + ood.getQuantity()+ "\n ");
-		
-		
+		builder.append("[ Order ] ").append("id = " + getId() + " \n ");
+
+		for (OrderOfDish ood : dishes)
+			builder.append(ood.getDishName() + " " + ood.getQuantity() + "\n ");
+
 		return builder.toString();
-		
+
 	}
+
 	public Vector<OrderOfDish> getDishes() {
 		return dishes;
 	}
-	public void setIsInProgress() {
-		this.status = Status.IN_PROGRESS;
+
+	public void setStatus(Status newStatus) {
+		this.status = newStatus;
+
 	}
-	public boolean isInComplete() {
-		return status == Status.INCOMPLETE;
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public double calculateReward(long actualDeliveryTime) {
+		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)){
+			Logger.getLogger(Management.class).info(
+				"50% reward");
+			
+			return 0.5 * reward;
+		}
+		Logger.getLogger(Management.class).info(
+				"100% reward");
+		
+		return reward;
+	}
+
+	public void setActualCookTime(long actualCookTime) {
+		this.actualCookTime = actualCookTime;
 	}
 }

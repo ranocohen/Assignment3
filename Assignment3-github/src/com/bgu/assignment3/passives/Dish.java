@@ -26,6 +26,11 @@ public class Dish {
 	@XmlElement(name = "expectedCookTime")
 	private long cookTime;
 	
+	@XmlElement(name = "difficultyRating")
+	private int difficulty;
+	@XmlElement(name = "reward")
+	private int reward;
+	
 	public long getCookTime() {
 		return cookTime;
 	}
@@ -46,10 +51,7 @@ public class Dish {
 		return kitchenTools;
 	}
 	
-	@XmlElement(name = "difficultyRating")
-	private int difficulty;
-	@XmlElement(name = "reward")
-	private double reward;
+	
 
 	@Override
 	public String toString() {
@@ -70,5 +72,9 @@ public class Dish {
 	}
 	void afterUnmarshal(Unmarshaller u, Object parent) {
 		Collections.sort(this.kitchenTools);
+	}
+
+	public int getReward() {
+		return this.reward;
 	}
 }

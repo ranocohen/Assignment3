@@ -1,6 +1,7 @@
 package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Statistics {
 
@@ -8,12 +9,12 @@ public class Statistics {
 	public static class StatisticsClass {
 		
 		public StatisticsClass() {
-			consumedIngredients = new ArrayList<Ingredient>();
-			deliveredOrders = new ArrayList<Order>();
+			consumedIngredients = new Vector<Ingredient>();
+			deliveredOrders = new Vector<Order>();
 		}
 		
-		private static ArrayList<Order> deliveredOrders;
-		private static ArrayList<Ingredient> consumedIngredients;
+		private static Vector<Order> deliveredOrders;
+		private static Vector<Ingredient> consumedIngredients;
 		
 		public static void addIngredientToStatistic(Ingredient ing) {
 			consumedIngredients.add(ing);

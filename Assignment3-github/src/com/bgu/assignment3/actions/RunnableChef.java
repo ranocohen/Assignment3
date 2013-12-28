@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
+import com.bgu.assignment3.passives.Order.Status;
 import com.bgu.assignment3.passives.Warehouse;
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -103,7 +104,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public void acceptOrder(Order order, Warehouse wh) {
-		order.setIsInProgress();
+		order.setStatus(Status.IN_PROGRESS);
 		increasePressure(order.getDifficulty());
 		this.ordersToCook.add(order);
 
