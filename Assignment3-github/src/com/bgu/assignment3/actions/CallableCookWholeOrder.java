@@ -17,7 +17,6 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	private RunnableChef chef;
 	private Warehouse warehouseRef;
 	private CountDownLatch latch;
-	private ExecutorService threadPool;
 	private Order order;
 	private Semaphore semaphore;
 	private long orderExcpectedCookTime;
@@ -31,7 +30,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 		this.semaphore = semaphore;
 		int dishesCount = order.calculateTotalDishes();
 
-		threadPool = Executors.newFixedThreadPool(dishesCount);
+		
 		latch = new CountDownLatch(dishesCount);
 
 	}
@@ -46,12 +45,13 @@ public class CallableCookWholeOrder implements Callable<Order> {
 						* ood.getQuantity();
 				RunnableCookOneDish rcod = new RunnableCookOneDish(chef, ood,
 						warehouseRef, latch);
-				threadPool.execute(rcod);
+				Thread t = new Thread(rcod);
+				t.start();
 			}
 
 		}
-		threadPool.shutdown();
-		// wait for all threads to finish
+		
+		
 		try {
 			Logger.getLogger(Management.class).trace(" b4 latch ");
 			latch.await();
