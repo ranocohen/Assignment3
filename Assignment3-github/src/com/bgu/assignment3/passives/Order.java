@@ -133,6 +133,17 @@ public class Order {
 	}
 
 	public double calculateReward(long actualDeliveryTime) {
+		
+		
+		Logger.getLogger(Management.class).info(
+				"[Actualcooktime] : ["+actualCookTime+"]"
+				+"[expectedCookTime] : ["+expectedTime+"]"
+				+"[ActualDeliverytime] : ["+actualDeliveryTime+"]"
+				+"[expectedDeliveryTime] : ["+expectedDeliveryTime+"]"
+
+				);
+		
+		
 		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)){
 			Logger.getLogger(Management.class).info(
 				"50% reward");
