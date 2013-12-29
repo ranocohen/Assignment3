@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -54,6 +55,9 @@ public class Orders {
 					acceptingChef.acceptOrder(current, wh);
 
 				}
+			//	if(current.getId() == 4 && current.getStatus() == Status.IN_PROGRESS)					
+				//	staff.shutDownChef(0);
+				
 			}
 		}
 		return foundChef;
@@ -85,6 +89,10 @@ public class Orders {
 	public void removeOrder(Order order) {
 		orders.remove(order);
 	}
-
-	
+	public int ordersCount() { 
+		return orders.size();
+	}
+	public void sortOrders() {
+		Collections.sort(orders);
+	}
 }

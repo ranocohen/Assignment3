@@ -1,5 +1,6 @@
 package com.bgu.assignment3.actions;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
@@ -25,8 +26,6 @@ import com.bgu.assignment3.passives.Warehouse;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
-	private boolean fShouldStop; // in case the chef can't handle the order
-
 	@XmlElement(name = "name")
 	private String name;
 
@@ -45,31 +44,32 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private double endurance;
 	private double pressure;
 	private boolean shutDown;
-	private List<Order> ordersToCook = new Vector<Order>();
+	private List<Order> ordersToCook = new ArrayList<Order>();
 	@XmlTransient
-	private Vector<Future<Order>> ordersInProgress = new Vector<Future<Order>>();
+	private ArrayList<Future<Order>> ordersInProgress = new ArrayList<Future<Order>>();
 	@XmlTransient
 	private ExecutorService executor = Executors.newCachedThreadPool();
-
 	private Semaphore semaphore;
-
 	private Warehouse warehouse;
-
 	private BlockingQueue<Order> readyOrders;
 
 	public void run() {
-		while (!shutDown) {
+		while (!shutDown || isStillWorking()) {
+
 			try {
-			 semaphore.acquire();
-			
+				// chef should wait until he accepts an order / finish an order
+				semaphore.acquire();
 			} catch (InterruptedException e) {
-			
-			 e.printStackTrace();
+
+				e.printStackTrace();
 			}
 			cookOrder();
-
 			fetchOrder();
 		}
+
+		// shutdown our executor
+		executor.shutdown();
+		Logger.getLogger(Management.class).info(toString() + "is terminated");
 	}
 
 	/**
@@ -80,6 +80,13 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	 * @return true if this chef accepts an order with given orderDifficulty
 	 */
 	public boolean acceptingOrder(double orderDifficulty) {
+
+		// if shutdown do not accept any new order
+		if (shutDown)
+			return false;
+		else {
+
+		}
 		Logger.getLogger(Management.class).info(
 				"Chef " + getName() + " checking for approval "
 						+ "OrderDiff = " + orderDifficulty + " endurae = "
@@ -104,6 +111,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	public void acceptOrder(Order order, Warehouse wh) {
+
 		order.setStatus(Status.IN_PROGRESS);
 		increasePressure(order.getDifficulty());
 		this.ordersToCook.add(order);
@@ -112,12 +120,12 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 		semaphore.release();
 	}
 
-	private synchronized void cookOrder() {
-		synchronized (ordersToCook) {
+	private  void cookOrder() {
 
+			Order current = null;
 			Iterator<Order> it = ordersToCook.iterator();
 			while (it.hasNext()) {
-				Order current = it.next();
+			 current = it.next();
 
 				Logger.getLogger(Management.class).info(
 						"Sending " + current.toString() + " to ccwd");
@@ -127,11 +135,11 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				Future<Order> result = executor.submit(ccwo);
 
 				ordersInProgress.add(result);
-				it.remove();
-				// if (ordersToCook.size() == 0)
-				// this.shutDown = true;
-			}
+				
+			
 		}
+		if(current != null)
+			ordersToCook.remove(current);
 	}
 
 	private void increasePressure(int difficulty) {
@@ -163,6 +171,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();
+					 
 
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -186,5 +195,30 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	public void init(BlockingQueue<Order> readyOrders) {
 		this.readyOrders = readyOrders;
 		this.semaphore = new Semaphore(0);
+		
+	}
+
+	/**
+	 * Requesting this chef to shutDown , if shutdown no new orders will be
+	 * accepted chef still working until finishes his current orders
+	 */
+	public void shutDown() {
+		this.shutDown = true;
+		// our thread is in acquire mode we release him to fully shutdown
+		semaphore.release();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[chef] " + name).append("[pressure] " + pressure)
+				.append("[endurance] " + endurance)
+				.append("[efficiency] " + efficiency);
+
+		return builder.toString();
+	}
+	
+	private boolean isStillWorking() {
+		return (ordersToCook.size() > 0 || ordersInProgress.size() > 0);
 	}
 }

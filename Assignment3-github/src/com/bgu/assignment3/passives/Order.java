@@ -1,5 +1,6 @@
 package com.bgu.assignment3.passives;
 
+import java.util.Collections;
 import java.util.Vector;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import org.apache.log4j.Logger;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Order {
+public class Order implements Comparable<Order>{
 
 	// magic numbers
 	public enum Status {
@@ -20,6 +21,12 @@ public class Order {
 
 	@XmlAttribute(name = "id")
 	private long id;
+
+	public static Order posionOrder() {
+		Order poison = new Order();
+		poison.id = -1;
+		return poison;
+	}
 
 	public long getId() {
 		return id;
@@ -158,5 +165,9 @@ public class Order {
 
 	public void setActualCookTime(long actualCookTime) {
 		this.actualCookTime = actualCookTime;
+	}
+
+	public int compareTo(Order o) {
+		return this.dishes.size() - o.dishes.size();
 	}
 }
