@@ -74,4 +74,19 @@ public class Staff {
 			
 		
 	}
+	public void shutDownChefs() {
+		for(RunnableChef chef : chefs) 
+			chef.shutDown();
+	}
+	public void shutDownDeliveryPerson( BlockingQueue<Order> bq ) {
+		for(RunnableDeliveryPerson deliveryPerson : deliveryPersons) 
+		{
+			deliveryPerson.shutDown();
+			Order poison = Order.posionOrder();
+			bq.add(poison);
+		}
+	}
+	public void shutDownChef(int i ) {
+		chefs.get(i).shutDown();
+	}
 }

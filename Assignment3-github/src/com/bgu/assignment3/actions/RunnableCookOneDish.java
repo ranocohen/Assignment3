@@ -32,7 +32,7 @@ public class RunnableCookOneDish implements Runnable {
 		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
 		try {
 		Thread.sleep(timeToSleep);
-		//Thread.sleep(100);
+			//Thread.sleep(10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -43,7 +43,7 @@ public class RunnableCookOneDish implements Runnable {
 		long endCook = System.currentTimeMillis();
 		long TotalActualCookTime = endCook - startCook;
 		
-		Logger.getLogger(Management.class).info(orderOfDishToCook.getDishName() + 
+		Logger.getLogger(Management.class).trace(orderOfDishToCook.getDishName() + 
 				" cooked in " + TotalActualCookTime +" latch count "+latch.getCount());
 		
 		

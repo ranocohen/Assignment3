@@ -15,25 +15,20 @@ import com.bgu.assignment3.passives.Management;
 public class Driver {
 	private static Logger log = Logger.getLogger(Driver.class);
 	public static void main(String[] args) {
-		System.out.println("Assignment 3");
-
 		
-
+		
+		Logger.getLogger(Management.class).info("Assignment 3 simulation has started ");
+		Logger.getLogger(Management.class).info("Starting to parse data ");
 		Management management = Parser.parseInitialData(args[0]);
 		management.addMenu(Parser.parseMenu(args[1]));
 		management.addOrders(Parser.parseOrdersList(args[2]));
-
+		Logger.getLogger(Management.class).info("data parsed successfully  ");
 		management.simulate();
 
 		//log4j , notice the log4j.properties file inside bin dir in the project 
 
 		log.setLevel(Level.FATAL);
-/*		log.trace("Trace");
-		log.debug("Debug");
-		log.info("Info");
-		log.warn("Warn");
-		log.error("Error");
-		log.fatal("Fatal");*/
+
 
 	}
 
