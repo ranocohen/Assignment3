@@ -78,7 +78,7 @@ public class Management {
 						staff.shutDownChef(3);
 					}
 				});
-				t.start();
+				//t.start();
 				if (!orders.deployOrder(staff, warehouse)) {
 					Logger.getLogger(Management.class).info(
 							"All chefs are busy , managment is waiting");

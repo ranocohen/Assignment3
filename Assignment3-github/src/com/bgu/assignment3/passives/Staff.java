@@ -83,7 +83,12 @@ public class Staff {
 		{
 			deliveryPerson.shutDown();
 			Order poison = Order.posionOrder();
-			bq.add(poison);
+			try {
+				bq.put(poison);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	public void shutDownChef(int i ) {
