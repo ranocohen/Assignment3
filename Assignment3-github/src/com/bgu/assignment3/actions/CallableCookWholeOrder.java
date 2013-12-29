@@ -23,7 +23,7 @@ public class CallableCookWholeOrder implements Callable<Order> {
 	private long actualCookTime;
 
 	public CallableCookWholeOrder(RunnableChef chef, Order order, Warehouse wh,
-			Semaphore semaphore) {
+		Semaphore semaphore) {
 		this.chef = chef;
 		this.order = order;
 		this.warehouseRef = wh;

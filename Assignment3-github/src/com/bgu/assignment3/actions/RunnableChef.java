@@ -44,7 +44,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private double endurance;
 	private double pressure;
 	private boolean shutDown;
-	private List<Order> ordersToCook = new ArrayList<Order>();
+	private ArrayList<Order> ordersToCook = new ArrayList<Order>();
 	@XmlTransient
 	private ArrayList<Future<Order>> ordersInProgress = new ArrayList<Future<Order>>();
 	@XmlTransient
@@ -65,6 +65,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			}
 			cookOrder();
 			fetchOrder();
+
+			Logger.getLogger(Management.class).info(
+					readyOrders.size() + " , " + ordersInProgress.size());
 		}
 
 		// shutdown our executor
@@ -114,18 +117,23 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 		order.setStatus(Status.IN_PROGRESS);
 		increasePressure(order.getDifficulty());
-		this.ordersToCook.add(order);
+		synchronized (ordersToCook) {
+			this.ordersToCook.add(order);
+		}
 
 		this.warehouse = wh;
 		semaphore.release();
 	}
 
-	private  void cookOrder() {
+	private void cookOrder() {
+		
+		//sync block since the main thread could modify orderToCook at acceptOrder
+		synchronized (ordersToCook) {
 
-			Order current = null;
+			Order current = null;	
 			Iterator<Order> it = ordersToCook.iterator();
 			while (it.hasNext()) {
-			 current = it.next();
+				current = it.next();
 
 				Logger.getLogger(Management.class).info(
 						"Sending " + current.toString() + " to ccwd");
@@ -135,11 +143,12 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				Future<Order> result = executor.submit(ccwo);
 
 				ordersInProgress.add(result);
-				
-			
+
+			}
+			 if (current != null)
+				 ordersToCook.remove(current);
 		}
-		if(current != null)
-			ordersToCook.remove(current);
+		
 	}
 
 	private void increasePressure(int difficulty) {
@@ -171,7 +180,6 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 					decreasePressure(ready.getDifficulty());
 					ready = null;
 					it2.remove();
-					 
 
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -195,7 +203,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	public void init(BlockingQueue<Order> readyOrders) {
 		this.readyOrders = readyOrders;
 		this.semaphore = new Semaphore(0);
-		
+
 	}
 
 	/**
@@ -217,7 +225,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 		return builder.toString();
 	}
-	
+
 	private boolean isStillWorking() {
 		return (ordersToCook.size() > 0 || ordersInProgress.size() > 0);
 	}
