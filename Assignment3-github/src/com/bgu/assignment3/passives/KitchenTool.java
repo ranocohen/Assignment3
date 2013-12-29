@@ -39,7 +39,20 @@ public class KitchenTool implements Comparable<KitchenTool>   {
 			Logger.getLogger(Management.class).info(Thread.currentThread().toString()
 					+ " trying to take "+quantity +" " + name + 
 					" , avaiable : "+semaphore.availablePermits());
+			
+			long startTake = System.currentTimeMillis();
+
 			semaphore.acquire(quantity);
+			
+			long endTake = System.currentTimeMillis();
+			
+			long TotalTakeTime = endTake - startTake;
+			
+			Logger.getLogger(Management.class).info(
+					" taken time for: "+ this.getName() +" is: " + TotalTakeTime);
+
+			
+			
 			Logger.getLogger(Management.class).info(
 					Thread.currentThread().toString() + " took "+quantity +" " + name);
 		} catch (InterruptedException e) {
