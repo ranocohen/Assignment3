@@ -13,20 +13,21 @@ public class Statistics {
 		private static double moneyGained;
 
 		// Initialize ConcurrentHashMap instance
-		static ConcurrentHashMap<Ingredient, Integer> m;
+		static ConcurrentHashMap<Ingredient, Integer> hmConsumedIngredients;
+		
 
 		public static void init() {
 			consumedIngredients = new ArrayList<Ingredient>();
 			deliveredOrders = new ArrayList<Order>();
-			m = new ConcurrentHashMap<Ingredient, Integer>();
+			hmConsumedIngredients = new ConcurrentHashMap<Ingredient, Integer>();
 		}
 
 		public static void addIngredientToStatistic(Ingredient ing) {
 
-			if (m.containsKey(ing)) {
-				m.put(ing, m.get(ing) + 1);
+			if (hmConsumedIngredients.containsKey(ing)) {
+				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + 1);
 			} else {
-				m.put(ing, 1);
+				hmConsumedIngredients.put(ing, 1);
 			}
 			
 			for (Ingredient ingredient : consumedIngredients) {
@@ -53,12 +54,14 @@ public class Statistics {
 				builder.append(ingredient.toString() + "\n");
 			}
 
-			Iterator<Ingredient> keySetIterator = m.keySet().iterator();
+			Iterator<Ingredient> keySetIterator = hmConsumedIngredients.keySet().iterator();
 
+			//print ingredients consumed
 			while (keySetIterator.hasNext()) {
 				Ingredient key = keySetIterator.next();
-				System.out.println("key: " + key.getName() + " value: " + m.get(key));
+				System.out.println("key: " + key.getName() + " value: " + hmConsumedIngredients.get(key));
 			}
+			
 			return builder.toString();
 		}
 	}
