@@ -25,7 +25,21 @@ public class Statistics {
 		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
 
 			if (hmConsumedIngredients.containsKey(ing)) {
-				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + quantity);
+				int temp = hmConsumedIngredients.get(ing);
+				temp += quantity;
+				hmConsumedIngredients.remove(ing);
+				
+				
+				Iterator<Ingredient> keySetIterator = hmConsumedIngredients.keySet().iterator();
+
+				//print ingredients consumed
+				while (keySetIterator.hasNext()) {
+					Ingredient key = keySetIterator.next();
+					System.out.println("key: " + key.getName() + " value: " + hmConsumedIngredients.get(key));
+					
+				}
+				//done in order to unify under same object
+				hmConsumedIngredients.put(ing, temp);
 			} else {
 				hmConsumedIngredients.put(ing, quantity);
 			}
