@@ -24,15 +24,13 @@ public class Statistics {
 		}
 
 		public static void addIngredientToStatistic(Ingredient ing) {
-			synchronized (ing) {
-				
 			
 			if (hmConsumedIngredients.containsKey(ing)) {
 				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + 1);
 			} else {
 				hmConsumedIngredients.put(ing, 1);
 			}
-			}
+			
 		
 		
 		}
