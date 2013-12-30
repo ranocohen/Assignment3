@@ -14,21 +14,29 @@ public class Statistics {
 		private static double moneyGained;
 
 		// Initialize ConcurrentHashMap instance
-		static ConcurrentHashMap<Ingredient, Integer> hmConsumedIngredients;
+		static ConcurrentHashMap<String, Integer> hmConsumedIngredients;
 		
 
 		public static void init() {
 			
 			deliveredOrders = new ArrayList<Order>();
-			hmConsumedIngredients = new ConcurrentHashMap<Ingredient, Integer>();
+			hmConsumedIngredients = new ConcurrentHashMap<String, Integer>();
 		}
 
-		public static void addIngredientToStatistic(Ingredient ing) {
-			
-			if (hmConsumedIngredients.containsKey(ing)) {
-				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + 1);
+
+
+		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
+
+			if (hmConsumedIngredients.containsKey(ing.getName())) {
+				int temp = hmConsumedIngredients.get(ing.getName());
+				temp += quantity;
+				hmConsumedIngredients.remove(ing.getName());
+				
+				//done in order to unify under same object
+				hmConsumedIngredients.put(ing.getName(), temp);
+
 			} else {
-				hmConsumedIngredients.put(ing, 1);
+				hmConsumedIngredients.put(ing.getName(), quantity);
 			}
 			
 		
@@ -50,12 +58,18 @@ public class Statistics {
 
 			
 
-			Iterator<Ingredient> keySetIterator = hmConsumedIngredients.keySet().iterator();
+			Iterator<String> keySetIterator = hmConsumedIngredients.keySet().iterator();
 
 			//print ingredients consumed
 			while (keySetIterator.hasNext()) {
-				Ingredient key = keySetIterator.next();
-				builder.append(key.toString());
+
+				String key = keySetIterator.next();
+				builder.append("key: " + key + " value: " + hmConsumedIngredients.get(key)).newline();
+
+			
+	
+				
+
 			}
 			
 			return builder.toString();
