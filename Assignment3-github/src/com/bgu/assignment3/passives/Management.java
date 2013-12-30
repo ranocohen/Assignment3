@@ -83,13 +83,14 @@ public class Management {
 		long endProg = System.currentTimeMillis();
 
 		long TotalActualCookTime = endProg - startProg;
+		
 
 		Logger.getLogger(Management.class).info(
 				"Program runtime:" + TotalActualCookTime);
 		
 		
 		StatisticsClass stats = new StatisticsClass();
-		Logger.getLogger(Management.class).info(stats.toString());
+		System.out.println(stats.toString());
 		
 		staff.shutDownChefs();
 		staff.shutDownDeliveryPerson(readyOrders);

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bgu.assignment3.FancyStringBuilder;
+
 public class Statistics {
 
 	// Static nested class
 	public static class StatisticsClass {
 		private static ArrayList<Order> deliveredOrders;
-		private static ArrayList<Ingredient> consumedIngredients;
 		private static double moneyGained;
 
 		// Initialize ConcurrentHashMap instance
@@ -17,24 +18,23 @@ public class Statistics {
 		
 
 		public static void init() {
-			consumedIngredients = new ArrayList<Ingredient>();
+			
 			deliveredOrders = new ArrayList<Order>();
 			hmConsumedIngredients = new ConcurrentHashMap<Ingredient, Integer>();
 		}
 
 		public static void addIngredientToStatistic(Ingredient ing) {
-
+			synchronized (ing) {
+				
+			
 			if (hmConsumedIngredients.containsKey(ing)) {
 				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + 1);
 			} else {
 				hmConsumedIngredients.put(ing, 1);
 			}
-			
-			for (Ingredient ingredient : consumedIngredients) {
-				if (ingredient.compareTo(ing) == 0)
-					return;
 			}
-			//consumedIngredients.add(ing);
+		
+		
 		}
 
 		public static void addDeliveredOrderToStatistics(Order o) {
@@ -47,19 +47,17 @@ public class Statistics {
 
 		@Override
 		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append("Money gained: " + moneyGained);
+			FancyStringBuilder builder = new FancyStringBuilder();
+			builder.append("Money gained",moneyGained);
 
-			for (Ingredient ingredient : consumedIngredients) {
-				builder.append(ingredient.toString() + "\n");
-			}
+			
 
 			Iterator<Ingredient> keySetIterator = hmConsumedIngredients.keySet().iterator();
 
 			//print ingredients consumed
 			while (keySetIterator.hasNext()) {
 				Ingredient key = keySetIterator.next();
-				System.out.println("key: " + key.getName() + " value: " + hmConsumedIngredients.get(key));
+				builder.append(key.toString());
 			}
 			
 			return builder.toString();
