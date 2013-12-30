@@ -34,7 +34,7 @@ public class Statistics {
 				if (ingredient.compareTo(ing) == 0)
 					return;
 			}
-			consumedIngredients.add(ing);
+			//consumedIngredients.add(ing);
 		}
 
 		public static void addDeliveredOrderToStatistics(Order o) {
