@@ -50,7 +50,7 @@ public class RunnableDeliveryPerson implements Runnable {
 					Logger.getLogger(Management.class).info("Delivering " + toDeliver.toString());
 
 					//sleeping, simulating the delivery
-					Thread.sleep(distance);
+					Thread.sleep((long) (distance/speed));
 					
 					//poll current time (end)
 					long end = System.currentTimeMillis();

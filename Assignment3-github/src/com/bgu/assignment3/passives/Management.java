@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.actions.RunnableChef;
+import com.bgu.assignment3.passives.Statistics.StatisticsClass;
 
 @XmlRootElement(name = "Restaurant")
 public class Management {
@@ -52,8 +53,8 @@ public class Management {
 		orders.calcDifficulty(menu);
 		
 		//optimization attempts 
-		orders.sortOrders();
-		//staff.sortChefs();
+		//orders.sortOrders();
+		staff.sortChefs();
 		
 		//start the chefs and deliveryPersons threads
 		staff.executeChefs(readyOrders);
@@ -74,11 +75,12 @@ public class Management {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						staff.shutDownChef(2);
+						staff.shutDownChef(1);
 						staff.shutDownChef(3);
+						staff.shutDownDeliveryPerson(readyOrders, 1);
 					}
 				});
-				//t.start();
+			//	t.start();
 				if (!orders.deployOrder(staff, warehouse)) {
 					Logger.getLogger(Management.class).info(
 							"All chefs are busy , managment is waiting");
@@ -99,6 +101,10 @@ public class Management {
 
 		Logger.getLogger(Management.class).info(
 				"Program runtime:" + TotalActualCookTime);
+		
+		
+		StatisticsClass stats = new StatisticsClass();
+		Logger.getLogger(Management.class).info(stats.toString());
 		
 		staff.shutDownChefs();
 		staff.shutDownDeliveryPerson(readyOrders);

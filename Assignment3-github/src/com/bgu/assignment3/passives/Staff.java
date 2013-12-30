@@ -94,4 +94,7 @@ public class Staff {
 	public void shutDownChef(int i ) {
 		chefs.get(i).shutDown();
 	}
+	public void shutDownDeliveryPerson(BlockingQueue<Order> bq,int i ) {
+		deliveryPersons.get(i).shutDown();
+	}
 }
