@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.actions.RunnableChef;
 import com.bgu.assignment3.passives.Statistics.StatisticsClass;
 
@@ -26,7 +27,7 @@ public class Management {
 	private Menu menu;
 
 	private ArrayBlockingQueue<Order> readyOrders;
-
+	private SafeLock lock;
 	private ArrayBlockingQueue<Integer> OrdersForDelivery;
 
 
@@ -43,6 +44,7 @@ public class Management {
 	}
 
 	public void simulate() {
+		lock = new SafeLock();
 		Logger.getLogger(Management.class).info("simulation started");
 		Statistics.StatisticsClass.init();
 
@@ -57,41 +59,24 @@ public class Management {
 		staff.sortChefs();
 		
 		//start the chefs and deliveryPersons threads
-		staff.executeChefs(readyOrders);
-		staff.executeDeliveryPersons(readyOrders, address);
+		staff.executeChefs(readyOrders, lock);
+		staff.executeDeliveryPersons(readyOrders, address,lock);
 		
 		/**
 		 * here we send all orders to chefs , we do this as long not all orders are delivered
 		 * we use the readyOrders(blockingQueue) to get notified when an order is ready/delivered 
 		 */
 		while (!orders.allDelivered()) {
-			synchronized (readyOrders) {
-				Thread t = new Thread(new Runnable() {
-					
-					public void run() {
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						staff.shutDownChef(1);
-						staff.shutDownChef(3);
-						staff.shutDownDeliveryPerson(readyOrders, 1);
-					}
-				});
-			//	t.start();
+			
+		
 				if (!orders.deployOrder(staff, warehouse)) {
 					Logger.getLogger(Management.class).info(
 							"All chefs are busy , managment is waiting");
-					try {
-						readyOrders.wait();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+						lock.doWait();
 				
-				}
+						Logger.getLogger(Management.class).trace(
+								"managment notificed");
+				
 			}
 		}
 
