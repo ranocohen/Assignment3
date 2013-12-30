@@ -1,21 +1,26 @@
 package com.bgu.assignment3.passives;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Statistics {
 
 	// Static nested class
 	public static class StatisticsClass {
-
+		private static ArrayList<Order> deliveredOrders;
+		private static ArrayList<Ingredient> consumedIngredients;
+		private static double moneyGained;
+		
 		public static void init() {
-			consumedIngredients = new Vector<Ingredient>();
-			deliveredOrders = new Vector<Order>();
+			consumedIngredients = new ArrayList<Ingredient>();
+			deliveredOrders = new ArrayList<Order>();
 		}
 
-		private static Vector<Order> deliveredOrders;
-		private static Vector<Ingredient> consumedIngredients;
-		private static double moneyGained;
+		
 		public static void addIngredientToStatistic(Ingredient ing) {
+			for(Ingredient ingredient : consumedIngredients) {
+				if(ingredient.compareTo(ing) == 0 )
+					return;		
+			}
 			consumedIngredients.add(ing);
 		}
 
@@ -24,7 +29,18 @@ public class Statistics {
 		}
 
 		public static void addMoneyGained(double moneyGained) {
-			moneyGained+= moneyGained;
+			StatisticsClass.moneyGained+= moneyGained;
+		}
+		
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("Money gained: "+moneyGained);
+			
+			for(Ingredient ingredient : consumedIngredients) {
+				builder.append(ingredient.toString() +"\n");
+			}
+			return builder.toString();
 		}
 	}
 

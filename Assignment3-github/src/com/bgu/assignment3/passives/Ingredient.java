@@ -6,6 +6,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
+import com.bgu.assignment3.FancyStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ingredient implements Comparable<Ingredient> {
 	
@@ -22,11 +24,17 @@ public class Ingredient implements Comparable<Ingredient> {
 	
 	private Semaphore semaphore;
 	
-	@Override
+	/*@Override
 	public String toString() {
-		return name + " : " + quantity + "\n";
+		FancyStringBuilder builder = new FancyStringBuilder();
+		builder.append("name", name)
+		.append("quantity", quantity);
+	//	.append("consumed", quantity - semaphore.availablePermits())
+		//.append("left", semaphore.availablePermits());
+		
+		return builder.toString();
 	}
-	
+	*/
 	public void CunsumeIngredient(int quantity) {
 		try {
 			semaphore.acquire(quantity);
@@ -48,5 +56,5 @@ public class Ingredient implements Comparable<Ingredient> {
 	public int compareTo(Ingredient o) {
 		return this.name.compareTo(o.name);
 	}
-
+	
 }
