@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.actions.RunnableChef;
 import com.bgu.assignment3.actions.RunnableDeliveryPerson;
 
@@ -52,21 +53,21 @@ public class Staff {
 	public int deliveryCount() {
 		return deliveryPersons.size();
 	}
-	public void executeChefs(BlockingQueue<Order> readyOrders) {
+	public void executeChefs(BlockingQueue<Order> readyOrders, SafeLock lock) {
 		for(RunnableChef chef : chefs) 
 		{
 			Logger.getLogger(Management.class).info("Chef "+ chef.getName() +  " has started to run");
-			chef.init(readyOrders);
+			chef.init(readyOrders,lock);
 			Thread t = new Thread(chef);
 			t.start();
 		}
 			
 		
 	}
-	public void executeDeliveryPersons(ArrayBlockingQueue<Order> deliveryQueue, Address resturantAddress) {
+	public void executeDeliveryPersons(ArrayBlockingQueue<Order> deliveryQueue, Address resturantAddress,SafeLock lock) {
 		for(RunnableDeliveryPerson dp : deliveryPersons) 
 		{
-			dp.init(deliveryQueue, resturantAddress);
+			dp.init(deliveryQueue, resturantAddress,lock);
 			Logger.getLogger(Management.class).info("DeliveryPerson "+ dp.toString() +  " has started to run");
 			Thread t = new Thread(dp);
 			t.start();

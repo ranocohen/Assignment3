@@ -8,10 +8,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * thus even if the signal was missed(notified while not in wait) we can check the boolean 
  */
 public class SafeLock {
-
+public SafeLock() {
+	this.wasNotified = new AtomicBoolean();
+	this.lock = new Object();
+}
 	private AtomicBoolean wasNotified;
-
-	Object lock = new Object();
+	private Object lock;
 
 	public void doWait(){
 	    synchronized(lock){
@@ -27,7 +29,7 @@ public class SafeLock {
 	public void doNotify() {
 		synchronized (lock) {
 			wasNotified.set(true);
-			lock.notify();
+			lock.notifyAll();
 		}
 	}
 }

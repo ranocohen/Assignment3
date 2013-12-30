@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.passives.Address;
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
@@ -23,6 +24,7 @@ public class RunnableDeliveryPerson implements Runnable {
 	private Address resturantAddress;
 	private ArrayBlockingQueue<Order> deliveryQueue;
 	private boolean shutDown;
+	private SafeLock lock;
 
 	public void run() {
 		while (!shutDown) {
@@ -68,9 +70,7 @@ public class RunnableDeliveryPerson implements Runnable {
 					toDeliver.setStatus(Status.DELIVERED);
 
 					// notify managment that another order has been delivered
-					synchronized (deliveryQueue) {
-						deliveryQueue.notifyAll();
-					}
+					lock.doNotify();
 				}
 			} catch (InterruptedException e) {
 
@@ -81,11 +81,11 @@ public class RunnableDeliveryPerson implements Runnable {
 	}
 
 	public void init(ArrayBlockingQueue<Order> deliveryQueue,
-			Address resturantAddress) {
+			Address resturantAddress, SafeLock lock) {
 		this.deliveryQueue = deliveryQueue;
 		this.resturantAddress = resturantAddress;
 		this.deliveredOrders = new Vector<Order>();
-
+		this.lock = lock;
 	}
 
 	public void shutDown() {

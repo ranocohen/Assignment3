@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.Order.Status;
@@ -52,6 +53,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private Semaphore semaphore;
 	private Warehouse warehouse;
 	private BlockingQueue<Order> readyOrders;
+	private SafeLock lock;
 
 	public void run() {
 		while (!shutDown || isStillWorking()) {
@@ -65,9 +67,6 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 			}
 			cookOrder();
 			fetchOrder();
-
-			Logger.getLogger(Management.class).info(
-					readyOrders.size() + " , " + ordersInProgress.size());
 		}
 
 		// shutdown our executor
@@ -136,7 +135,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				current = it.next();
 
 				Logger.getLogger(Management.class).info(
-						"Sending " + current.toString() + " to ccwd");
+						"Sending " + current.toString() + " to CallableCookWholeOrder");
 
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
@@ -154,7 +153,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private void increasePressure(int difficulty) {
 
 		this.pressure += difficulty;
-		Logger.getLogger(Management.class).info(
+		Logger.getLogger(Management.class).trace(
 				this.getName() + "increased pressure to " + pressure);
 
 	}
@@ -174,7 +173,7 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 								ready.getId()
 										+ " is ready , notifying managment");
 						readyOrders.put(ready);
-						readyOrders.notifyAll();
+						lock.doNotify();
 					}
 
 					decreasePressure(ready.getDifficulty());
@@ -195,15 +194,15 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	private void decreasePressure(int difficulty) {
 		this.pressure -= difficulty;
-		Logger.getLogger(Management.class).info(
+		Logger.getLogger(Management.class).trace(
 				this.getName() + "decreased pressure to " + pressure);
 
 	}
 
-	public void init(BlockingQueue<Order> readyOrders) {
+	public void init(BlockingQueue<Order> readyOrders, SafeLock lock) {
 		this.readyOrders = readyOrders;
 		this.semaphore = new Semaphore(0);
-
+		this.lock = lock;
 	}
 
 	/**

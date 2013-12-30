@@ -55,9 +55,7 @@ public class Orders {
 					acceptingChef.acceptOrder(current, wh);
 
 				}
-			//	if(current.getId() == 4 && current.getStatus() == Status.IN_PROGRESS)					
-				//	staff.shutDownChef(0);
-				
+		
 			}
 		}
 		return foundChef;
