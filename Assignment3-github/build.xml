@@ -75,4 +75,9 @@
 			<classpath refid="Assignment3-github.classpath" />
 		</java>
 	</target>
+	
+	<!-- test under linux -->
+<!--	<tar destfile="release.tar.gz" compression="gzip">
+  	<zipfileset src="release.zip"/> -->
+</tar>
 </project>
