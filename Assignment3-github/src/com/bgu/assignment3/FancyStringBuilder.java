@@ -25,7 +25,12 @@ public class FancyStringBuilder {
 	}
 	public FancyStringBuilder append(String title, double value) {
 		builder.append("[")
-		.append(title).append("=").append(value).append("]");
+		.append(title).append(" = ").append(value).append("]");
+		return this;
+	}
+	public FancyStringBuilder append(String title, long value) {
+		builder.append("[")
+		.append(title).append(" = ").append(value).append("]");
 		return this;
 	}
 	public FancyStringBuilder newline(){

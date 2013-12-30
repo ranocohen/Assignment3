@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.FancyStringBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Order implements Comparable<Order>{
 
@@ -37,7 +39,7 @@ public class Order implements Comparable<Order>{
 	private long actualCookTime;
 	private long expectedDeliveryTime;
 	private int reward;
-
+	private boolean fullReward;
 	public int getDifficulty() {
 		return difficulty;
 	}
@@ -86,7 +88,6 @@ public class Order implements Comparable<Order>{
 
 			Dish dish = dishes.get(i).getDish();
 			reward+=dish.getReward();
-
 		}
 	}
 
@@ -116,11 +117,19 @@ public class Order implements Comparable<Order>{
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[ Order ] ").append("id = " + getId() + " \n ");
-
+		FancyStringBuilder builder = new FancyStringBuilder ();
+		builder.append("Order")
+		.append("id",getId())
+		.append("difficulty",difficulty)
+		.append("actualCookTime",actualCookTime)
+		.append("expectedCookTime",expectedTime)
+		.append("Address",deliveryAddress.toString());
+		
+		
+		
+		builder.append("OrderOfDish");
 		for (OrderOfDish ood : dishes)
-			builder.append(ood.getDishName() + " " + ood.getQuantity() + "\n ");
+			builder.append(ood.getDishName(),ood.getQuantity());
 
 		return builder.toString();
 
@@ -140,25 +149,12 @@ public class Order implements Comparable<Order>{
 	}
 
 	public double calculateReward(long actualDeliveryTime) {
-		
-		
-		Logger.getLogger(Management.class).info(
-				"[Actualcooktime] : ["+actualCookTime+"]"
-				+"[expectedCookTime] : ["+expectedTime+"]"
-				+"[ActualDeliverytime] : ["+actualDeliveryTime+"]"
-				+"[expectedDeliveryTime] : ["+expectedDeliveryTime+"]"
-
-				);
-		
-		
-		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)){
-			Logger.getLogger(Management.class).info(
-				"50% reward");
-			
+				
+		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)){	
+			fullReward = false;
 			return 0.5 * reward;
 		}
-		Logger.getLogger(Management.class).info(
-				"100% reward");
+		fullReward = true;
 		
 		return reward;
 	}
@@ -169,5 +165,12 @@ public class Order implements Comparable<Order>{
 
 	public int compareTo(Order o) {
 		return this.dishes.size() - o.dishes.size();
+	}
+	public boolean fullReward() {
+		return fullReward;
+	}
+
+	public long getReward() {
+		return reward;
 	}
 }
