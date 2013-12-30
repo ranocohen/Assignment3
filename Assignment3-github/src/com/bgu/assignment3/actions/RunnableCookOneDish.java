@@ -24,36 +24,40 @@ public class RunnableCookOneDish implements Runnable {
 
 	public void run() {
 		long startCook = System.currentTimeMillis();
-		//Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:" + orderOfDishToCook.getDishName());
-		
+		// Logger.getLogger(RunnableCookOneDish.class).trace("started cooking dish:"
+		// + orderOfDishToCook.getDishName());
+
 		getNeededIngredientsFromWarehouse();
 		getNeededKitchenToolsFromWarehouse();
-		
-		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime() * chef.getEfficiency());
+
+		long timeToSleep = Math.round(orderOfDishToCook.getDish().getCookTime()
+				* chef.getEfficiency());
 		try {
-		Thread.sleep(timeToSleep);
-			//Thread.sleep(10);
+			Thread.sleep(timeToSleep);
+			// Thread.sleep(10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		returnNeededKitchenToolsToWarehouse();
-		
-		
-		//stop measuring time before reporting to CallableCookWholeOrder latch
+
+		// stop measuring time before reporting to CallableCookWholeOrder latch
 		long endCook = System.currentTimeMillis();
 		long TotalActualCookTime = endCook - startCook;
-		
-		Logger.getLogger(Management.class).trace(orderOfDishToCook.getDishName() + 
-				" cooked in " + TotalActualCookTime +" latch count "+latch.getCount());
-		
-		
-		latch.countDown();	
 
-		Logger.getLogger(RunnableCookOneDish.class).trace("finished cooking dish:" + orderOfDishToCook.getDishName());
-		
+		Logger.getLogger(Management.class).trace(
+				orderOfDishToCook.getDishName() + " cooked in "
+						+ TotalActualCookTime + " latch count "
+						+ latch.getCount());
+
+		latch.countDown();
+
+		Logger.getLogger(RunnableCookOneDish.class).trace(
+				"finished cooking dish:" + orderOfDishToCook.getDishName());
+
 	}
 
-	public RunnableCookOneDish(RunnableChef chef , OrderOfDish ood, Warehouse wh , CountDownLatch latch) {
+	public RunnableCookOneDish(RunnableChef chef, OrderOfDish ood,
+			Warehouse wh, CountDownLatch latch) {
 		this.chef = chef;
 		this.orderOfDishToCook = ood;
 		this.warehouseRef = wh;
@@ -61,6 +65,7 @@ public class RunnableCookOneDish implements Runnable {
 		this.kitchenTool = ood.getDish().getKitchenTools();
 		this.latch = latch;
 	}
+
 	/**
 	 * Consuming needed ingredients from {@link Warehouse}
 	 */
@@ -68,7 +73,7 @@ public class RunnableCookOneDish implements Runnable {
 		for (Ingredient current : ingredients) {
 			warehouseRef.takeIngredient(current.getName(),
 					current.getQuantity());
-		Statistics.StatisticsClass.addIngredientToStatistic(current);
+			Statistics.StatisticsClass.addIngredientToStatistic(current,current.getQuantity());
 		}
 	}
 
@@ -78,6 +83,7 @@ public class RunnableCookOneDish implements Runnable {
 					current.getQuantity());
 		}
 	}
+
 	/**
 	 * Returning needed kitchen tools to {@link Warehouse}
 	 */

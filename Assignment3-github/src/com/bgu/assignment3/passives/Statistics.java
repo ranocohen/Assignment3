@@ -22,12 +22,12 @@ public class Statistics {
 			hmConsumedIngredients = new ConcurrentHashMap<Ingredient, Integer>();
 		}
 
-		public static void addIngredientToStatistic(Ingredient ing) {
+		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
 
 			if (hmConsumedIngredients.containsKey(ing)) {
-				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + 1);
+				hmConsumedIngredients.put(ing, hmConsumedIngredients.get(ing) + quantity);
 			} else {
-				hmConsumedIngredients.put(ing, 1);
+				hmConsumedIngredients.put(ing, quantity);
 			}
 			
 			for (Ingredient ingredient : consumedIngredients) {
@@ -60,6 +60,7 @@ public class Statistics {
 			while (keySetIterator.hasNext()) {
 				Ingredient key = keySetIterator.next();
 				System.out.println("key: " + key.getName() + " value: " + hmConsumedIngredients.get(key));
+				
 			}
 			
 			return builder.toString();
