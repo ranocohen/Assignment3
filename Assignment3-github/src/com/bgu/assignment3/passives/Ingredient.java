@@ -24,7 +24,7 @@ public class Ingredient implements Comparable<Ingredient> {
 	
 	private Semaphore semaphore;
 	
-	@Override
+	/*@Override
 	public String toString() {
 		FancyStringBuilder builder = new FancyStringBuilder();
 		builder.append("name", name)
@@ -34,7 +34,7 @@ public class Ingredient implements Comparable<Ingredient> {
 		
 		return builder.toString();
 	}
-	
+	*/
 	public void CunsumeIngredient(int quantity) {
 		try {
 			semaphore.acquire(quantity);

@@ -68,7 +68,7 @@ public class RunnableCookOneDish implements Runnable {
 		for (Ingredient current : ingredients) {
 			warehouseRef.takeIngredient(current.getName(),
 					current.getQuantity());
-		//	Statistics.StatisticsClass.addIngredientToStatistic(current);
+		Statistics.StatisticsClass.addIngredientToStatistic(current);
 		}
 	}
 

@@ -1,7 +1,6 @@
 package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Statistics {
 
@@ -20,10 +19,7 @@ public class Statistics {
 		public static void addIngredientToStatistic(Ingredient ing) {
 			for(Ingredient ingredient : consumedIngredients) {
 				if(ingredient.compareTo(ing) == 0 )
-					return;
-				
-				
-							
+					return;		
 			}
 			consumedIngredients.add(ing);
 		}
