@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.FancyStringBuilder;
 import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.passives.Address;
 import com.bgu.assignment3.passives.Management;
@@ -90,5 +91,16 @@ public class RunnableDeliveryPerson implements Runnable {
 
 	public void shutDown() {
 		this.shutDown = true;
+	}
+	@Override
+	public String toString() {
+		
+		FancyStringBuilder builder = new FancyStringBuilder();
+		builder.append("DeliveryPerson")
+		.append("name", name)
+		.append("speed", speed);
+		
+
+		return builder.toString();
 	}
 }

@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.FancyStringBuilder;
 import com.bgu.assignment3.SafeLock;
 import com.bgu.assignment3.passives.Management;
 import com.bgu.assignment3.passives.Order;
@@ -125,17 +126,19 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	}
 
 	private void cookOrder() {
-		
-		//sync block since the main thread could modify orderToCook at acceptOrder
+
+		// sync block since the main thread could modify orderToCook at
+		// acceptOrder
 		synchronized (ordersToCook) {
 
-			Order current = null;	
+			Order current = null;
 			Iterator<Order> it = ordersToCook.iterator();
 			while (it.hasNext()) {
 				current = it.next();
 
 				Logger.getLogger(Management.class).info(
-						"Sending " + current.toString() + " to CallableCookWholeOrder");
+						"Sending " + current.toString()
+								+ " to CallableCookWholeOrder");
 
 				CallableCookWholeOrder ccwo = new CallableCookWholeOrder(this,
 						current, warehouse, semaphore);
@@ -144,10 +147,10 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 				ordersInProgress.add(result);
 
 			}
-			 if (current != null)
-				 ordersToCook.remove(current);
+			if (current != null)
+				ordersToCook.remove(current);
 		}
-		
+
 	}
 
 	private void increasePressure(int difficulty) {
@@ -217,10 +220,12 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("[chef] " + name).append("[pressure] " + pressure)
-				.append("[endurance] " + endurance)
-				.append("[efficiency] " + efficiency);
+		FancyStringBuilder builder = new FancyStringBuilder();
+		builder.append("Chef")
+		.append("name", name)
+		.append("pressure", pressure)
+		.append("endurance", endurance)
+		.append("efficiency",efficiency);
 
 		return builder.toString();
 	}

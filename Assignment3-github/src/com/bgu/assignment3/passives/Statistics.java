@@ -48,6 +48,8 @@ public class Statistics {
 		@Override
 		public String toString() {
 			FancyStringBuilder builder = new FancyStringBuilder();
+			builder.newline().newline().append("STATISTICS").newline().newline();
+			
 			builder.append("Money gained ", moneyGained).newline().newline();
 
 			for (Order order : deliveredOrders) {
@@ -64,7 +66,7 @@ public class Statistics {
 
 			Iterator<String> keySetIterator = hmConsumedIngredients.keySet()
 					.iterator();
-			builder.append("Ingredients").newline();
+			builder.newline().append("Ingredients").newline();
 			// print ingredients consumed
 			while (keySetIterator.hasNext()) {
 				String key = keySetIterator.next();
