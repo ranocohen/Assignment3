@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.bgu.assignment3.FancyStringBuilder;
-
 public class Statistics {
 
 	// Static nested class
 	public static class StatisticsClass {
 		private static ArrayList<Order> deliveredOrders;
+		private static ArrayList<Ingredient> consumedIngredients;
 		private static double moneyGained;
 
 		// Initialize ConcurrentHashMap instance
@@ -18,15 +17,13 @@ public class Statistics {
 		
 
 		public static void init() {
-			
+			consumedIngredients = new ArrayList<Ingredient>();
 			deliveredOrders = new ArrayList<Order>();
 			hmConsumedIngredients = new ConcurrentHashMap<String, Integer>();
 		}
 
-
-
 		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
-
+			
 			if (hmConsumedIngredients.containsKey(ing.getName())) {
 				int temp = hmConsumedIngredients.get(ing.getName());
 				temp += quantity;
@@ -34,13 +31,15 @@ public class Statistics {
 				
 				//done in order to unify under same object
 				hmConsumedIngredients.put(ing.getName(), temp);
-
 			} else {
 				hmConsumedIngredients.put(ing.getName(), quantity);
 			}
 			
-		
-		
+			for (Ingredient ingredient : consumedIngredients) {
+				if (ingredient.compareTo(ing) == 0)
+					return;
+			}
+			//consumedIngredients.add(ing);
 		}
 
 		public static void addDeliveredOrderToStatistics(Order o) {
@@ -53,23 +52,20 @@ public class Statistics {
 
 		@Override
 		public String toString() {
-			FancyStringBuilder builder = new FancyStringBuilder();
-			builder.append("Money gained",moneyGained);
+			StringBuilder builder = new StringBuilder();
+			builder.append("Money gained: " + moneyGained);
 
-			
+			for (Ingredient ingredient : consumedIngredients) {
+				builder.append(ingredient.toString() + "\n");
+			}
 
 			Iterator<String> keySetIterator = hmConsumedIngredients.keySet().iterator();
 
 			//print ingredients consumed
 			while (keySetIterator.hasNext()) {
-
 				String key = keySetIterator.next();
-				builder.append("key: " + key + " value: " + hmConsumedIngredients.get(key)).newline();
-
-			
-	
+				System.out.println("key: " + key + " value: " + hmConsumedIngredients.get(key));
 				
-
 			}
 			
 			return builder.toString();
