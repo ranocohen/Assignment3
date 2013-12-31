@@ -12,12 +12,18 @@ import org.w3c.dom.NodeList;
 
 import com.bgu.assignment3.passives.Management;
 
+/**
+ * Entry point for simulating restaurant based on input files
+ * @author Ran Cohen & Idan Nakav
+ *
+ */
 public class Driver {
 	private static Logger log = Logger.getLogger(Driver.class);
+
 	public static void main(String[] args) {
-		
-		
-		Logger.getLogger(Management.class).info("Assignment 3 simulation has started ");
+
+		Logger.getLogger(Management.class).info(
+				"Assignment 3 simulation has started ");
 		Logger.getLogger(Management.class).info("Starting to parse data ");
 		Management management = Parser.parseInitialData(args[0]);
 		management.addMenu(Parser.parseMenu(args[1]));
@@ -25,11 +31,9 @@ public class Driver {
 		Logger.getLogger(Management.class).info("data parsed successfully  ");
 		management.simulate();
 
-		//log4j , notice the log4j.properties file inside bin dir in the project 
-
+		// log4j , notice the log4j.properties file inside bin dir in the
+		// project
 		log.setLevel(Level.FATAL);
-
-
 	}
 
 	// public Driver(String initData, String menu, String ordersList) {
@@ -41,7 +45,7 @@ public class Driver {
 
 	}
 
-	public void analyzeInitData(String fileName) {
+	public void analyzeInitialData(String fileName) {
 		try {
 			File fXmlFile = new File(fileName);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory

@@ -10,19 +10,16 @@ import javax.xml.bind.annotation.XmlElement;
 import com.bgu.assignment3.FancyStringBuilder;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ingredient implements Comparable<Ingredient> {
-	
-	
-	public String getName() {
-		return name;
-	}
 
 	@XmlElement(name="name")
 	private String name;
 	@XmlElement(name="quantity")
 	private int quantity;
-	
-	
 	private Semaphore semaphore;
+	
+	public String getName() {
+		return name;
+	}
 	
 	@Override
 	public String toString() {

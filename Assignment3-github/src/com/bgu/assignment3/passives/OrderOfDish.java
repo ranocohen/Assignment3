@@ -7,6 +7,12 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class OrderOfDish {
 
+	@XmlElement(name = "quantity")
+	private int quantity;
+	@XmlElement(name = "name")
+	private String dishName;
+	private Dish dish;
+
 	public Dish getDish() {
 		return dish;
 	}
@@ -22,12 +28,6 @@ public class OrderOfDish {
 	public void setDish(Dish dish) {
 		this.dish = dish;
 	}
-
-	@XmlElement(name = "quantity")
-	private int quantity;
-	@XmlElement(name = "name")
-	private String dishName;
-	private Dish dish;
 
 	@Override
 	public String toString() {

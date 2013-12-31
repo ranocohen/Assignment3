@@ -16,10 +16,6 @@ import com.bgu.assignment3.passives.Order.Status;
 @XmlRootElement(name = "OrderList")
 public class Orders {
 
-	public Vector<Order> getOrders() {
-		return orders;
-	}
-
 	Iterator<Order> iterator;
 
 	@XmlElementWrapper(name = "Orders")
@@ -36,6 +32,10 @@ public class Orders {
 			return iterator.next();
 		// TODO catch null
 		return null;
+	}
+
+	public Vector<Order> getOrders() {
+		return orders;
 	}
 
 	public boolean deployOrder(Staff staff, Warehouse wh) {
@@ -59,7 +59,6 @@ public class Orders {
 			}
 		}
 		return foundChef;
-
 	}
 
 	/**
@@ -68,7 +67,7 @@ public class Orders {
 	 * @param menu
 	 *            Menu of all dishes
 	 */
-	public void calcDifficulty(Menu menu) {
+	public void calcualteDifficulty(Menu menu) {
 		for (Order order : orders) {
 			order.init(menu);
 		}

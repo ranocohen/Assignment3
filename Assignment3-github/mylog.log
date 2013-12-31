@@ -1,0 +1,140 @@
+12-31 - 14:47:48 INFO  (  Driver.java:25)     - Assignment 3 simulation has started 
+12-31 - 14:47:48 INFO  (  Driver.java:27)     - Starting to parse data 
+12-31 - 14:47:48 INFO  (  Driver.java:31)     - data parsed successfully  
+12-31 - 14:47:48 INFO  (Management.java:47)     - simulation started
+12-31 - 14:47:48 INFO  (   Staff.java:58)     - Chef Gordon Ramsay has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:58)     - Chef Rachael Ray has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:58)     - Chef Wolfgang Puck has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:58)     - Chef Paula Deen has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:70)     - DeliveryPerson DeliveryPerson[name=Garry Simpson][speed = 5.0] has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:70)     - DeliveryPerson DeliveryPerson[name=Ken Allen][speed = 7.0] has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:70)     - DeliveryPerson DeliveryPerson[name=Patrick Donahoe][speed = 6.0] has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:70)     - DeliveryPerson DeliveryPerson[name=Scott Davis][speed = 6.0] has started to run
+12-31 - 14:47:48 INFO  (   Staff.java:70)     - DeliveryPerson DeliveryPerson[name=Frederick Smith][speed = 8.0] has started to run
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 0
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 50.0 endurae = 50.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:107)     - Gordon Ramsay accepting order
+12-31 - 14:47:48 INFO  (   Staff.java:40)     - Found a chef too cook order 0
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 1
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 40.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:147)     - Sending Order[id = 0][difficulty=50][actualCookTime = 0][expectedCookTime = 15000][Address=[x = 1.0][y = 2.0]]OrderOfDish[Ramen Soup=2][Hasselback Potatoes=2][The Ultimate Breakfast=1] to CallableCookWholeOrder
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 40.0 endurae = 45.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:107)     - Rachael Ray accepting order
+12-31 - 14:47:48 INFO  (   Staff.java:40)     - Found a chef too cook order 1
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 2
+12-31 - 14:47:48 INFO  (RunnableChef.java:147)     - Sending Order[id = 1][difficulty=40][actualCookTime = 0][expectedCookTime = 15000][Address=[x = 10.0][y = 20.0]]OrderOfDish[Hasselback Potatoes=4][Ramen Soup=2] to CallableCookWholeOrder
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 10.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 10.0 endurae = 45.0 pressure = 40.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Rachael Ray deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Wolfgang Puck checking for approval OrderDiff = 10.0 endurae = 30.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:107)     - Wolfgang Puck accepting order
+12-31 - 14:47:48 INFO  (   Staff.java:40)     - Found a chef too cook order 2
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 3
+12-31 - 14:47:48 INFO  (RunnableChef.java:147)     - Sending Order[id = 2][difficulty=10][actualCookTime = 0][expectedCookTime = 15000][Address=[x = 19.0][y = 25.0]]OrderOfDish[The Ultimate Breakfast=2] to CallableCookWholeOrder
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 10.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 10.0 endurae = 45.0 pressure = 40.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Rachael Ray deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Wolfgang Puck checking for approval OrderDiff = 10.0 endurae = 30.0 pressure = 10.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:107)     - Wolfgang Puck accepting order
+12-31 - 14:47:48 INFO  (   Staff.java:40)     - Found a chef too cook order 3
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 4
+12-31 - 14:47:48 INFO  (RunnableChef.java:147)     - Sending Order[id = 3][difficulty=10][actualCookTime = 0][expectedCookTime = 15000][Address=[x = 50.0][y = 50.0]]OrderOfDish[The Ultimate Breakfast=3] to CallableCookWholeOrder
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 50.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 50.0 endurae = 45.0 pressure = 40.0
+12-31 - 14:47:48 INFO  (KitchenTool.java:44)     - waiting for Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:44)     - waiting for Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:44)     - waiting for Oven
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Rachael Ray deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Wolfgang Puck checking for approval OrderDiff = 50.0 endurae = 30.0 pressure = 20.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Wolfgang Puck deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Paula Deen checking for approval OrderDiff = 50.0 endurae = 25.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Paula Deen deinided order
+12-31 - 14:47:48 INFO  (   Staff.java:44)     - Could not find a chef right now to cook 4
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 4
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 50.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 50.0 endurae = 45.0 pressure = 40.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Rachael Ray deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Wolfgang Puck checking for approval OrderDiff = 50.0 endurae = 30.0 pressure = 20.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Wolfgang Puck deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Paula Deen checking for approval OrderDiff = 50.0 endurae = 25.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Paula Deen deinided order
+12-31 - 14:47:48 INFO  (   Staff.java:44)     - Could not find a chef right now to cook 4
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (KitchenTool.java:63)     - releasing Oven
+12-31 - 14:47:48 INFO  (CallableCookWholeOrder.java:73)     - finished cooking whole order in 13
+12-31 - 14:47:48 INFO  (CallableCookWholeOrder.java:73)     - finished cooking whole order in 13
+12-31 - 14:47:48 INFO  (RunnableChef.java:183)     - 2 is ready , notifying managment
+12-31 - 14:47:48 INFO  (CallableCookWholeOrder.java:73)     - finished cooking whole order in 14
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (RunnableChef.java:183)     - 1 is ready , notifying managment
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 4
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:59)     - Delivering Order[id = 2][difficulty=10][actualCookTime = 13][expectedCookTime = 15000][Address=[x = 19.0][y = 25.0]]OrderOfDish[The Ultimate Breakfast=2]
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 50.0 endurae = 50.0 pressure = 50.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Gordon Ramsay deinided order
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:59)     - Delivering Order[id = 1][difficulty=40][actualCookTime = 13][expectedCookTime = 15000][Address=[x = 10.0][y = 20.0]]OrderOfDish[Hasselback Potatoes=4][Ramen Soup=2]
+12-31 - 14:47:48 INFO  (RunnableChef.java:183)     - 0 is ready , notifying managment
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:69)     - Delivered Order[id = 1][difficulty=40][actualCookTime = 13][expectedCookTime = 15000][Address=[x = 10.0][y = 20.0]]OrderOfDish[Hasselback Potatoes=4][Ramen Soup=2]in 1
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Rachael Ray checking for approval OrderDiff = 50.0 endurae = 45.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Rachael Ray deinided order
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:59)     - Delivering Order[id = 0][difficulty=50][actualCookTime = 14][expectedCookTime = 15000][Address=[x = 1.0][y = 2.0]]OrderOfDish[Ramen Soup=2][Hasselback Potatoes=2][The Ultimate Breakfast=1]
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Wolfgang Puck checking for approval OrderDiff = 50.0 endurae = 30.0 pressure = 10.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Wolfgang Puck deinided order
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Paula Deen checking for approval OrderDiff = 50.0 endurae = 25.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:111)     - Paula Deen deinided order
+12-31 - 14:47:48 INFO  (   Staff.java:44)     - Could not find a chef right now to cook 4
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:69)     - Delivered Order[id = 2][difficulty=10][actualCookTime = 13][expectedCookTime = 15000][Address=[x = 19.0][y = 25.0]]OrderOfDish[The Ultimate Breakfast=2]in 3
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (  Orders.java:50)     - Looking for chef to cook 4
+12-31 - 14:47:48 INFO  (RunnableChef.java:101)     - Chef Gordon Ramsay checking for approval OrderDiff = 50.0 endurae = 50.0 pressure = 0.0
+12-31 - 14:47:48 INFO  (RunnableChef.java:107)     - Gordon Ramsay accepting order
+12-31 - 14:47:48 INFO  (   Staff.java:40)     - Found a chef too cook order 4
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (RunnableChef.java:147)     - Sending Order[id = 4][difficulty=50][actualCookTime = 0][expectedCookTime = 15000][Address=[x = 20.0][y = 33.0]]OrderOfDish[Ramen Soup=2][The Ultimate Breakfast=2][Hasselback Potatoes=2] to CallableCookWholeOrder
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:69)     - Delivered Order[id = 0][difficulty=50][actualCookTime = 14][expectedCookTime = 15000][Address=[x = 1.0][y = 2.0]]OrderOfDish[Ramen Soup=2][Hasselback Potatoes=2][The Ultimate Breakfast=1]in 3
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (CallableCookWholeOrder.java:73)     - finished cooking whole order in 19
+12-31 - 14:47:48 INFO  (RunnableChef.java:183)     - 3 is ready , notifying managment
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:59)     - Delivering Order[id = 3][difficulty=10][actualCookTime = 19][expectedCookTime = 15000][Address=[x = 50.0][y = 50.0]]OrderOfDish[The Ultimate Breakfast=3]
+12-31 - 14:47:48 INFO  (CallableCookWholeOrder.java:73)     - finished cooking whole order in 11
+12-31 - 14:47:48 INFO  (RunnableChef.java:183)     - 4 is ready , notifying managment
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:59)     - Delivering Order[id = 4][difficulty=50][actualCookTime = 11][expectedCookTime = 15000][Address=[x = 20.0][y = 33.0]]OrderOfDish[Ramen Soup=2][The Ultimate Breakfast=2][Hasselback Potatoes=2]
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:69)     - Delivered Order[id = 4][difficulty=50][actualCookTime = 11][expectedCookTime = 15000][Address=[x = 20.0][y = 33.0]]OrderOfDish[Ramen Soup=2][The Ultimate Breakfast=2][Hasselback Potatoes=2]in 2
+12-31 - 14:47:48 INFO  (  Orders.java:42)     - Managment starting to look for chefs
+12-31 - 14:47:48 INFO  (Management.java:72)     - All chefs are busy , managment is waiting
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:69)     - Delivered Order[id = 3][difficulty=10][actualCookTime = 19][expectedCookTime = 15000][Address=[x = 50.0][y = 50.0]]OrderOfDish[The Ultimate Breakfast=3]in 10
+12-31 - 14:47:48 INFO  (Management.java:87)     - Program runtime:40
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:89)     - DeliveryPerson[name=Ken Allen][speed = 7.0] terminated
+12-31 - 14:47:48 INFO  (RunnableChef.java:83)     - Chef[name=Wolfgang Puck][pressure = 0.0][endurance = 30.0][efficiency = 1.0]is terminated
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:89)     - DeliveryPerson[name=Scott Davis][speed = 6.0] terminated
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:89)     - DeliveryPerson[name=Frederick Smith][speed = 8.0] terminated
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:89)     - DeliveryPerson[name=Patrick Donahoe][speed = 6.0] terminated
+12-31 - 14:47:48 INFO  (RunnableDeliveryPerson.java:89)     - DeliveryPerson[name=Garry Simpson][speed = 5.0] terminated
+12-31 - 14:47:48 INFO  (RunnableChef.java:83)     - Chef[name=Gordon Ramsay][pressure = 0.0][endurance = 50.0][efficiency = 0.9]is terminated
+12-31 - 14:47:48 INFO  (RunnableChef.java:83)     - Chef[name=Rachael Ray][pressure = 0.0][endurance = 45.0][efficiency = 0.9]is terminated
+12-31 - 14:47:48 INFO  (RunnableChef.java:83)     - Chef[name=Paula Deen][pressure = 0.0][endurance = 25.0][efficiency = 1.1]is terminated

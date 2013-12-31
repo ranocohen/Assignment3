@@ -25,22 +25,21 @@ import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.Order.Status;
 import com.bgu.assignment3.passives.Warehouse;
 
+/**
+ * A working chef, responsible for accepting orders from restaurant's managment, accept the order (if can)
+ * and making it, delivering it back for proper delivery
+ * 
+ * @author Ran Cohen & Idan Nakav
+ *
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 
 	@XmlElement(name = "name")
 	private String name;
 
-	public String getName() {
-		return name;
-	}
-
 	@XmlElement(name = "efficiencyRating")
 	private double efficiency;
-
-	public double getEfficiency() {
-		return efficiency;
-	}
 
 	@XmlElement(name = "enduranceRating")
 	private double endurance;
@@ -55,6 +54,15 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	private Warehouse warehouse;
 	private BlockingQueue<Order> readyOrders;
 	private SafeLock lock;
+	
+	public double getEfficiency() {
+		return efficiency;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
 
 	public void run() {
 		while (!shutDown || isStillWorking()) {
@@ -221,11 +229,9 @@ public class RunnableChef implements Runnable, Comparable<RunnableChef> {
 	@Override
 	public String toString() {
 		FancyStringBuilder builder = new FancyStringBuilder();
-		builder.append("Chef")
-		.append("name", name)
-		.append("pressure", pressure)
-		.append("endurance", endurance)
-		.append("efficiency",efficiency);
+		builder.append("Chef").append("name", name)
+				.append("pressure", pressure).append("endurance", endurance)
+				.append("efficiency", efficiency);
 
 		return builder.toString();
 	}

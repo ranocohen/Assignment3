@@ -15,6 +15,12 @@ import com.bgu.assignment3.passives.Order;
 import com.bgu.assignment3.passives.Order.Status;
 import com.bgu.assignment3.passives.Statistics.StatisticsClass;
 
+/**
+ * Responsible for delivering a finished order
+ * 
+ * @author Ran Cohen & Idan Nakav
+ *
+ */
 public class RunnableDeliveryPerson implements Runnable {
 	@XmlElement(name = "name")
 	private String name;
@@ -40,34 +46,36 @@ public class RunnableDeliveryPerson implements Runnable {
 					deliveryQueue.add(toDeliver);
 
 				if (toDeliver.getId() != -1) {
-					
-					//poll current time (start)
-					long start = System.currentTimeMillis();
-					
-					//add the order to delivered orders collection
-					deliveredOrders.add(toDeliver);
-					
-					//calc the distance
-					int distance = toDeliver.calcDistance(resturantAddress);
-					
-					Logger.getLogger(Management.class).info("Delivering " + toDeliver.toString());
 
-					//sleeping, simulating the delivery
-					Thread.sleep((long) (distance/speed));
-					
-					//poll current time (end)
+					// poll current time (start)
+					long start = System.currentTimeMillis();
+
+					// add the order to delivered orders collection
+					deliveredOrders.add(toDeliver);
+
+					// calc the distance
+					int distance = toDeliver.calcDistance(resturantAddress);
+
+					Logger.getLogger(Management.class).info(
+							"Delivering " + toDeliver.toString());
+
+					// sleeping, simulating the delivery
+					Thread.sleep((long) (distance / speed));
+
+					// poll current time (end)
 					long end = System.currentTimeMillis();
 					long deliverTime = end - start;
 
-					Logger.getLogger(Management.class).info("Delivered " + toDeliver.toString() + "in "
+					Logger.getLogger(Management.class).info(
+							"Delivered " + toDeliver.toString() + "in "
 									+ deliverTime);
 
-					//add to statistics
+					// add to statistics
 					double reward = toDeliver.calculateReward(deliverTime);
 					StatisticsClass.addDeliveredOrderToStatistics(toDeliver);
 					StatisticsClass.addMoneyGained(reward);
-					
-					//set status to delivered
+
+					// set status to delivered
 					toDeliver.setStatus(Status.DELIVERED);
 
 					// notify managment that another order has been delivered
@@ -92,14 +100,13 @@ public class RunnableDeliveryPerson implements Runnable {
 	public void shutDown() {
 		this.shutDown = true;
 	}
+
 	@Override
 	public String toString() {
-		
+
 		FancyStringBuilder builder = new FancyStringBuilder();
-		builder.append("DeliveryPerson")
-		.append("name", name)
-		.append("speed", speed);
-		
+		builder.append("DeliveryPerson").append("name", name)
+				.append("speed", speed);
 
 		return builder.toString();
 	}

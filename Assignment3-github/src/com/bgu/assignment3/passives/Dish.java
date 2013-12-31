@@ -2,7 +2,6 @@ package com.bgu.assignment3.passives;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.Semaphore;
 
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,14 +11,6 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Dish {
-
-	public int getDifficulty() {
-		return difficulty;
-	}
-
-	public String getName() {
-		return name;
-	}
 
 	@XmlElement(name = "name")
 	private String name;
@@ -42,6 +33,14 @@ public class Dish {
 	@XmlElementWrapper(name = "KitchenTools")
 	@XmlElement(name = "KitchenTool")
 	private ArrayList<KitchenTool> kitchenTools;
+	
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public String getName() {
+		return name;
+	}
 	
 	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;

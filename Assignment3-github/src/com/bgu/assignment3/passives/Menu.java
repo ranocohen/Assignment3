@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Menu {
 
-
 	@XmlElementWrapper(name="Dishes")
 	@XmlElement(name = "Dish")
 	private Vector<Dish> dishes;

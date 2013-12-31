@@ -13,6 +13,12 @@ import com.bgu.assignment3.passives.OrderOfDish;
 import com.bgu.assignment3.passives.Statistics;
 import com.bgu.assignment3.passives.Warehouse;
 
+/**
+ * Cooks a single dish listed in an order
+ * 
+ * @author Ran Cohen & Idan Nakav
+ *
+ */
 public class RunnableCookOneDish implements Runnable {
 
 	private OrderOfDish orderOfDishToCook;
@@ -34,10 +40,8 @@ public class RunnableCookOneDish implements Runnable {
 				* chef.getEfficiency());
 		try {
 
-		//Thread.sleep(timeToSleep);
-		Thread.sleep(10);
-
-	
+			// Thread.sleep(timeToSleep);
+			Thread.sleep(10);
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -77,7 +81,8 @@ public class RunnableCookOneDish implements Runnable {
 		for (Ingredient current : ingredients) {
 			warehouseRef.takeIngredient(current.getName(),
 					current.getQuantity());
-			Statistics.StatisticsClass.addIngredientToStatistic(current,current.getQuantity());
+			Statistics.StatisticsClass.addIngredientToStatistic(current,
+					current.getQuantity());
 		}
 	}
 

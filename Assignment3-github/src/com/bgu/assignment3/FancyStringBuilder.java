@@ -38,6 +38,7 @@ public class FancyStringBuilder {
 		
 		return this;
 	}
+
 	@Override
 	public String toString() {
 		return builder.toString();

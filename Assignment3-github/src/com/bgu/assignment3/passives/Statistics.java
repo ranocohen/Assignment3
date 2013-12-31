@@ -3,9 +3,6 @@ package com.bgu.assignment3.passives;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.log4j.pattern.FullLocationPatternConverter;
-
 import com.bgu.assignment3.FancyStringBuilder;
 
 public class Statistics {
@@ -23,16 +20,16 @@ public class Statistics {
 			hmConsumedIngredients = new ConcurrentHashMap<String, Integer>();
 		}
 
-		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
+		public static void addIngredientToStatistic(Ingredient ingredient, int quantity) {
 
-			if (hmConsumedIngredients.containsKey(ing.getName())) {
+			if (hmConsumedIngredients.containsKey(ingredient.getName())) {
 				// done in order to unify under same object
 
-				hmConsumedIngredients.put(ing.getName(),
-						hmConsumedIngredients.get(ing.getName()) + quantity);
+				hmConsumedIngredients.put(ingredient.getName(),
+						hmConsumedIngredients.get(ingredient.getName()) + quantity);
 
 			} else {
-				hmConsumedIngredients.put(ing.getName(), quantity);
+				hmConsumedIngredients.put(ingredient.getName(), quantity);
 			}
 
 		}

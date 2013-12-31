@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.log4j.Logger;
 
 import com.bgu.assignment3.SafeLock;
-import com.bgu.assignment3.actions.RunnableChef;
 import com.bgu.assignment3.passives.Statistics.StatisticsClass;
 
 @XmlRootElement(name = "Restaurant")
@@ -52,7 +51,7 @@ public class Management {
 
 		readyOrders = new ArrayBlockingQueue<Order>(orders.ordersCount());
 		//calculate the difficulties
-		orders.calcDifficulty(menu);
+		orders.calcualteDifficulty(menu);
 		
 		//optimization attempts 
 		//orders.sortOrders();

@@ -1,20 +1,15 @@
 package com.bgu.assignment3.passives;
 
-import java.util.Collections;
 import java.util.Vector;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
-
-import org.apache.log4j.Logger;
-
 import com.bgu.assignment3.FancyStringBuilder;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Order implements Comparable<Order>{
+public class Order implements Comparable<Order> {
 
 	// magic numbers
 	public enum Status {
@@ -23,27 +18,12 @@ public class Order implements Comparable<Order>{
 
 	@XmlAttribute(name = "id")
 	private long id;
-
-	public static Order posionOrder() {
-		Order poison = new Order();
-		poison.id = -1;
-		return poison;
-	}
-
-	public long getId() {
-		return id;
-	}
-
 	private int difficulty;
 	private long expectedTime;
 	private long actualCookTime;
 	private long expectedDeliveryTime;
 	private int reward;
 	private boolean fullReward;
-	public int getDifficulty() {
-		return difficulty;
-	}
-
 	private Status status;
 
 	@XmlElement(name = "DeliveryAddress")
@@ -52,6 +32,20 @@ public class Order implements Comparable<Order>{
 	@XmlElementWrapper(name = "Dishes")
 	@XmlElement(name = "Dish")
 	private Vector<OrderOfDish> dishes;
+
+	public static Order posionOrder() {
+		Order poison = new Order();
+		poison.id = -1;
+		return poison;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public long getId() {
+		return id;
+	}
 
 	public int calcDistance(Address src) {
 		int distance = 0;
@@ -77,9 +71,7 @@ public class Order implements Comparable<Order>{
 			this.difficulty += dish.getDifficulty();
 		}
 		calcReward();
-		calcExpectedTime();
-		
-		
+		calculateExpectedTime();
 	}
 
 	private void calcReward() {
@@ -87,11 +79,11 @@ public class Order implements Comparable<Order>{
 		for (int i = 0; i < dishes.size(); i++) {
 
 			Dish dish = dishes.get(i).getDish();
-			reward+=dish.getReward();
+			reward += dish.getReward();
 		}
 	}
 
-	private void calcExpectedTime() {
+	private void calculateExpectedTime() {
 		expectedTime = 0;
 		for (int i = 0; i < dishes.size(); i++) {
 
@@ -117,19 +109,16 @@ public class Order implements Comparable<Order>{
 
 	@Override
 	public String toString() {
-		FancyStringBuilder builder = new FancyStringBuilder ();
-		builder.append("Order")
-		.append("id",getId())
-		.append("difficulty",difficulty)
-		.append("actualCookTime",actualCookTime)
-		.append("expectedCookTime",expectedTime)
-		.append("Address",deliveryAddress.toString());
-		
-		
-		
+		FancyStringBuilder builder = new FancyStringBuilder();
+		builder.append("Order").append("id", getId())
+				.append("difficulty", difficulty)
+				.append("actualCookTime", actualCookTime)
+				.append("expectedCookTime", expectedTime)
+				.append("Address", deliveryAddress.toString());
+
 		builder.append("OrderOfDish");
 		for (OrderOfDish ood : dishes)
-			builder.append(ood.getDishName(),ood.getQuantity());
+			builder.append(ood.getDishName(), ood.getQuantity());
 
 		return builder.toString();
 
@@ -149,13 +138,13 @@ public class Order implements Comparable<Order>{
 	}
 
 	public double calculateReward(long actualDeliveryTime) {
-				
-		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)){	
+
+		if ((actualDeliveryTime + actualCookTime) > 1.15 * (expectedTime + expectedDeliveryTime)) {
 			fullReward = false;
 			return 0.5 * reward;
 		}
 		fullReward = true;
-		
+
 		return reward;
 	}
 
@@ -166,6 +155,7 @@ public class Order implements Comparable<Order>{
 	public int compareTo(Order o) {
 		return this.dishes.size() - o.dishes.size();
 	}
+
 	public boolean fullReward() {
 		return fullReward;
 	}

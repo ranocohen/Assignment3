@@ -4,23 +4,9 @@
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="target" value="1.5" />
 	<property name="source" value="1.5" />
-	
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
-
-	<target name="clean">
-		<delete dir="bin" />
-	</target>
-
-	<target name="init">
-		<mkdir dir="bin" />
-		<copy includeemptydirs="false" todir="bin">
-			<fileset dir="src">
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-	</target>
 
 	<path id="Assignment3-github.classpath">
 		<pathelement location="bin" />
@@ -32,12 +18,27 @@
 		<path refid="Assignment3-github.classpath" />
 		<pathelement location="bin" />
 	</path>
+	
+		<target name="clean">
+		<delete dir="bin" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	
 
 	<target depends="build-project" name="build" />
 
 	<target depends="init" name="build-project">
 		<echo message="${ant.project.name}: ${ant.file}" />
-		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+		<!-- <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}"> -->
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" >
 			<src path="src" />
 			<classpath refid="Assignment3-github.classpath" />
 		</javac>
@@ -50,14 +51,6 @@
 				<attribute name="Main-Class" value="${main-class}" />
 			</manifest>
 		</jar>
-	</target>
-
-	<target name="run1" depends="jar">
-		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
-			<arg value="${arg0}" />
-			<arg value="${arg1}" />
-			<arg value="${arg2}" />
-		</java>
 	</target>
 
 	<target name="run">
