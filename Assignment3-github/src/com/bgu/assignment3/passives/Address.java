@@ -21,7 +21,7 @@ public class Address {
 	 * 
 	 * @return the distance(Euclidean) from other address
 	 */
-	public int distanceFrom(Address other) { 
+	public int findDistanceFrom(Address other) { 
 		double deltaX = this.x - other.x;
 		double deltaY = this.y - other.y;
 		

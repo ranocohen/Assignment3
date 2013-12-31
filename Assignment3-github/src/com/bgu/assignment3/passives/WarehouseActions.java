@@ -1,6 +1,5 @@
 package com.bgu.assignment3.passives;
 
-
 /**
  * 
  * @inv getKitchenToolQuantity(name) >= 0

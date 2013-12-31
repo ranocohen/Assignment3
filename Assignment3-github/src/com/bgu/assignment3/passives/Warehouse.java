@@ -23,7 +23,6 @@ public class Warehouse implements WarehouseActions {
 	@XmlElement(name = "KitchenTool")
 	private ArrayList<KitchenTool> kitchenTools;
 
-
 	public Warehouse() {
 
 	}
