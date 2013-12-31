@@ -1,12 +1,14 @@
 package com.bgu.assignment3.passives;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.bgu.assignment3.FancyStringBuilder;
 
 
 @XmlRootElement(name = "Menu")
@@ -16,7 +18,7 @@ public class Menu {
 
 	@XmlElementWrapper(name="Dishes")
 	@XmlElement(name = "Dish")
-	private Vector<Dish> dishes;
+	private ArrayList<Dish> dishes;
 
 	public Dish getDishByName(String dishName) {
 		for (int i = 0; i < dishes.size(); i++) {
@@ -28,11 +30,12 @@ public class Menu {
 
 	@Override
 	public String toString() {
-		String ans = "";
-		for(Dish d : dishes) 
-			ans += d.toString() +" \n ------------------------------------------ \n";
-
-		return ans;
+		FancyStringBuilder builder = new FancyStringBuilder();
+		
+		for(Dish dish : dishes)
+			builder.append(dish.toString());
+		
+		return builder.toString();
 
 	}
 }

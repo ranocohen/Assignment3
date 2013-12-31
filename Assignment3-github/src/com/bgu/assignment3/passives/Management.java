@@ -90,7 +90,8 @@ public class Management {
 		
 		
 		StatisticsClass stats = new StatisticsClass();
-		System.out.println(stats.toString());
+		Logger.getLogger(Management.class).info(
+				stats.toString());
 		
 		staff.shutDownChefs();
 		staff.shutDownDeliveryPerson(readyOrders);

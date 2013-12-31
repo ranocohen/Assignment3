@@ -24,17 +24,19 @@ public class Statistics {
 		}
 
 		public static void addIngredientToStatistic(Ingredient ing, int quantity) {
+			synchronized (hmConsumedIngredients) {
+				if (hmConsumedIngredients.containsKey(ing.getName())) {
+					// done in order to unify under same object
 
-			if (hmConsumedIngredients.containsKey(ing.getName())) {
-				// done in order to unify under same object
+					hmConsumedIngredients
+							.put(ing.getName(),
+									hmConsumedIngredients.get(ing.getName())
+											+ quantity);
 
-				hmConsumedIngredients.put(ing.getName(),
-						hmConsumedIngredients.get(ing.getName()) + quantity);
-
-			} else {
-				hmConsumedIngredients.put(ing.getName(), quantity);
+				} else {
+					hmConsumedIngredients.put(ing.getName(), quantity);
+				}
 			}
-
 		}
 
 		public static void addDeliveredOrderToStatistics(Order o) {
@@ -48,12 +50,13 @@ public class Statistics {
 		@Override
 		public String toString() {
 			FancyStringBuilder builder = new FancyStringBuilder();
-			builder.newline().newline().append("STATISTICS").newline().newline();
-			
+			builder.newline().newline().append("STATISTICS").newline()
+					.newline();
+
 			builder.append("Money gained ", moneyGained).newline().newline();
 
 			for (Order order : deliveredOrders) {
-				builder.append("Order",order.getId());
+				builder.append("Order", order.getId());
 				builder.append("reward", order.getReward());
 
 				if (order.fullReward())

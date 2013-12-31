@@ -10,6 +10,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
+import com.bgu.assignment3.FancyStringBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Dish {
 
@@ -56,18 +58,21 @@ public class Dish {
 	@Override
 	public String toString() {
 
-		// MUST BE RE IMPLEMENTED , was quick test for debuggin
-		String ing = "";
-		String kt = "";
-		 for (Ingredient current : ingredients) 
-		 ing += current.toString();
-		 
-		for (KitchenTool current : kitchenTools) 
-			ing += current.toString();
+		FancyStringBuilder builder = new FancyStringBuilder();
 		
-		return "Name = " + name + "\n" + "cookTime  =" + cookTime + "\n"
-				+ "diff = " + difficulty + "\n" + "reward =" + reward + "\n"
-				+ "kitchen tools=" + kt + "\n" + "ingredients  =" + ing + "\n";
+		builder.append("name",name)
+		.append("difficulty",difficulty)
+		.append("expectedCookTime",cookTime)
+		.append("reward",reward)
+		.append("Ingredients");
+		
+		for(Ingredient ingredient : ingredients)
+			builder.append(ingredient.toString());
+		
+		for(KitchenTool kt : kitchenTools)
+			builder.append(kt.toString());
+		
+		return builder.toString();
 
 	}
 	void afterUnmarshal(Unmarshaller u, Object parent) {
