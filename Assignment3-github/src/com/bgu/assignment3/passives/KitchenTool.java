@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import org.apache.log4j.Logger;
 
+import com.bgu.assignment3.FancyStringBuilder;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class KitchenTool implements Comparable<KitchenTool> {
 
@@ -25,7 +27,11 @@ public class KitchenTool implements Comparable<KitchenTool> {
 
 	@Override
 	public String toString() {
-		return name + " : " + quantity + "\n";
+		FancyStringBuilder builder = new FancyStringBuilder();
+		builder.append("name", name)
+		.append("quantity",quantity);
+		
+		return builder.toString();
 	}
 
 	void afterUnmarshal(Unmarshaller u, Object parent) {

@@ -3,6 +3,9 @@ package com.bgu.assignment3.passives;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.log4j.pattern.FullLocationPatternConverter;
+
 import com.bgu.assignment3.FancyStringBuilder;
 
 public class Statistics {
